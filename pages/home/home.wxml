@@ -1,0 +1,88 @@
+<!--pages/home/home.wxml-->
+<view class="page">
+  <!-- 轮播图 -->
+  <!-- 几个有用的说明：
+  indicator-dots 是否显示指示器
+  indicator-color 指示器默认颜色
+  indicator-active-color   指示器选中颜色
+  autoplay 是否自动播放
+  interval 每一页停留的时长
+  circular 播放到最后一页后是否再衔接第一页循环播放 -->
+  <view class='carousel'>
+    <swiper class='carousel_swiper' indicator-dots="true" indicator-color="#f4f4f4" indicator-active-color="#4eb8b8" autoplay="true" interval='2000' circular='true'>
+      <block wx:for="{{carouselList}}" wx:key="item">
+        <swiper-item bindtap='chomeCarouselClick' data-url='{{item.link}}'>
+          <image class="carouselImg" src='{{item.url}}' mode='aspectFill'></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="main_panel">
+    <view class="house_panel">
+      <view class="destination_panel">
+        <view class="destination_view">
+          目的地
+          <view class="destination_choose_view">
+            东莞
+            <image class="destination_choose_view_image" src='/images/home/down.png'></image>
+          </view>
+        </view>
+        <view class="destination_location_view">
+          <image class="destination_location_view_image" src='/images/home/location.png'></image>
+          <text class="destination_location_view_text">我的位置</text>
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="destination_panel">
+        <view class="destination_view">
+          入住时间
+          <view class="destination_choose_view">
+            12月10日
+            <view class="destination_choose_view_text">周二</view>
+          </view>
+        </view>
+        <view class="destination_view">
+          离开时间
+          <view class="destination_choose_view">
+            12月11日
+            <view class="destination_choose_view_text">周三</view>
+          </view>
+        </view>
+        <view class="destination_location_view">
+          <text class="destination_location_view_text">共1晚</text>
+          <image class="destination_location_view_image_right" src='/images/home/right.png'></image>
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="search_button">查找民宿</view>
+    </view>
+    <image class="main_image" src="{{main_image}}" mode="widthFix"></image>
+    <text class="title_text">优质房源推荐</text>
+    <view class="slide-box">
+      <block wx:for="{{button_list}}" wx:key="item">
+        <view class="slide-item" bindtap="charge_city" data-code="{{item.code}}" data-name="{{item.value}}">
+          <view class="slide-item_button" style="background-color:{{item.back_color}};color:{{item.font_color}}">{{item.value}}</view>
+        </view>
+      </block>
+    </view>
+    <view class="house_list_panel">
+      <view class="house_list_view">
+        <block wx:for="{{house_data}}" wx:key="item">
+          <view class="house_view" bindtap="toclassification" data-cid="{{item.id}}" data-cname="{{item.cateName}}">
+            <image class="house_image" src="{{item.url}}" mode='widthFix'></image>
+            <text class="specification_text">独立房间-{{item.specification}}</text>
+            <text class="introduce_text">{{item.introduce}}</text>
+            <view class="row_view">
+              <block wx:for="{{item.star}}" wx:key="item">
+                <image class="image_star" src="{{item.url}}"></image>
+              </block>
+              <text class="praise_view">{{item.praise}}超赞房东</text>
+              <text class="price">￥{{item.price}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+      <view class="recommended_button">查看更多{{cname}}的房源</view>
+    </view>
+  </view>
+</view>
