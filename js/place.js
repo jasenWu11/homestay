@@ -47,15 +47,15 @@ var hot_city_list = [{
     "back_color": "#ffffff"
   }
 ]
-var house_data = [
-  {
+var house_data = [{
     id: 1,
     url: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
     specification: "1卧1床1.5卫",
     introduce: "北京三环北太平桥豪华客房_大床（靠近北师大/党校/牡丹园地铁/北邮）",
     price: "202",
     praise: 70,
-    evaluation: 2.4
+    evaluation: 2.4,
+    iscollect:0
   },
   {
     id: 2,
@@ -64,7 +64,8 @@ var house_data = [
     introduce: "北京三环北太平桥豪华客房_大床（靠近北师大/党校/牡丹园地铁/北邮）",
     price: "202",
     praise: 70,
-    evaluation: 5
+    evaluation: 5,
+    iscollect: 1
   },
   {
     id: 3,
@@ -73,7 +74,8 @@ var house_data = [
     introduce: "北京三环北太平桥豪华客房_大床（靠近北师大/党校/牡丹园地铁/北邮）",
     price: "202",
     praise: 70,
-    evaluation: 4
+    evaluation: 4,
+    iscollect: 1
   },
   {
     id: 4,
@@ -82,10 +84,79 @@ var house_data = [
     introduce: "北京三环北太平桥豪华客房_大床（靠近北师大/党校/牡丹园地铁/北邮）",
     price: "202",
     praise: 70,
-    evaluation: 3.5
+    evaluation: 3.5,
+    iscollect: 0
   }
 ]
+
+var message_data = [{
+    id: 1,
+    head: "http://pic3.zhimg.com/50/v2-0bf82b048a8f186160f0fab27e6483d0_hd.jpg",
+    image: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+    name: "方军帽",
+    content: "不好意思，我们这个房间已经没有了额，你这边下单太慢啦，我还有其他的，你要不要再看一下其他的房间呢？",
+    time: "2019年12月12日"
+  },
+  {
+    id: 1,
+    head: "http://pic3.zhimg.com/50/v2-0bf82b048a8f186160f0fab27e6483d0_hd.jpg",
+    image: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+    name: "方军帽",
+    content: "不好意思，我们这个房间已经没有了额，你这边下单太慢啦，我还有其他的，你要不要再看一下其他的房间呢？",
+    time: "2019年12月12日"
+  },
+  {
+    id: 1,
+    head: "http://pic3.zhimg.com/50/v2-0bf82b048a8f186160f0fab27e6483d0_hd.jpg",
+    image: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+    name: "方军帽",
+    content: "不好意思，我们这个房间已经没有了额，你这边下单太慢啦，我还有其他的，你要不要再看一下其他的房间呢？",
+    time: "2019年12月12日"
+  },
+  {
+    id: 1,
+    head: "http://pic3.zhimg.com/50/v2-0bf82b048a8f186160f0fab27e6483d0_hd.jpg",
+    image: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+    name: "方军帽",
+    content: "不好意思，我们这个房间已经没有了额，你这边下单太慢啦，我还有其他的，你要不要再看一下其他的房间呢？",
+    time: "2019年12月12日"
+  },
+  {
+    id: 1,
+    head: "http://pic3.zhimg.com/50/v2-0bf82b048a8f186160f0fab27e6483d0_hd.jpg",
+    image: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+    name: "方军帽",
+    content: "不好意思，我们这个房间已经没有了额，你这边下单太慢啦，我还有其他的，你要不要再看一下其他的房间呢？",
+    time: "2019年12月12日"
+  },
+  {
+    id: 1,
+    head: "http://pic3.zhimg.com/50/v2-0bf82b048a8f186160f0fab27e6483d0_hd.jpg",
+    image: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+    name: "方军帽",
+    content: "不好意思，我们这个房间已经没有了额，你这边下单太慢啦，我还有其他的，你要不要再看一下其他的房间呢？",
+    time: "2019年12月12日"
+  },
+  {
+    id: 1,
+    head: "http://pic3.zhimg.com/50/v2-0bf82b048a8f186160f0fab27e6483d0_hd.jpg",
+    image: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+    name: "方军帽",
+    content: "不好意思，我们这个房间已经没有了额，你这边下单太慢啦，我还有其他的，你要不要再看一下其他的房间呢？",
+    time: "2019年12月12日"
+  },
+  {
+    id: 1,
+    head: "http://pic3.zhimg.com/50/v2-0bf82b048a8f186160f0fab27e6483d0_hd.jpg",
+    image: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+    name: "方军帽",
+    content: "不好意思，我们这个房间已经没有了额，你这边下单太慢啦，我还有其他的，你要不要再看一下其他的房间呢？",
+    time: "2019年12月12日"
+  }
+]
+
 module.exports = {
   hot_city_list: hot_city_list,
-  house_data: house_data
+  house_data: house_data,
+  message_data: message_data
 }

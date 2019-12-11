@@ -69,6 +69,7 @@
       <view class="house_list_view">
         <block wx:for="{{house_data}}" wx:key="item">
           <view class="house_view" bindtap="toclassification" data-cid="{{item.id}}" data-cname="{{item.cateName}}">
+            <image class="collect_image" src="{{item.collect_img}}" bindtap="changecollect" data-hid="{{item.id}}"></image>
             <image class="house_image" src="{{item.url}}" mode='widthFix'></image>
             <text class="specification_text">独立房间-{{item.specification}}</text>
             <text class="introduce_text">{{item.introduce}}</text>
@@ -83,6 +84,46 @@
         </block>
       </view>
       <view class="recommended_button">查看更多{{cname}}的房源</view>
+    </view>
+    <text class="title_text">历史浏览记录</text>
+    <view class="slide-box">
+      <block wx:for="{{house_data}}" wx:key="item">
+        <view class="house_view" bindtap="toclassification" data-cid="{{item.id}}" data-cname="{{item.cateName}}" style="margin-right:30rpx;">
+        <image class="collect_image" src="{{item.collect_img}}" bindtap="changecollect" data-hid="{{item.id}}"></image>
+          <image class="house_image" src="{{item.url}}" mode='widthFix'></image>
+          <text class="specification_text">独立房间-{{item.specification}}</text>
+          <text class="introduce_text">{{item.introduce}}</text>
+          <view class="row_view">
+            <block wx:for="{{item.star}}" wx:key="item">
+              <image class="image_star" src="{{item.url}}"></image>
+            </block>
+            <text class="praise_view">{{item.praise}}超赞房东</text>
+            <text class="price">￥{{item.price}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="bottom_panel">
+      <view class="bottom_panel_item">
+        <image class="item_image" src="/images/home/apartment.png"></image>
+        <text class="item_text_top">放心入住</text>
+        <text class="item_text_bottom">千万保障先行赔付</text>
+      </view>
+      <view class="bottom_panel_item">
+        <image class="item_image" src="/images/home/service.png"></image>
+        <text class="item_text_top">贴心客服</text>
+        <text class="item_text_bottom">7*24小时服务</text>
+      </view>
+      <view class="bottom_panel_item">
+        <image class="item_image" src="/images/home/credit.png"></image>
+        <text class="item_text_top">信用认证</text>
+        <text class="item_text_bottom">实名信用更放心</text>
+      </view>
+      <view class="bottom_panel_item">
+        <image class="item_image" src="/images/home/cooperation.png"></image>
+        <text class="item_text_top">合作无忧</text>
+        <text class="item_text_bottom">房东保险</text>
+      </view>
     </view>
   </view>
 </view>

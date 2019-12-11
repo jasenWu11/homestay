@@ -1,18 +1,26 @@
 // pages/mine/mine.js
+var username = '';
+var head_url = '';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    username:'',
+    head_url:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    username = wx.getStorageSync("username");
+    head_url = wx.getStorageSync("picurl");
+    this.setData({
+      username: username,
+      head_url: head_url
+    })
   },
 
   /**

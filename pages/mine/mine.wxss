@@ -1,1 +1,73 @@
 /* pages/mine/mine.wxss */
+page{
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+.main_panel{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0rpx 30rpx;
+  box-sizing: border-box;
+}
+
+.main_panel .information_panel{
+  width: 100%;
+  padding: 30rpx 0rpx;
+  display: flex;
+  align-items: center;
+}
+
+.information_panel .name_text{
+  flex: 1;
+  color: #32858b;
+  font-size: 40rpx;
+}
+
+.information_panel .image_panel{
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 20rpx;
+}
+
+.line {
+  width: 100%;
+  height: 0.6rpx;
+  background-color: #8b8b8b;
+}
+
+.title_text {
+  margin: 30rpx 0rpx;
+  color: #000;
+  font-size: 34rpx;
+  font-weight: 450rpx;
+}
+
+.row_panel {
+  width: 100%;
+  display: flex;
+  align-content: flex-center;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20rpx;
+}
+
+.row_panel .row_panel_item {
+  /* flex: 0 0 40%; */
+  width: 200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.row_panel_item .item_image{
+  width: 80rpx;
+  height: 80rpx;
+}
+.row_panel_item .item_text{
+  color: #000000;
+  margin-top: 15rpx;
+  font-size: 26rpx;
+}

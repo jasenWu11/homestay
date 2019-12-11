@@ -1,11 +1,12 @@
 // pages/message/message.js
+var message_data = require("../../js/place.js").message_data;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    message_data: [],
   },
 
   /**
@@ -26,7 +27,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getmessage_list();
   },
 
   /**
@@ -62,5 +63,15 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  getmessage_list:function(){
+    var that = this;
+    that.setData({
+      message_data: []
+    })
+    var message_list = message_data;
+    that.setData({
+      message_data:message_data
+    })
   }
 })

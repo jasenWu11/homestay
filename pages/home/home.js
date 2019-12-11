@@ -1,6 +1,8 @@
 // pages/home/home.js
 var hot_city_list = require("../../js/place.js").hot_city_list;
 var house_data = require("../../js/place.js").house_data;
+var iscollect = '/images/icons/iscollect.png'
+var nocollect = '/images/icons/nocollect.png'
 Page({
 
   /**
@@ -35,7 +37,7 @@ Page({
     main_image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575969454980&di=2dbb40c918341b303c7505464bb46e75&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01ba6a5b55ab84a80121ade020129f.jpg%402o.jpg',
     button_list: [],
     house_data: [],
-    cname:'北京'
+    cname: '北京'
   },
 
   /**
@@ -132,9 +134,10 @@ Page({
     for (var i = 0; i < house_list.length; i++) {
       var star_list = [];
       var evaluation = house_list[i].evaluation;
+      var iscollects = house_list[i].iscollect;
       var count = parseInt(evaluation / 1);
       var remainder = evaluation % 1;
-      console.log('除数是' + count + '，而余数是' + remainder)
+      //console.log('除数是' + count + '，而余数是' + remainder)
       if (remainder != 0) {
         var star = {}
         star.url = half_url;
@@ -145,11 +148,39 @@ Page({
         star.url = all_url;
         star_list.push(star);
       }
+      var collect_img = '';
+      if (iscollects == 0) {
+        collect_img = iscollect
+      } else {
+        collect_img = nocollect
+      }
       house_list[i].star = star_list;
+      house_list[i].collect_img = collect_img
       console.log('star_list是' + JSON.stringify(star_list));
     }
     that.setData({
       house_data: house_list
+    })
+  },
+  changecollect: function(event) {
+    var that = this;
+    var hid = event.currentTarget.dataset.hid;
+    var house_data = this.data.house_data;
+    for (var i = 0; i < house_data.length; i++) {
+      var id = house_data[i].id;
+      if (id == hid){
+        if (house_data[i].iscollect == 0){
+          house_data[i].iscollect = 1;
+          house_data[i].collect_img = nocollect;
+        }else{
+          house_data[i].iscollect = 0;
+          house_data[i].collect_img = iscollect;
+        }
+        break;
+      }
+    }
+    that.setData({
+      house_data: house_data
     })
   }
 })

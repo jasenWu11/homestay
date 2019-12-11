@@ -1,1 +1,66 @@
 /* pages/collect/collect.wxss */
+page{
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+}
+.house_list{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+.house_list .house_item{
+  width: 100%;
+  display: flex;
+}
+.house_item .house_item_image{
+  width: 270rpx;
+  height: 180rpx;
+  border-radius: 20rpx;
+}
+.house_item .house_item_text{
+  flex: 1;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+.house_item_text .area_text {
+  font-size: 23rpx;
+  font-family: SimSun;
+  color: #414040;
+}
+
+.house_item_text .introduce_text {
+  font-size: 26rpx;
+  font-family: SimSun;
+  margin: 5rpx 0rpx;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.house_item_text .row_view {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: flex-end;
+  color: #8b8b8b;
+  font-size: 24rpx;
+}
+.house_item_text .price_text{
+  color: #2c2c2c;
+  margin-right: 10rpx;
+}
+.line {
+  width: 100%;
+  height: 0.6rpx;
+  background-color: #8b8b8b;
+  margin: 20rpx 0rpx;
+}

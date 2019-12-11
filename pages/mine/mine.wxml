@@ -1,2 +1,38 @@
 <!--pages/mine/mine.wxml-->
-<text>pages/mine/mine.wxml</text>
+<view class="page">
+  <view class="main_panel">
+    <view class="information_panel">
+      <text class="name_text">{{username}}</text>
+      <image class="image_panel" src="{{head_url}}" mode="aspectFill"></image>
+    </view>
+    <view class="line"></view>
+    <text class="title_text">我的房源订单</text>
+    <view class="row_panel">
+      <view class="row_panel_item">
+        <image class="item_image" src="/images/mine/all.png" mode="aspectFit"></image>
+        <text class="item_text">全部订单</text>
+      </view>
+      <view class="row_panel_item">
+        <image class="item_image" src="/images/mine/effective.png" mode="aspectFit"></image>
+        <text class="item_text">有效订单</text>
+      </view>
+      <view class="row_panel_item">
+        <image class="item_image" src="/images/mine/wait.png" mode="aspectFit"></image>
+        <text class="item_text">待支付订单</text>
+      </view>
+    </view>
+    <view class="line"></view>
+    <text class="title_text">工具</text>
+    <view class="row_panel">
+      <view class="row_panel_item">
+        <image class="item_image" src="/images/mine/service.png" mode="aspectFit"></image>
+        <text class="item_text">联系客服</text>
+      </view>
+      <view class="row_panel_item">
+        <image class="item_image" src="/images/mine/feedback.png" mode="aspectFit"></image>
+        <text class="item_text">反馈</text>
+      </view>
+      <view class="row_panel_item"></view>
+    </view>
+  </view>
+</view>

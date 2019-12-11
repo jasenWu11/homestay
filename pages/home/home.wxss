@@ -181,7 +181,15 @@ page {
   width: 170rpx;
   height: 110rpx;
 }
-.slide-item_button{
+
+.slide-house_item {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-top: 10rpx;
+}
+
+.slide-item_button {
   width: 150rpx;
   height: 90rpx;
   margin: 10rpx 10rpx 10rpx 5rpx;
@@ -194,40 +202,72 @@ page {
   justify-content: center;
 }
 
-.house_list_panel{
+.house_list_panel {
   width: 100%;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  margin-top: 10rpx;
+  margin-top: 20rpx;
 }
-.house_list_panel .house_list_view{
+
+.house_list_view {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.house_list_view .house_view{
+
+.house_list_view .house_view {
   width: 304rpx;
   display: flex;
   margin-bottom: 25rpx;
   flex-direction: column;
 }
-.house_view .house_image{
+
+.house_list_view .house_view .collect_image{
+  width: 40rpx;
+  height: 40rpx;
+  z-index: 999;
+  position:relative;
+  margin-bottom: -50rpx;
+  margin-left: 244rpx;
+}
+
+.slide-box .house_view {
+  width: 304rpx;
+  display: flex;
+  margin-bottom: 0rpx;
+  flex-direction: column;
+  margin-top: 20rpx;
+}
+
+.slide-box .house_view .collect_image{
+  width: 40rpx;
+  height: 40rpx;
+  z-index: 999;
+  position:relative;
+  margin-bottom: -50rpx;
+  margin-left: 244rpx;
+  box-sizing: border-box;
+}
+
+.house_view .house_image {
   width: 304rpx;
   border-radius: 5rpx;
 }
-.house_view .specification_text{
+
+.house_view .specification_text {
   font-size: 22rpx;
   font-family: SimSun;
   margin-top: 5rpx;
 }
-.house_view .introduce_text{
+
+.house_view .introduce_text {
   font-size: 26rpx;
   font-family: SimSun;
   margin: 5rpx 0rpx;
-   text-overflow: -o-ellipsis-lastline;
+  text-overflow: -o-ellipsis-lastline;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -235,26 +275,31 @@ page {
   line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-.house_view .row_view{
+
+.house_view .row_view {
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
 }
-.row_view .praise_view{
+
+.row_view .praise_view {
   font-size: 20rpx;
   font-family: SimSun;
 }
-.row_view .image_star{
+
+.row_view .image_star {
   width: 20rpx;
   height: 20rpx;
 }
-.row_view .price{
+
+.row_view .price {
   font-size: 26rpx;
   font-family: SimSun;
   flex: 1;
 }
-.recommended_button{
+
+.recommended_button {
   width: 100%;
   height: 90rpx;
   border-radius: 10rpx;
@@ -266,4 +311,34 @@ page {
   justify-content: center;
   align-items: center;
   font-size: 34rpx;
+}
+
+.bottom_panel {
+  width: 100%;
+  display: flex;
+  align-content: flex-center;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 80rpx;
+}
+
+.bottom_panel .bottom_panel_item {
+  /* flex: 0 0 40%; */
+  width: 150rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.bottom_panel_item .item_image{
+  width: 60rpx;
+  height: 60rpx;
+}
+.bottom_panel_item .item_text_top{
+  margin-top: 10rpx;
+  font-size: 20rpx;
+}
+.bottom_panel_item .item_text_bottom{
+  font-size: 18rpx;
+  color: #a3a2a2;
 }
