@@ -55,7 +55,7 @@ var house_data = [{
     price: "202",
     praise: 70,
     evaluation: 2.4,
-    iscollect:0
+    iscollect: 0
   },
   {
     id: 2,
@@ -155,8 +155,116 @@ var message_data = [{
   }
 ]
 
+var order_data = [{
+    "id": 1,
+    "house_name": "终极攻略天堂民宿",
+    "image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+    "startdate": "2019年12月12日",
+    "enddate": "2019年12月13日",
+    "people": [{
+        "name": "方军帽",
+        "idcard": "445236199703224584",
+        "phone": "15625527280"
+      },
+      {
+        "name": "陈泳衣",
+        "idcard": "441235199611081377",
+        "phone": "15625527280"
+      }
+    ],
+    "status": 1,
+    "price": "218",
+    "time": "2019年12月12日"
+  },
+  {
+    "id": 2,
+    "house_name": "终极攻略天堂民宿",
+    "image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+    "startdate": "2019年12月12日",
+    "enddate": "2019年12月13日",
+    "people": [{
+        "name": "方军帽",
+        "idcard": "445236199703224584",
+        "phone": "15625527280"
+      },
+      {
+        "name": "陈泳衣",
+        "idcard": "441235199611081377",
+        "phone": "15625527280"
+      }
+    ],
+    "status": 2,
+    "price": "218",
+    "time": "2019年12月12日"
+  },
+  {
+    "id": 3,
+    "house_name": "终极攻略天堂民宿",
+    "image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+    "startdate": "2019年12月12日",
+    "enddate": "2019年12月13日",
+    "people": [{
+        "name": "方军帽",
+        "idcard": "445236199703224584",
+        "phone": "15625527280"
+      },
+      {
+        "name": "陈泳衣",
+        "idcard": "441235199611081377",
+        "phone": "15625527280"
+      }
+    ],
+    "status": 2,
+    "price": "218",
+    "time": "2019年12月12日"
+  },
+  {
+    "id": 4,
+    "house_name": "终极攻略天堂民宿",
+    "image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+    "startdate": "2019年12月12日",
+    "enddate": "2019年12月13日",
+    "people": [{
+        "name": "方军帽",
+        "idcard": "445236199703224584",
+        "phone": "15625527280"
+      },
+      {
+        "name": "陈泳衣",
+        "idcard": "441235199611081377",
+        "phone": "15625527280"
+      }
+    ],
+    "status": 1,
+    "price": "218",
+    "time": "2019年12月12日"
+  },
+  {
+    "id": 5,
+    "house_name": "终极攻略天堂民宿",
+    "image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+    "startdate": "2019年12月12日",
+    "enddate": "2019年12月13日",
+    "people": [{
+        "name": "方军帽",
+        "idcard": "445236199703224584",
+        "phone": "15625527280"
+      },
+      {
+        "name": "陈泳衣",
+        "idcard": "441235199611081377",
+        "phone": "15625527280"
+      }
+    ],
+    "status": 2,
+    "price": "218",
+    "time": "2019年12月12日"
+  }
+]
+
 module.exports = {
   hot_city_list: hot_city_list,
   house_data: house_data,
-  message_data: message_data
+  message_data: message_data,
+  order_data: order_data
 }

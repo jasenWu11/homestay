@@ -1,0 +1,61 @@
+<!--pages/order/order.wxml-->
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar navbar_panel">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick" style="padding:5px 0px">
+            <view class="weui-navbar__title" style="width:180rpx;">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: 65rpx; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px); width:120rpx"></view>
+      </view>
+      <view class="weui-tab__panel" style="padding-top:40px;">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}" style="margin-bottom:40px;">
+          <view class="order_list">
+            <block wx:for="{{order_data}}" wx:key="item">
+              <view class="order_item">
+                <view class="order_item_text">
+                  <text class="name_text">{{item.house_name}}</text>
+                  <text class="date_people_text">{{item.startdate}}-{{item.enddate}} {{item.people.length}}位</text>
+                  <view class="status_row">
+                  <block wx:if="{{item.status == 2}}">
+                    <text class="status_text">{{item.status_text}}</text>￥{{item.price}}
+                  </block>
+                  <block wx:else>
+                    <text class="status_text" style="color:#000000">{{item.status_text}}</text>￥{{item.price}}
+                  </block>
+                  </view>
+                  <text class="time_text">{{item.time}}</text>
+                </view>
+                <image class="order_image" src="{{item.image}}"></image>
+              </view>
+              <view class="line"></view>
+            </block>
+          </view>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          告警
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+          告警
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
+          告警
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 4}}">
+          告警
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 5}}">
+          告警
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 6}}">
+          运行情况
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 7}}">
+          运行情况
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

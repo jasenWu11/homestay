@@ -70,5 +70,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  toorder:function(){
+    wx.navigateTo({
+      url: '../order/order'
+    });
   }
 })

@@ -71,7 +71,7 @@ Page({
     })
     var message_list = message_data;
     that.setData({
-      message_data:message_data
+      message_data: message_list
     })
   }
 })

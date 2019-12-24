@@ -1,0 +1,89 @@
+/* pages/order/order.wxss */
+@import '/style/weui.wxss';
+page{
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+}
+page,
+.page,
+.page__bd{
+    height: 100%;
+}
+.page__bd{
+    padding-bottom: 0;
+}
+
+.navbar_panel{
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-bottom:0px;
+  z-index:999;
+  background-color:#ffffff;
+}
+
+.order_list{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.order_list .order_item{
+  width: 100%;
+  display: flex;
+}
+
+.order_item .order_item_text{
+  flex: 1;
+  margin: 0rpx 10rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.order_item_text .name_text {
+  font-size: 28rpx;
+  font-family: SimSun;
+}
+
+.order_item_text .date_people_text {
+  font-size: 26rpx;
+  display: flex;
+  flex-direction: row;
+  color: #181717;
+  margin-top: 5rpx;
+}
+
+
+.order_item_text .status_row {
+  font-size: 26rpx;
+  display: flex;
+  flex-direction: row;
+  margin-top: 5rpx;
+}
+
+.status_row .status_text{
+  color: #ff0000;
+  margin-right: 10rpx;
+}
+
+.order_item_text .time_text {
+  width: 100%;
+  color: #181717;
+  font-size: 24rpx;
+  margin-top: 5rpx;
+}
+
+.order_item .order_image{
+  width: 150rpx;
+  height: 100rpx;
+}
+
+
+.line {
+  width: 100%;
+  height: 0.6rpx;
+  background-color: #8b8b8b;
+  margin: 20rpx 0rpx;
+}

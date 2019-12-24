@@ -8,7 +8,7 @@
     <view class="line"></view>
     <text class="title_text">我的房源订单</text>
     <view class="row_panel">
-      <view class="row_panel_item">
+      <view class="row_panel_item" bindtap="toorder">
         <image class="item_image" src="/images/mine/all.png" mode="aspectFit"></image>
         <text class="item_text">全部订单</text>
       </view>

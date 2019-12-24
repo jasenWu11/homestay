@@ -1,0 +1,61 @@
+<!--pages/room/room.wxml-->
+<view class="main_panel">
+  <view class="content_panel">
+    <view class='carousel'>
+      <swiper class='carousel_swiper' indicator-dots="true" indicator-color="#f4f4f4" indicator-active-color="#4eb8b8" autoplay="true" interval='2000' circular='true'>
+        <block wx:for="{{carouselList}}" wx:key="item">
+          <swiper-item bindtap='chomeCarouselClick' data-url='{{item.link}}'>
+            <image class="carouselImg" src='{{item.url}}' mode='aspectFill'></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="click_button_panel">
+      <view class="circle_view">
+        <image class="image_view" src="/images/icons/forward.png"></image>
+      </view>
+      <view class="circle_view">
+        <image class="image_view" src="/images/icons/null_collect.png"></image>
+      </view>
+    </view>
+    <view class="room_info_panel">
+      <view class="time_panel">
+        2019年12月6-8日 2晚 <text style="color:#009999;margin-left:15rpx;">修改日期</text>
+      </view>
+      <view class="line"></view>
+      <view class="base_info_panel">
+        <view class="text_view">
+          <text class="title_text">民宿***（近东莞理工学院城市学院、香市动物园、市第六中学、华为南方工厂）民宿***（近东莞理工学院城市学院、香市动物园、市第六中学、华为南方工厂）民宿***
+          </text>
+          <text class="people_text">
+            2间卧室-3张床-3个卫生间-最多住4人
+          </text>
+        </view>
+        <view class="evaluation_panel">
+          <text style="font-size:40rpx;">4.8</text>
+          <text>"超赞"</text>
+          <text>6人收藏</text>
+          <view class="line"></view>
+          <text>查看评论</text>
+        </view>
+      </view>
+      <text class="price_text">￥60<text style="color:#888888;font-size:24rpx;">/晚</text></text>
+      <view class="line"></view>
+    </view>
+  </view>
+  <view class="bottom_panel">
+    <view class="icon_view">
+      <image class="icon_image" src="/images/icons/chat.png"></image>
+      <text class="icon_text">联系房东</text>
+    </view>
+    <view class="icon_view">
+      <image class="icon_image" src="/images/icons/null_collect.png"></image>
+      <text class="icon_text">收藏房源</text>
+    </view>
+    <view class="vertical_line"></view>
+    <view class="price_text">￥246
+      <text style="font-size:28rpx;color:#2c2c2c;margin-left:10rpx">/2晚</text>
+    </view>
+    <view class="affirm_button">立即预订</view>
+  </view>
+</view>
