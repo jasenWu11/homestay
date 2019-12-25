@@ -9,6 +9,7 @@ Page({
   },
 
   onLoad: function () {
+    this.getlocation();
     username = wx.getStorageSync("username");
     picurl = wx.getStorageSync("picurl");
     var that = this;
@@ -116,5 +117,22 @@ Page({
         }
       });
     }
+  },
+  getlocation: function () {
+    var locat = 's'
+    wx.getLocation({
+      type: 'gcj02',
+      dataType: "json",
+      success: function (res) {
+        wx.setStorageSync('mylatitude', res.latitude)
+        wx.setStorageSync('mylongitude', res.longitude)
+      },
+      cancel: function (res) {
+        console.log(res);
+      },
+      fail: function (res) {
+        console.log(res);
+      }
+    })
   }
 })

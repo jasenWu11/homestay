@@ -14,33 +14,129 @@
       <view class="circle_view">
         <image class="image_view" src="/images/icons/forward.png"></image>
       </view>
-      <view class="circle_view">
-        <image class="image_view" src="/images/icons/null_collect.png"></image>
+      <view class="circle_view" bindtap="change_collect">
+        <image class="image_view" src="{{collection_img}}"></image>
       </view>
     </view>
     <view class="room_info_panel">
       <view class="time_panel">
-        2019年12月6-8日 2晚 <text style="color:#009999;margin-left:15rpx;">修改日期</text>
+        2019年12月6-8日 2晚
+        <text style="color:#009999;margin-left:15rpx;">修改日期</text>
       </view>
       <view class="line"></view>
       <view class="base_info_panel">
         <view class="text_view">
-          <text class="title_text">民宿***（近东莞理工学院城市学院、香市动物园、市第六中学、华为南方工厂）民宿***（近东莞理工学院城市学院、香市动物园、市第六中学、华为南方工厂）民宿***
+          <text class="title_text">{{room_name}}
           </text>
           <text class="people_text">
-            2间卧室-3张床-3个卫生间-最多住4人
+            {{specification}}
           </text>
         </view>
         <view class="evaluation_panel">
-          <text style="font-size:40rpx;">4.8</text>
-          <text>"超赞"</text>
-          <text>6人收藏</text>
+          <text style="font-size:40rpx;">{{score}}</text>
+          <text>"{{start_text}}"</text>
+          <text>{{collection_count}}人收藏</text>
           <view class="line"></view>
           <text>查看评论</text>
         </view>
       </view>
-      <text class="price_text">￥60<text style="color:#888888;font-size:24rpx;">/晚</text></text>
+      <text class="price_text">￥{{price}}<text style="color:#888888;font-size:24rpx;">/晚</text></text>
       <view class="line"></view>
+      <view class="instructions_panel">
+        <image class="icon_view" src="/images/room/praise.png"></image>
+        <text class="instructions_text">{{start_text}}房东 {{start_text}}{{recommend}}</text>
+      </view>
+      <view class="instructions_panel">
+        <image class="icon_view" src="/images/room/apartment.png"></image>
+        <text class="instructions_text">整套公寓 无需与房东或房客共享空间，独享整个房源。</text>
+      </view>
+      <view class="instructions_panel">
+        <image class="icon_view" src="/images/room/clock.png"></image>
+        <text class="instructions_text">入房/退房 入住时间14:00后，退房时间12:00。</text>
+      </view>
+      <view class="line"></view>
+      <view class="device_panel">
+        <view class="device_item">
+          <image class="icon_view" src="/images/room/elevator.png"></image>
+          <text class="device_text">电梯</text>
+        </view>
+        <view class="device_item">
+          <image class="icon_view" src="/images/room/kitchen.png"></image>
+          <text class="device_text">厨房</text>
+        </view>
+        <view class="device_item">
+          <image class="icon_view" src="/images/room/wifi.png"></image>
+          <text class="device_text">无线网络</text>
+        </view>
+        <view class="device_item">
+          <image class="icon_view" src="/images/room/add.png"></image>
+          <text class="device_text" style="color:#009999">更多设施</text>
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="tip_panel">
+        <text class="title_text">房东</text>
+        <text class="to_text" data-lid="{{landlord_id}}" bindtap="to_landlord">房东主页></text>
+      </view>
+      <view class="landlord_info_panel">
+        <view class="info_view">
+          <image class="info_image" src="{{landlord_head}}"></image>
+          <view class="text_view">
+            <text class="name_text">{{landlord_name}}</text>
+            <text class="room_count_text">{{room_count}}套房源</text>
+          </view>
+        </view>
+        <view class="room_info_view">
+          <text class="room_info_text">房屋介绍：{{introduce}}
+          </text>
+        </view>
+      </view>
+      <view class="tip_panel">
+        <text class="title_text">房源位置</text>
+      </view>
+      <view class="address_panel">
+        <map id="myMap" class="map_panel" bindtap="turn_to_map" longitude="{{longitude}}" latitude="{{latitude}}" scale='{{scale}}' polyline="{{polyline}}" markers="{{markers}}" covers="{{covers}}" show-location></map>
+        <view class="address_view">
+          <text class="address_text">{{address}}</text>
+          <text class="next_text">></text>
+        </view>
+        <view class="address_view">
+          <text class="distance_text">据你所在距离{{distance}}km</text>
+          <text class="copy_text" bindtap="textPaste">复制地址</text>
+        </view>
+      </view>
+      <view class="tip_panel">
+        <text class="title_text">评价({{evaluation_count}})条</text>
+        <text class="to_text">全部评价></text>
+      </view>
+      <view class="evaluation_panel">
+        <view class="info_view">
+          <image class="info_image" src="{{expression}}"></image>
+          <view class="text_view">
+            <text class="score_text">{{score}}<text style="font-size:26rpx;margin:0rpx 5rpx;">分 {{start_text}}</text></text>
+            <view class="row_view">
+              <block wx:for="{{star_list}}" wx:key="item">
+                <image class="image_star" src="{{item.url}}"></image>
+              </block>
+            </view>
+          </view>
+        </view>
+        <view class="bubbleTail"></view>
+        <view class="user_info_panel">
+          <view class="base_info">
+            <image class="user_head" src="{{user_head}}"></image>
+            <text class="username_text">{{user_name}}</text>
+            <text class="time_text">{{evaluation_time}}</text>
+          </view>
+          <text class="score_text">{{evaluation_score}}<text style="font-size:24rpx;">分</text></text>
+          <text class="evaluation_text">{{evaluation_content}}</text>
+        </view>
+      </view>
+      <view class="security_panel">
+        <image class="security_icon" src="/images/room/security.png"></image>
+        <text class="security_text">优质民宿保障</text>
+        <text class="security_tip_text">保障最重要，24小时贴心客服  ></text>
+      </view>
     </view>
   </view>
   <view class="bottom_panel">
@@ -48,8 +144,8 @@
       <image class="icon_image" src="/images/icons/chat.png"></image>
       <text class="icon_text">联系房东</text>
     </view>
-    <view class="icon_view">
-      <image class="icon_image" src="/images/icons/null_collect.png"></image>
+    <view class="icon_view" bindtap="change_collect">
+      <image class="icon_image" src="{{collection_img}}"></image>
       <text class="icon_text">收藏房源</text>
     </view>
     <view class="vertical_line"></view>

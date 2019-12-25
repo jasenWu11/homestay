@@ -168,11 +168,11 @@ Page({
     var house_data = this.data.house_data;
     for (var i = 0; i < house_data.length; i++) {
       var id = house_data[i].id;
-      if (id == hid){
-        if (house_data[i].iscollect == 0){
+      if (id == hid) {
+        if (house_data[i].iscollect == 0) {
           house_data[i].iscollect = 1;
           house_data[i].collect_img = nocollect;
-        }else{
+        } else {
           house_data[i].iscollect = 0;
           house_data[i].collect_img = iscollect;
         }
@@ -181,6 +181,16 @@ Page({
     }
     that.setData({
       house_data: house_data
+    })
+  },
+  tohouse:function(){
+    wx.navigateTo({
+      url: '/pages/room/room',
+      success: function(res) {},
+      fail: function(res) {
+        console.log(res)
+      },
+      complete: function(res) {},
     })
   }
 })

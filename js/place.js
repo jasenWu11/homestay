@@ -262,9 +262,77 @@ var order_data = [{
   }
 ]
 
+var room_data = {
+  "image": [{
+      "id": 4,
+      "name": "靓仔",
+      "link": "https://tortoisegit.org/download/",
+      "url": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575955699699&di=e4d202fa9054ab652eb905f144c5a194&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
+      "position": 1,
+      "content": "对我的期望",
+      "enabled": 1,
+      "addTime": "2019-12-03 20:10:32",
+      "updateTime": "2019-12-04 09:28:29",
+      "deleted": 0
+    },
+    {
+      "id": 5,
+      "name": "标题2",
+      "link": "http://127.0.0.1:8091/#/generator-appad",
+      "url": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575955731592&di=e5170f367d92cdd86b4442a973598862&imgtype=0&src=http%3A%2F%2Fimg.yzt-tools.com%2F20190505%2F267d043db171128c3ba96dd07df7b183.jpg%3Fx-oss-process%3Dimage%2Fresize%2Cw_600%2Fauto-orient%2C1%2Fquality%2Cq_90%2Fformat%2Cjpg",
+      "position": 2,
+      "content": "我都后悔 ",
+      "enabled": 1,
+      "addTime": "2019-12-03 20:24:42",
+      "updateTime": "2019-12-03 21:30:35",
+      "deleted": 0
+    }
+  ],
+  "room_id":201535,
+  "room_name": "民宿***（近东莞理工学院城市学院、香市动物园、市第六中学、华为南方工厂）民宿***（近东莞理工学院城市学院、香市动物园、市第六中学、华为南方工厂）民宿***",
+  "introduce": "该房屋怎么怎么滴，房源很好，近地铁，有空调、WiFi等配置齐全，适合旅游，趴体，巴拉巴拉什么环境好之类的",
+  "specification": "2间卧室-3张床-3个卫生间-最多住4人",
+  "score": 4.8,
+  "collection_count": 6,
+  "address": "广东省东莞市寮步镇东莞理工学院城市学院3D302",
+  "latitude": "22.978630",
+  "longitude": "113.838140",
+  "iscollection": false,
+  "price": 60,
+  "landlord": {
+    "landload_id": "5",
+    "landlord_head":"http://pic4.zhimg.com/50/v2-848b1a190d937e270e8d062d00865493_hd.jpg",
+    "name": "方军帽",
+    "room_count": 6
+  },
+  "evaluation": [{
+      "user_head": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577255377903&di=de1146f2c563982db68f8a2f493a134c&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fq_70%2Cc_zoom%2Cw_640%2Fimages%2F20180806%2F9425645d47cd4f8e9c11fc6a9959340a.jpeg",
+      "name": "吴金诚",
+      "content": "房源定位不准确，但是房东人很好，房子价格实惠、卫生。",
+      "score": 4.8,
+      "time": "2019年11月22日"
+    },
+    {
+      "user_head": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577255377903&di=de1146f2c563982db68f8a2f493a134c&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fq_70%2Cc_zoom%2Cw_640%2Fimages%2F20180806%2F9425645d47cd4f8e9c11fc6a9959340a.jpeg",
+      "name": "吴银诚",
+      "content": "房源定位不准确，但是房东人很好，房子价格实惠、卫生。",
+      "score": 4.8,
+      "time": "2019年11月22日"
+    },
+    {
+      "user_head": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577255377903&di=de1146f2c563982db68f8a2f493a134c&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fq_70%2Cc_zoom%2Cw_640%2Fimages%2F20180806%2F9425645d47cd4f8e9c11fc6a9959340a.jpeg",
+      "name": "吴铜诚",
+      "content": "房源定位不准确，但是房东人很好，房子价格实惠、卫生。",
+      "score": 4.8,
+      "time": "2019年11月22日"
+    }
+  ]
+}
+
 module.exports = {
   hot_city_list: hot_city_list,
   house_data: house_data,
   message_data: message_data,
-  order_data: order_data
+  order_data: order_data,
+  room_data: room_data
 }

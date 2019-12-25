@@ -68,7 +68,7 @@
     <view class="house_list_panel">
       <view class="house_list_view">
         <block wx:for="{{house_data}}" wx:key="item">
-          <view class="house_view" bindtap="toclassification" data-cid="{{item.id}}" data-cname="{{item.cateName}}">
+          <view class="house_view" bindtap="tohouse" data-cid="{{item.id}}" data-cname="{{item.cateName}}">
             <image class="collect_image" src="{{item.collect_img}}" bindtap="changecollect" data-hid="{{item.id}}"></image>
             <image class="house_image" src="{{item.url}}" mode='widthFix'></image>
             <text class="specification_text">独立房间-{{item.specification}}</text>

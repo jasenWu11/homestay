@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/room/room",
     "pages/home/home",
+    "pages/room/room",
     "pages/index/index",
     "pages/order/order",
     "pages/mine/mine",
@@ -47,5 +47,16 @@
     ]
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "plugins": {
+    "chooseLocation": {
+      "version": "1.0.2",
+      "provider": "wx76a9a06e5b4e693e"
+    }
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序定位"
+    }
+  }
 }
