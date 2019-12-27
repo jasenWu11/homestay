@@ -1,0 +1,49 @@
+<!--pages/book/book.wxml-->
+<view class="main_panel">
+  <view class="top_panel">
+    <view class="house_info">
+      <view class="son_view">
+        <view class="son_text_view">
+          <text class="title_text">市中心的中心，只要走路大概10分钟</text>
+          <text class="value_text">独立房间*1个房间*1张床</text>
+        </view>
+        <image class="son_image" src="{{image}}"></image>
+      </view>
+      <view class="son_view" style="margin-top:10rpx;">
+        <view class="son_text_view" style="flex:1;">
+          <text class="title_text1">共2晚</text>
+          <text class="value_text1">2019年11月22日-2019年12月32日</text>
+        </view>
+      </view>
+    </view>
+    <view class="guest_panel">
+      <view class="row_view">
+        <text class="row_text1">入住人数</text>
+        <text class="row_text2">2位</text>
+      </view>
+      <view class="line"></view>
+      <view class="row_view">
+        <text class="row_text1">住客信息</text>
+        <text class="row_text2">(已选择2人)</text>
+        <text class="row_text3">添加/编辑</text>
+      </view>
+      <checkbox-group bindchange="checkboxChange" style="margin-left:-40rpx;">
+        <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="value">
+          <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+          <view class="weui-cell__hd weui-check__hd_in-checkbox">
+            <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
+            <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
+          </view>
+          <view class="weui-cell__bd">{{item.name}}</view>
+        </label>
+      </checkbox-group>
+    </view>
+  </view>
+  <view class="bottom_panel">
+    <view class="text_view">
+      <text class="tip_text">合计</text>
+      <text class="price_text">￥245</text>
+    </view>
+    <view class="button_view">申请预订</view>
+  </view>
+</view>

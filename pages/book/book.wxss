@@ -1,0 +1,156 @@
+/* pages/book/book.wxss */
+@import '/style/weui.wxss';
+page{
+  width: 100%;
+  height: 100%;
+}
+
+.main_panel{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #eeeeee;
+}
+
+.main_panel .top_panel{
+  width: 100%;
+  flex: 1;
+  background-color: #ffffff;
+  margin-bottom: 2rpx;
+  padding: 0rpx 40rpx;
+  box-sizing: border-box;
+}
+
+.top_panel .house_info{
+  background-color: #eeeeee;
+  border-radius: 20rpx;
+  margin-top: 10rpx;
+  padding: 25rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.house_info .son_view{
+  display: flex;
+}
+
+.son_view .son_text_view{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.son_text_view .title_text{
+  font-size: 30rpx;
+  font-family: SimSun;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  color: #000000;
+  font-weight: 500;
+}
+
+.son_text_view .value_text{
+  color: #777777;
+  font-size: 30rpx;
+  margin-top: 15rpx;
+}
+
+.son_text_view .title_text1{
+  font-size: 26rpx;
+  color: #777777;
+}
+
+.son_text_view .value_text1{
+  color: #32858b;
+  font-size: 30rpx;
+  margin-top: 15rpx;
+}
+
+.son_view .son_image{
+  width: 180rpx;
+  height: 120rpx;
+  margin-left: 50rpx;
+  border-radius: 10rpx;
+}
+
+.guest_panel{
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-top: 30rpx;
+  box-shadow: 5rpx 5rpx 5rpx #eeeeee;
+}
+
+.guest_panel .row_view{
+  display: flex;
+  align-items: center;
+}
+
+.row_view .row_text1{
+  color: #000000;
+  font-size: 30rpx;
+}
+
+.row_view .row_text2{
+  color: #000000;
+  font-size: 30rpx;
+  flex: 1;
+  margin-left: 15rpx;
+}
+
+.row_view .row_text3{
+  color: #32858b;
+  font-size: 28rpx;
+  margin-right: 25rpx;
+}
+
+.main_panel .bottom_panel{
+  width: 100%;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  padding: 25rpx 40rpx;
+  box-sizing: border-box;
+}
+
+.bottom_panel .text_view{
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+}
+
+.text_view .tip_text{
+  color: #000000;
+  font-size: 28rpx;
+}
+
+.text_view .price_text{
+  color: #ec1616;
+  font-size: 42rpx;
+}
+
+.bottom_panel .button_view{
+  height: 100%;
+  background-color: #fc3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30rpx 30rpx;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+}
+
+.line {
+  width: 100%;
+  height: 0.6rpx;
+  background-color: #d8d8d8;
+  margin: 20rpx 0rpx;
+}
