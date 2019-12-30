@@ -25,7 +25,7 @@
       <view class="row_view">
         <text class="row_text1">住客信息</text>
         <text class="row_text2">(已选择2人)</text>
-        <text class="row_text3">添加/编辑</text>
+        <text class="row_text3" bindtap="to_add_guest">添加/编辑</text>
       </view>
       <checkbox-group bindchange="checkboxChange" style="margin-left:-40rpx;">
         <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="value">

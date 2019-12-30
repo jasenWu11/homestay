@@ -1,0 +1,36 @@
+<!--pages/add_guest/add_guest.wxml-->
+<view class="content_panel">
+  <view class="weui-cells__title">租客信息填写</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell ">
+      <view class="weui-cell__hd">
+        <view class="weui-label">姓名</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="(必填)与身份证上的姓名一致"  bindinput="data_Input" data-code="name"/>
+      </view>
+    </view>
+    <view class="weui-cell ">
+      <view class="weui-cell__hd">
+        <view class="weui-label">身份证</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="(必填)输入身份证号码" bindinput="data_Input" data-code="id_card"/>
+      </view>
+    </view>
+    <view class="weui-cell ">
+      <view class="weui-cell__hd">
+        <view class="weui-label">联系方式</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="(必填)确保能保持联系"  bindinput="data_Input" data-code="phone"/>
+      </view>
+    </view>
+  </view>
+  <text class="tip_text">根据国家相关法力法规，入住经营性质的酒店、民宿，必须提供入住者的身份信息。
+  您的身份信息优质名宿会严格保密，仅用于必要的身份核实。
+  </text>
+</view>
+<view class="button_panel">
+  <view class="button_view" bindtap="save_guest">保 存</view>
+</view>

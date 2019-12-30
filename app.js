@@ -35,6 +35,6 @@ App({
   },
   globalData: {
     userInfo: null,
-    URL: 'http://192.168.163.195:8090'
+    URL: 'http://192.168.163.195:8090/Homestay'
   }
 })

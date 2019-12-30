@@ -86,5 +86,13 @@ Page({
     this.setData({
       checkboxItems: checkboxItems
     });
+  }, 
+  to_add_guest:function(){
+    wx.navigateTo({
+      url: '../add_guest/add_guest',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
   }
 })

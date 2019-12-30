@@ -1,4 +1,5 @@
 // pages/home/home.js
+const app = getApp();
 var hot_city_list = require("../../js/place.js").hot_city_list;
 var house_data = require("../../js/place.js").house_data;
 var iscollect = '/images/icons/iscollect.png'
@@ -37,6 +38,7 @@ Page({
     main_image: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575969454980&di=2dbb40c918341b303c7505464bb46e75&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01ba6a5b55ab84a80121ade020129f.jpg%402o.jpg',
     button_list: [],
     house_data: [],
+    history_data: [],
     cname: '北京'
   },
 
@@ -58,7 +60,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.gethistory();
   },
 
   /**
@@ -128,69 +130,247 @@ Page({
   getrecommended: function(code) {
     console.log('获取城市code为' + code + '的推荐房源');
     var that = this;
-    var house_list = house_data;
-    var half_url = "/images/icons/star_half.png";
-    var all_url = "/images/icons/star_all.png";
-    for (var i = 0; i < house_list.length; i++) {
-      var star_list = [];
-      var evaluation = house_list[i].evaluation;
-      var iscollects = house_list[i].iscollect;
-      var count = parseInt(evaluation / 1);
-      var remainder = evaluation % 1;
-      //console.log('除数是' + count + '，而余数是' + remainder)
-      if (remainder != 0) {
-        var star = {}
-        star.url = half_url;
-        star_list.push(star);
-      }
-      for (var j = 0; j < count; j++) {
-        var star = {}
-        star.url = all_url;
-        star_list.push(star);
-      }
-      var collect_img = '';
-      if (iscollects == 0) {
-        collect_img = iscollect
-      } else {
-        collect_img = nocollect
-      }
-      house_list[i].star = star_list;
-      house_list[i].collect_img = collect_img
-      console.log('star_list是' + JSON.stringify(star_list));
-    }
-    that.setData({
-      house_data: house_list
-    })
-  },
-  changecollect: function(event) {
-    var that = this;
-    var hid = event.currentTarget.dataset.hid;
-    var house_data = this.data.house_data;
-    for (var i = 0; i < house_data.length; i++) {
-      var id = house_data[i].id;
-      if (id == hid) {
-        if (house_data[i].iscollect == 0) {
-          house_data[i].iscollect = 1;
-          house_data[i].collect_img = nocollect;
-        } else {
-          house_data[i].iscollect = 0;
-          house_data[i].collect_img = iscollect;
+    wx.request({
+      url: app.globalData.URL + '/common/history/list.do',
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey"),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function(res) {
+        console.log("返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+          var house_list = res.data.data;
+          var half_url = "/images/icons/star_half.png";
+          var all_url = "/images/icons/star_all.png";
+          for (var i = 0; i < house_list.length; i++) {
+            var star_list = [];
+            var evaluation = house_list[i].housescore;
+            var iscollects = house_list[i].isCollect;
+            var count = parseInt(evaluation / 1);
+            var remainder = evaluation % 1;
+            //console.log('除数是' + count + '，而余数是' + remainder)
+            if (remainder != 0) {
+              var star = {}
+              star.url = half_url;
+              star_list.push(star);
+            }
+            for (var j = 0; j < count; j++) {
+              var star = {}
+              star.url = all_url;
+              star_list.push(star);
+            }
+            var collect_img = '';
+            if (iscollects == true) {
+              collect_img = iscollect
+            } else {
+              collect_img = nocollect
+            }
+            house_list[i].star = star_list;
+            house_list[i].collect_img = collect_img
+          }
+          that.setData({
+            house_data: house_list
+          })
         }
-        break;
-      }
-    }
-    that.setData({
-      house_data: house_data
-    })
+      },
+      fail: function(res) {
+        console.log("返回错误" + res);
+      },
+      complete: function(res) {
+        console.log("启动请求列表" + res);
+      },
+    });
   },
-  tohouse:function(){
+  tohouse_deatil: function (event) {
+    var hid = event.currentTarget.dataset.hid;
+    var hname = event.currentTarget.dataset.hname;
     wx.navigateTo({
-      url: '/pages/room/room',
+      url: '/pages/room/room?hid=' + hid + '&hname=' + hname,
       success: function(res) {},
       fail: function(res) {
         console.log(res)
       },
       complete: function(res) {},
     })
+  },
+  gethistory: function() {
+    var that = this;
+    wx.request({
+      url: app.globalData.URL + '/common/history/list.do',
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey"),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function(res) {
+        console.log("返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+          var house_list = res.data.data;
+          var half_url = "/images/icons/star_half.png";
+          var all_url = "/images/icons/star_all.png";
+          for (var i = 0; i < house_list.length; i++) {
+            var star_list = [];
+            var evaluation = house_list[i].housescore;
+            var iscollects = house_list[i].isCollect;
+            var count = parseInt(evaluation / 1);
+            var remainder = evaluation % 1;
+            //console.log('除数是' + count + '，而余数是' + remainder)
+            if (remainder != 0) {
+              var star = {}
+              star.url = half_url;
+              star_list.push(star);
+            }
+            for (var j = 0; j < count; j++) {
+              var star = {}
+              star.url = all_url;
+              star_list.push(star);
+            }
+            var collect_img = '';
+            if (iscollects == true) {
+              collect_img = iscollect
+            } else {
+              collect_img = nocollect
+            }
+            house_list[i].star = star_list;
+            house_list[i].collect_img = collect_img
+          }
+          that.setData({
+            history_data: house_list
+          })
+        }
+      },
+      fail: function(res) {
+        console.log("返回错误" + res);
+      },
+      complete: function(res) {
+        console.log("启动请求列表" + res);
+      },
+    });
+  },
+  login_timeout: function() {
+    wx.showModal({
+      title: '登录超时',
+      content: '请重新登录',
+      showCancel: false,
+      success: function(res) {
+        if (res.confirm) {
+          wx.navigateTo({
+            url: '../index/index'
+          });
+          console.log('跳转回登录')
+        } else {
+          url: '../index/index'
+          wx.navigateTo({
+            url: '../index/index'
+          });
+          console.log('跳转回登录')
+        }
+      }
+    })
+  },
+  changecollect: function(event) {
+    var that = this;
+    var hid = event.currentTarget.dataset.hid;
+    var history_data = this.data.history_data;
+    for (var i = 0; i < history_data.length; i++) {
+      var id = history_data[i].id;
+      if (id == hid) {
+        if (history_data[i].isCollect == true) {
+          history_data[i].isCollect = false;
+          history_data[i].collect_img = nocollect;
+        } else {
+          history_data[i].isCollect = true;
+          history_data[i].collect_img = iscollect;
+        }
+        break;
+      }
+    }
+    var house_data = this.data.house_data;
+    for (var i = 0; i < house_data.length; i++) {
+      var id = house_data[i].id;
+      if (id == hid) {
+        if (house_data[i].isCollect == true) {
+          house_data[i].isCollect = false;
+          house_data[i].collect_img = nocollect;
+          that.deleted_collect(hid);
+        } else {
+          house_data[i].isCollect = true;
+          house_data[i].collect_img = iscollect;
+          that.add_collect(hid);
+        }
+        break;
+      }
+    }
+    that.setData({
+      history_data: history_data,
+      house_data: house_data
+    })
+  },
+  deleted_collect: function(hid) {
+    console.log('要取消的' + hid)
+    wx.request({
+      url: app.globalData.URL + '/house/collect/delete.do?Id=' + hid,
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey"),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function(res) {
+        console.log("返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+
+        }
+      },
+      fail: function(res) {
+        console.log("返回错误" + res);
+      },
+      complete: function(res) {
+        console.log("启动请求列表" + res);
+      },
+    });
+  },
+  add_collect: function(hid) {
+    console.log('要收藏的' + hid)
+    wx.request({
+      url: app.globalData.URL + '/house/collect/add.do?Id=' + hid,
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey"),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function(res) {
+        console.log("返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+
+        }
+      },
+      fail: function(res) {
+        console.log("返回错误" + res);
+      },
+      complete: function(res) {
+        console.log("启动请求列表" + res);
+      },
+    });
   }
 })

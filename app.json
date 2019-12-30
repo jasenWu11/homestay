@@ -1,9 +1,10 @@
 {
   "pages": [
-    "pages/book/book",
-    "pages/home/home",
-    "pages/room/room",
     "pages/index/index",
+    "pages/home/home",
+    "pages/book/book",
+    "pages/add_guest/add_guest",
+    "pages/room/room",
     "pages/order/order",
     "pages/mine/mine",
     "pages/message/message",

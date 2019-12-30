@@ -43,20 +43,27 @@ Page({
                     })
                     console.log('重新授权');
                     wx.request({
-                      url: app.globalData.URL + '/andre/user/create.do?code=' + res.code + '&nickName=' + username,
+                      url: app.globalData.URL + '/user/testlogin.do?username=qiuqi&password=123456',
                       method: 'post',
                       dataType: 'json',
                       responseType: 'text',
                       success: function (res) {
                         console.log("返回结果" + JSON.stringify(res));
-                        // var status = res.data.code;
-                        // if (status == 0) {
-                        //   var token = res.data.token;
-                        //   wx.setStorageSync("token", token);
-                        //   wx.switchTab({
-                        //     url: '../home/home',
-                        //   })
-                        // }
+                        var status = res.data.status;
+                        if (status == 0) {
+                          var uname = res.data.data.username;
+                          var ispass = res.data.data.ispass;
+                          wx.setStorageSync('uname', uname);
+                          wx.setStorageSync('ispass', ispass);
+                          if (res && res.header && res.header['Set-Cookie']) {
+                            wx.setStorageSync('cookieKey', res.header['Set-Cookie']); //保存Cookie到Storage
+                          }
+                          var openid = res.data.openid;
+                          wx.setStorageSync("openid", openid);
+                          wx.switchTab({
+                            url: '../home/home',
+                          })
+                        }
                       },
                       fail: function (res) {
                         console.log("返回错误" + res);
