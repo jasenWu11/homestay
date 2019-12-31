@@ -46,7 +46,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.gethot_city_list();
+
   },
 
   /**
@@ -60,6 +60,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.gethot_city_list();
     this.gethistory();
   },
 
@@ -173,6 +174,7 @@ Page({
             }
             house_list[i].star = star_list;
             house_list[i].collect_img = collect_img
+            house_list[i].first_image = JSON.parse(house_list[i].houseimage)[0]
           }
           that.setData({
             house_data: house_list
@@ -190,8 +192,9 @@ Page({
   tohouse_deatil: function (event) {
     var hid = event.currentTarget.dataset.hid;
     var hname = event.currentTarget.dataset.hname;
+    var price = event.currentTarget.dataset.price;
     wx.navigateTo({
-      url: '/pages/room/room?hid=' + hid + '&hname=' + hname,
+      url: '/pages/room/room?hid=' + hid + '&hname=' + hname + '&price=' + price,
       success: function(res) {},
       fail: function(res) {
         console.log(res)
@@ -244,6 +247,7 @@ Page({
             }
             house_list[i].star = star_list;
             house_list[i].collect_img = collect_img
+            house_list[i].first_image = JSON.parse(house_list[i].houseimage)[0]
           }
           that.setData({
             history_data: house_list

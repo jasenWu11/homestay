@@ -4,15 +4,15 @@
     <view class="house_info">
       <view class="son_view">
         <view class="son_text_view">
-          <text class="title_text">市中心的中心，只要走路大概10分钟</text>
-          <text class="value_text">独立房间*1个房间*1张床</text>
+          <text class="title_text">{{room_name}}</text>
+          <text class="value_text">{{specification}}</text>
         </view>
-        <image class="son_image" src="{{image}}"></image>
+        <image class="son_image" src="{{images}}" mode="aspectFill"></image>
       </view>
       <view class="son_view" style="margin-top:10rpx;">
         <view class="son_text_view" style="flex:1;">
-          <text class="title_text1">共2晚</text>
-          <text class="value_text1">2019年11月22日-2019年12月32日</text>
+          <text class="title_text1">共{{day_count}}晚</text>
+          <text class="value_text1">{{startdate}}~{{enddate}}</text>
         </view>
       </view>
     </view>
@@ -25,24 +25,27 @@
       <view class="row_view">
         <text class="row_text1">住客信息</text>
         <text class="row_text2">(已选择2人)</text>
-        <text class="row_text3" bindtap="to_add_guest">添加/编辑</text>
+        <text class="row_text3" bindtap="to_add_guest">添加租客</text>
       </view>
       <checkbox-group bindchange="checkboxChange" style="margin-left:-40rpx;">
-        <label class="weui-cell weui-check__label" wx:for="{{checkboxItems}}" wx:key="value">
-          <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
-          <view class="weui-cell__hd weui-check__hd_in-checkbox">
-            <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
-            <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
-          </view>
-          <view class="weui-cell__bd">{{item.name}}</view>
-        </label>
+        <view class="check_item_view" wx:for="{{checkboxItems}}" wx:key="value">
+          <label class="weui-cell weui-check__label" style="flex:1;">
+            <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+            <view class="weui-cell__hd weui-check__hd_in-checkbox">
+              <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
+              <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
+            </view>
+            <view class="weui-cell__bd">{{item.name}}</view>
+          </label>
+          <image class="del_image" data-gid="{{item.value}}" data-name="{{item.name}}" bindtap="delete_guest" src="/images/icons/delete.png"></image>
+        </view>
       </checkbox-group>
     </view>
   </view>
   <view class="bottom_panel">
     <view class="text_view">
       <text class="tip_text">合计</text>
-      <text class="price_text">￥245</text>
+      <text class="price_text">￥{{price}}</text>
     </view>
     <view class="button_view">申请预订</view>
   </view>

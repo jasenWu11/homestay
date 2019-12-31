@@ -1,5 +1,11 @@
 // pages/room/room.js
+const app = getApp();
 let QQMapWX = require('../../libs/qqmap-wx-jssdk.min.js');
+var Moment = require("../../utils/moment.js");
+var DATE_LIST = [];
+var DATE_YEAR = new Date().getFullYear()
+var DATE_MONTH = new Date().getMonth() + 1
+var DATE_DAY = new Date().getDate()
 var room_data = require("../../js/place.js").room_data;
 var latitude = '';
 var longitude = '';
@@ -8,6 +14,7 @@ var mylongitude = '';
 let qqmapsdk = new QQMapWX({
   key: 'IBZBZ-TR4KP-T4OD6-L2UNE-VCELF-A4FPZ'
 });
+var hid = '';
 Page({
 
   /**
@@ -15,6 +22,7 @@ Page({
    */
   data: {
     carouselList: [],
+    room_id:'',
     room_name: '',
     specification: '',
     score: '',
@@ -42,15 +50,32 @@ Page({
     landlord_head: '',
     landlord_name: '',
     room_count: '',
-    distance:''
+    distance: '',
+    startdate: '',
+    enddate: '',
+    saedates: '2019-12-06~2019-12-08',
+    prices: '',
+    day_count:1
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
+    hid = options.hid;
+    this.setData({
+      price: options.price
+    })
     mylatitude = wx.getStorageSync('mylatitude')
     mylongitude = wx.getStorageSync('mylongitude')
+    //设缓存缓存起来的日期
+    wx.setStorage({
+      key: 'ROOM_SOURCE_DATE',
+      data: {
+        checkInDate: Moment(new Date()).format('YYYY-MM-DD'),
+        checkOutDate: Moment(new Date()).add(1, 'day').format('YYYY-MM-DD')
+      }
+    });
     this.get_room_data();
   },
 
@@ -65,7 +90,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    let getDate = wx.getStorageSync("ROOM_SOURCE_DATE");
+    this.setData({
+      startdate: getDate.checkInDate,
+      enddate: getDate.checkOutDate,
+      saedates: getDate.checkInDate + '~' + getDate.checkOutDate
+    })
+    this.isDuringDate(getDate.checkInDate, getDate.checkOutDate);
   },
 
   /**
@@ -138,56 +169,83 @@ Page({
   },
   get_room_data: function() {
     var that = this;
-    var room_datas = room_data;
-    var image_list = room_datas.image;
-    latitude = room_datas.latitude;
-    longitude = room_datas.longitude;
-    var score = room_datas.score;
-    that.set_star_list(score);
-    that.set_star_text(score);
+    wx.request({
+      url: app.globalData.URL + '/house/info.do?Id='+hid,
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey"),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log("返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+          var room_datas = res.data.data;
+          var images = room_datas.house.houseimage;
+          var image_list = JSON.parse(images);
+          latitude = room_datas.house.latitude;
+          longitude = room_datas.house.longitude;
+          var score = room_datas.house.housescore;
+          that.set_star_list(score);
+          that.set_star_text(score);
 
-    var iscollection = room_datas.iscollection;
+          var iscollection = room_datas.isCollect;
 
-    that.setcollection_img(iscollection);
-    var evaluation = room_datas.evaluation;
-    var address = room_datas.address;
-    var evaluation_count = evaluation.length;
-    var user_head = evaluation[0].user_head;
-    var evaluation_score = evaluation[0].score;
-    var evaluation_content = evaluation[0].content;
-    var evaluation_time = evaluation[0].time;
-    var user_name = evaluation[0].name;
+          that.setcollection_img(iscollection);
 
-    var landlord = room_datas.landlord;
-    var landlord_id = landlord.landload_id;
-    var landlord_head = landlord.landlord_head;
-    var landlord_name = landlord.name
-    var room_count = landlord.room_count;
-    that.getdistance(latitude, longitude)
-    that.setData({
-      carouselList: image_list,
-      room_name: room_datas.room_name,
-      specification: room_datas.specification,
-      score: score,
-      collection_count: room_datas.collection_count,
-      address: room_datas.address,
-      latitude: room_datas.latitude,
-      longitude: room_datas.longitude,
-      price: room_datas.price,
-      iscollection: room_datas.iscollection,
-      introduce: room_datas.introduce,
-      evaluation_count: evaluation_count,
-      user_head: user_head,
-      user_name: user_name,
-      evaluation_score: evaluation_score,
-      evaluation_content: evaluation_content,
-      evaluation_time: evaluation_time,
-      landlord_id: landlord_id,
-      landlord_head: landlord_head,
-      landlord_name: landlord_name,
-      room_count: room_count
-    })
-    this.setmap();
+          // var evaluation = room_datas.evaluation;
+          // var address = room_datas.address;
+          // var evaluation_count = evaluation.length;
+          // var user_head = evaluation[0].user_head;
+          // var evaluation_score = evaluation[0].score;
+          // var evaluation_content = evaluation[0].content;
+          // var evaluation_time = evaluation[0].time;
+          // var user_name = evaluation[0].name;
+
+          var landlord = room_datas.landlord;
+          var landlord_id = landlord.id;
+          var landlord_head = landlord.head;
+          var landlord_name = landlord.username
+          var room_count = 5;
+          that.getdistance(latitude, longitude)
+          that.setData({
+            carouselList: image_list,
+            room_id: room_datas.house.id,
+            room_name: room_datas.house.housename,
+            specification: room_datas.house.specification,
+            score: score,
+            collection_count: room_datas.collectCount,
+            address: room_datas.house.address,
+            latitude: room_datas.house.latitude,
+            longitude: room_datas.house.longitude,
+            price: room_datas.house.houseprice,
+            iscollection: iscollection,
+            introduce: room_datas.house.housedesc,
+            // evaluation_count: evaluation_count,
+            // user_head: user_head,
+            // user_name: user_name,
+            // evaluation_score: evaluation_score,
+            // evaluation_content: evaluation_content,
+            // evaluation_time: evaluation_time,
+            landlord_id: landlord_id,
+            landlord_head: landlord_head,
+            landlord_name: landlord_name,
+            room_count: room_count
+          })
+          that.setmap();
+        }
+      },
+      fail: function (res) {
+        console.log("返回错误" + res);
+      },
+      complete: function (res) {
+        console.log("启动请求列表" + res);
+      },
+    });
   },
   set_star_list: function(score) {
     var half_url = "/images/icons/star_half.png";
@@ -242,6 +300,7 @@ Page({
     })
   },
   setcollection_img: function(iscollection) {
+    console.log('是否收藏' + iscollection)
     var collection_img = '/images/icons/null_collect.png'
     if (iscollection == true) {
       collection_img = '/images/icons/iscollect.png'
@@ -255,12 +314,15 @@ Page({
   change_collect: function() {
     var that = this;
     var iscollection = that.data.iscollection;
+    console.log('是否收藏' + iscollection)
     var collection_count = that.data.collection_count;
     if (iscollection == true) {
       iscollection = false;
+      that.deleted_collect(hid);
       collection_count--;
     } else if (iscollection == false) {
       iscollection = true
+      that.add_collect(hid);
       collection_count++;
     }
     that.setcollection_img(iscollection);
@@ -274,23 +336,23 @@ Page({
     var lid = event.currentTarget.dataset.lid;
     console.log('跳转' + lid + '房东主页');
   },
-  textPaste: function () {
+  textPaste: function() {
     wx.showToast({
       title: '复制成功',
     })
     wx.setClipboardData({
       data: this.data.order_id,
-      success: function (res) {
+      success: function(res) {
         wx.getClipboardData({
           //这个api是把拿到的数据放到电脑系统中的
-          success: function (res) {
+          success: function(res) {
             console.log(res.data) // data
           }
         })
       }
     })
   },
-  getdistance: function (latitude, longitude){
+  getdistance: function(latitude, longitude) {
     var that = this;
     /**
      * 获取两点的距离
@@ -307,19 +369,153 @@ Page({
         latitude: latitude,
         longitude: longitude
       }],
-      success: function (res) {
+      success: function(res) {
         console.log(res, '两点之间的距离：', res.result.elements[0].distance);
         var distance = res.result.elements[0].distance;
         that.setData({
           distance: (distance / 1000).toFixed(1)
         })
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log(res);
       },
-      complete: function (res) {
+      complete: function(res) {
         console.log(res);
       }
+    });
+  },
+  change_date: function() {
+    wx.navigateTo({
+      url: '../calendar/calendar?price=' + this.data.price,
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+  isDuringDate: function (firstDate, secondDate) {
+    var price = this.data.price;
+    console.log('price是' + price)
+    var firstDate = new Date(firstDate);
+    var secondDate = new Date(secondDate);
+    var diff = Math.abs(firstDate.getTime() - secondDate.getTime())
+    var day_count = parseInt(diff / (1000 * 60 * 60 * 24));
+    var the_price = day_count * price;
+    var date = [];
+    date = ["01-01", "02-14", "05-01", "06-01", "10-01", "12-24", "12-25"];
+    var price1 = [price * 1.5, price * 2, price * 2, price * 1.5, price * 2.5, price * 1.5, price * 1.5]
+    var date_list = []
+    var price_list = []
+    for (var i = 2020; i < 2025; i++) {
+      for (var j in date) {
+        var date1 = i.toString() + '-' + date[j];
+        date_list.push(date1)
+        price_list.push(price1[j])
+      }
+    }
+    for (var i in date_list) {
+      var now = new Date(date_list[i]);
+      if (now >= firstDate && now <= secondDate) {
+        console.log(date_list[i] + '在里面')
+        the_price -= price;
+        the_price += price_list[i]
+      }
+    }
+    this.setData({
+      prices: the_price,
+      day_count: day_count
+    })
+  },
+  arrirm_room:function(){
+    wx.setStorage({
+      key: 'ROOM_INFO',
+      data: {
+        startdate: this.data.startdate,
+        enddate: this.data.enddate,
+        day_count:this.data.day_count,
+        room_id: this.data.room_id,
+        room_name: this.data.room_name,
+        specification: this.data.specification,
+        images: this.data.carouselList[0].url,
+        price: this.data.prices
+      }
+    });
+    wx.navigateTo({
+      url: '../book/book',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {}
+    })
+  },
+  openDialog: function (e) {
+    var tid = e.currentTarget.dataset.tid;
+    console.log(tid);
+    var title = '房屋介绍';
+    var text = this.data.introduce;
+    this.setData({
+      istrue: true,
+      dialog_title: title,
+      dialog_text: text
+    })
+  },
+  closeDialog: function () {
+    this.setData({
+      istrue: false
+    })
+  },
+  deleted_collect: function (hid) {
+    console.log('要取消的' + hid)
+    wx.request({
+      url: app.globalData.URL + '/house/collect/delete.do?Id=' + hid,
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey"),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log("返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+
+        }
+      },
+      fail: function (res) {
+        console.log("返回错误" + res);
+      },
+      complete: function (res) {
+        console.log("启动请求列表" + res);
+      },
+    });
+  },
+  add_collect: function (hid) {
+    console.log('要收藏的' + hid)
+    wx.request({
+      url: app.globalData.URL + '/house/collect/add.do?Id=' + hid,
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey"),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log("返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+
+        }
+      },
+      fail: function (res) {
+        console.log("返回错误" + res);
+      },
+      complete: function (res) {
+        console.log("启动请求列表" + res);
+      },
     });
   }
 })

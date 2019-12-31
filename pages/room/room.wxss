@@ -1,5 +1,5 @@
 /* pages/room/room.wxss */
-
+@import '/style/weui.wxss';
 page {
   width: 100%;
   height: 100%;
@@ -205,12 +205,11 @@ page {
 
 .device_panel {
   width: 100%;
-  padding: 0rpx 40rpx;
-  margin: 25rpx 0rpx;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow-x: auto;
 }
 
 .device_panel .device_item {
@@ -472,4 +471,40 @@ page {
   flex: 1;
   display: flex;
   justify-content: flex-end;
+}
+
+.slide-box {
+  display: -webkit-box;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 10rpx;
+}
+
+/* 隐藏下方的滚动条 */
+
+.slide-box::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+.slide-box {
+  -ms-overflow-style: none;
+}
+
+.slide-box {
+  overflow: -moz-scrollbars-none;
+}
+
+.slide-item {
+  width: 170rpx;
+}
+
+
+.weui-demo-dialog{
+  visibility:hidden;
+  opacity:0;
+}
+
+.weui-demo-dialog_show{
+  visibility:visible;
+  opacity:1;
 }

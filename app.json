@@ -1,15 +1,16 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/home/home",
     "pages/book/book",
-    "pages/add_guest/add_guest",
     "pages/room/room",
+    "pages/home/home",
+    "pages/add_guest/add_guest",
     "pages/order/order",
     "pages/mine/mine",
     "pages/message/message",
     "pages/collect/collect",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/calendar/calendar"
   ],
   "window": {
     "backgroundTextStyle": "light",

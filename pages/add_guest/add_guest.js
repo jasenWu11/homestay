@@ -1,4 +1,5 @@
 // pages/add_guest/add_guest.js
+const app = getApp();
 Page({
 
   /**
@@ -120,7 +121,43 @@ Page({
         complete: function (res) { },
       })
     }else{
-      console.log('保存信息');
+      wx.request({
+        url: app.globalData.URL + '/guest/create.do?guestname=' + name + '&guestcard=' + is_card + '&guestphone=' + phone,
+        header: {
+          "Cookie": wx.getStorageSync("cookieKey"),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'POST',
+        dataType: 'json',
+        responseType: 'text',
+        success: function (res) {
+          console.log("返回的结果" + JSON.stringify(res));
+          var status = res.data.status;
+          if (status == 21000) {
+            that.login_timeout();
+          } else if (status == 0) {
+            wx.navigateBack({
+              delta: 1, // 回退前 delta(默认为1) 页面
+            });
+          }else{
+            wx.showToast({
+              title: res.data.msg,
+              image: '/images/icons/wrong.png',
+              duration: 1000,
+              mask: true,
+              success: function (res) { },
+              fail: function (res) { },
+              complete: function (res) { },
+            })
+          }
+        },
+        fail: function (res) {
+          console.log("返回错误" + res);
+        },
+        complete: function (res) {
+          console.log("启动请求列表" + res);
+        },
+      });
     }
   },
   isCardNo: function(card) {

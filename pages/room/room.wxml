@@ -4,7 +4,7 @@
     <view class='carousel'>
       <swiper class='carousel_swiper' indicator-dots="true" indicator-color="#f4f4f4" indicator-active-color="#4eb8b8" autoplay="true" interval='2000' circular='true'>
         <block wx:for="{{carouselList}}" wx:key="item">
-          <swiper-item bindtap='chomeCarouselClick' data-url='{{item.link}}'>
+          <swiper-item bindtap='chomeCarouselClick'>
             <image class="carouselImg" src='{{item.url}}' mode='aspectFill'></image>
           </swiper-item>
         </block>
@@ -20,8 +20,8 @@
     </view>
     <view class="room_info_panel">
       <view class="time_panel">
-        2019年12月6-8日 2晚
-        <text style="color:#009999;margin-left:15rpx;">修改日期</text>
+        {{saedates}} {{day_count}}晚
+        <text style="color:#009999;margin-left:15rpx;" bindtap="change_date">修改日期</text>
       </view>
       <view class="line"></view>
       <view class="base_info_panel">
@@ -56,21 +56,43 @@
       </view>
       <view class="line"></view>
       <view class="device_panel">
-        <view class="device_item">
-          <image class="icon_view" src="/images/room/elevator.png"></image>
-          <text class="device_text">电梯</text>
-        </view>
-        <view class="device_item">
-          <image class="icon_view" src="/images/room/kitchen.png"></image>
-          <text class="device_text">厨房</text>
-        </view>
-        <view class="device_item">
-          <image class="icon_view" src="/images/room/wifi.png"></image>
-          <text class="device_text">无线网络</text>
-        </view>
-        <view class="device_item">
-          <image class="icon_view" src="/images/room/add.png"></image>
-          <text class="device_text" style="color:#009999">更多设施</text>
+        <view class="slide-box">
+          <view class="slide-item" bindtap="charge_city" data-code="{{item.code}}" data-name="{{item.value}}">
+            <view class="device_item">
+              <image class="icon_view" src="/images/room/elevator.png"></image>
+              <text class="device_text">电梯</text>
+            </view>
+          </view>
+          <view class="slide-item" bindtap="charge_city" data-code="{{item.code}}" data-name="{{item.value}}">
+            <view class="device_item">
+              <image class="icon_view" src="/images/room/elevator.png"></image>
+              <text class="device_text">电梯</text>
+            </view>
+          </view>
+          <view class="slide-item" bindtap="charge_city" data-code="{{item.code}}" data-name="{{item.value}}">
+            <view class="device_item">
+              <image class="icon_view" src="/images/room/elevator.png"></image>
+              <text class="device_text">电梯</text>
+            </view>
+          </view>
+           <view class="slide-item" bindtap="charge_city" data-code="{{item.code}}" data-name="{{item.value}}">
+            <view class="device_item">
+              <image class="icon_view" src="/images/room/elevator.png"></image>
+              <text class="device_text">电梯</text>
+            </view>
+          </view>
+           <view class="slide-item" bindtap="charge_city" data-code="{{item.code}}" data-name="{{item.value}}">
+            <view class="device_item">
+              <image class="icon_view" src="/images/room/elevator.png"></image>
+              <text class="device_text">电梯</text>
+            </view>
+          </view>
+           <view class="slide-item" bindtap="charge_city" data-code="{{item.code}}" data-name="{{item.value}}">
+            <view class="device_item">
+              <image class="icon_view" src="/images/room/elevator.png"></image>
+              <text class="device_text">电梯</text>
+            </view>
+          </view>
         </view>
       </view>
       <view class="line"></view>
@@ -86,7 +108,7 @@
             <text class="room_count_text">{{room_count}}套房源</text>
           </view>
         </view>
-        <view class="room_info_view">
+        <view class="room_info_view" bindtap="openDialog">
           <text class="room_info_text">房屋介绍：{{introduce}}
           </text>
         </view>
@@ -138,6 +160,24 @@
         <text class="security_tip_text">保障最重要，24小时贴心客服  ></text>
       </view>
     </view>
+    <view class="weui-demo-dialog {{istrue ? 'weui-demo-dialog_show' : ''}}">
+    <view class="weui-mask" bindtap="closeDialog"></view>
+    <view class="weui-dialog__wrp" bindtap="closeDialog">
+      <view class="weui-dialog" catchtap="stopEvent">
+        <view class="weui-dialog__hd" style="padding:20rpx 48rpx 20rpx;">
+          <view class="weui-dialog__title">{{dialog_title}}</view>
+        </view>
+        <view class="weui-dialog__bd" style="margin-bottom:10rpx;">
+          <view class="tip_panel weui-article__img">
+            {{dialog_text}}
+          </view>
+        </view>
+        <view class="weui-dialog__ft" style="line-height:100rpx;min-height:100rpx;">
+          <view class="weui-dialog__btn" bindtap="closeDialog">确定</view>
+        </view>
+      </view>
+    </view>
+  </view>
   </view>
   <view class="bottom_panel">
     <view class="icon_view">
@@ -149,9 +189,9 @@
       <text class="icon_text">收藏房源</text>
     </view>
     <view class="vertical_line"></view>
-    <view class="price_text">￥246
-      <text style="font-size:28rpx;color:#2c2c2c;margin-left:10rpx">/2晚</text>
+    <view class="price_text">￥{{prices}}
+      <text style="font-size:28rpx;color:#2c2c2c;margin-left:10rpx">/{{day_count}}晚</text>
     </view>
-    <view class="affirm_button">立即预订</view>
+    <view class="affirm_button" bindtap="arrirm_room">立即预订</view>
   </view>
 </view>

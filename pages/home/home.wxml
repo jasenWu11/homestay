@@ -70,7 +70,7 @@
         <block wx:for="{{house_data}}" wx:key="item">
           <view class="house_view" style="margin-right:30rpx;">
             <image class="collect_image" src="{{item.collect_img}}" bindtap="changecollect" data-hid="{{item.id}}"></image>
-            <image class="house_image" src="{{item.houseimage}}" mode='widthFix' bindtap="tohouse_deatil" data-hid="{{item.id}}" data-hname="{{item.housename}}"></image>
+            <image class="house_image" src="{{item.first_image.url}}" mode='widthFix' bindtap="tohouse_deatil" data-hid="{{item.id}}" data-hname="{{item.housename}}" data-price="{{item.houseprice}}"></image>
             <text class="specification_text">独立房间-{{item.specification}}</text>
             <text class="introduce_text">{{item.housedesc}}</text>
             <view class="row_view">
@@ -90,7 +90,7 @@
       <block wx:for="{{history_data}}" wx:key="item">
         <view class="house_view" style="margin-right:30rpx;">
           <image class="collect_image" src="{{item.collect_img}}" bindtap="changecollect" data-hid="{{item.id}}"></image>
-          <image class="house_image" src="{{item.houseimage}}" mode='widthFix' bindtap="tohouse_deatil" data-hid="{{item.id}}" data-hname="{{item.housename}}"></image>
+          <image class="house_image" src="{{item.first_image.url}}" mode='widthFix' bindtap="tohouse_deatil" data-hid="{{item.id}}" data-hname="{{item.housename}}" data-price="{{item.houseprice}}"></image>
           <text class="specification_text">独立房间-{{item.specification}}</text>
           <text class="introduce_text">{{item.housedesc}}</text>
           <view class="row_view">

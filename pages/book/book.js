@@ -1,22 +1,27 @@
 // pages/book/book.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    "image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575975903702&di=86b1dbe09214d08c19ffcd2c32f5da91&imgtype=0&src=http%3A%2F%2Fimg1.dzwww.com%3A8080%2Ftupian%2F20180724%2F13%2F15543713652899101397.jpg",
-    checkboxItems: [
-      { name: '方军帽', value: '0', checked: true },
-      { name: '陈泳衣', value: '1' }
-    ]
+    checkboxItems: [],
+    room_id:'',
+    room_name:'',
+    specification:'',
+    images:'',
+    price:'',
+    day_count:'',
+    startdate:'',
+    enddate:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getroom_info();
   },
 
   /**
@@ -30,7 +35,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getguest_list();
   },
 
   /**
@@ -67,6 +72,19 @@ Page({
   onShareAppMessage: function () {
 
   },
+  getroom_info:function(){
+    var info = wx.getStorageSync("ROOM_INFO");
+    this.setData({
+      room_id: info.room_id,
+      room_name: info.room_name,
+      specification: info.specification,
+      images: info.images,
+      price: info.price,
+      day_count: info.day_count,
+      startdate: info.startdate,
+      enddate: info.enddate
+    })
+  },
   checkboxChange: function (e) {
     console.log('checkbox发生change事件，携带value值为：', e.detail.value);
 
@@ -94,5 +112,89 @@ Page({
       fail: function(res) {},
       complete: function(res) {},
     })
+  },
+  getguest_list:function(){
+    var that = this;
+    wx.request({
+      url: app.globalData.URL + '/guest/list.do',
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey"),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log("返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+          var guest_list = res.data.data;
+          var checkboxItems = [];
+          for (var i in guest_list){
+            var checkboxitem = {};
+            var id = guest_list[i].id;
+            var guestname = guest_list[i].guestname;
+            checkboxitem['name'] = guestname;
+            checkboxitem['value'] = id;
+            checkboxItems.push(checkboxitem);
+          }
+          that.setData({
+            checkboxItems: checkboxItems
+          })
+        }
+      },
+      fail: function (res) {
+        console.log("返回错误" + res);
+      },
+      complete: function (res) {
+        console.log("启动请求列表" + res);
+      },
+    });
+  },
+  delete_guest: function (event) {
+    var that = this;
+    var gid = event.currentTarget.dataset.gid;
+    var name = event.currentTarget.dataset.name;
+    console.log('删除的id是' + gid)
+    wx.showModal({
+      title: '删除租客',
+      content: '是否删除租客'+name,
+      confirmText: "确定",
+      cancelText: "取消",
+      success: function (res) {
+        console.log(res);
+        if (res.confirm) {
+          wx.request({
+            url: app.globalData.URL + '/guest/delete.do?Id=' + gid,
+            header: {
+              "Cookie": wx.getStorageSync("cookieKey"),
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'POST',
+            dataType: 'json',
+            responseType: 'text',
+            success: function (res) {
+              console.log("返回的结果" + JSON.stringify(res));
+              var status = res.data.status;
+              if (status == 21000) {
+                that.login_timeout();
+              } else if (status == 0) {
+
+              }
+            },
+            fail: function (res) {
+              console.log("返回错误" + res);
+            },
+            complete: function (res) {
+              console.log("启动请求列表" + res);
+            },
+          });
+        } else {
+          console.log('取消操作')
+        }
+      }
+    });
   }
 })
