@@ -286,20 +286,6 @@ Page({
   changecollect: function(event) {
     var that = this;
     var hid = event.currentTarget.dataset.hid;
-    var history_data = this.data.history_data;
-    for (var i = 0; i < history_data.length; i++) {
-      var id = history_data[i].id;
-      if (id == hid) {
-        if (history_data[i].isCollect == true) {
-          history_data[i].isCollect = false;
-          history_data[i].collect_img = nocollect;
-        } else {
-          history_data[i].isCollect = true;
-          history_data[i].collect_img = iscollect;
-        }
-        break;
-      }
-    }
     var house_data = this.data.house_data;
     for (var i = 0; i < house_data.length; i++) {
       var id = house_data[i].id;
@@ -317,7 +303,6 @@ Page({
       }
     }
     that.setData({
-      history_data: history_data,
       house_data: house_data
     })
   },

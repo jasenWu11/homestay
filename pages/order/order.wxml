@@ -5,12 +5,12 @@
       <view class="weui-navbar navbar_panel">
         <block wx:for="{{tabs}}" wx:key="*this">
           <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick" style="padding:5px 0px">
-            <view class="weui-navbar__title" style="width:180rpx;">{{item}}</view>
+            <view class="weui-navbar__title">{{item}}</view>
           </view>
         </block>
         <view class="weui-navbar__slider" style="left: 65rpx; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px); width:120rpx"></view>
       </view>
-      <view class="weui-tab__panel" style="padding-top:40px;">
+      <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}" style="margin-bottom:40px;">
           <view class="order_list">
             <block wx:for="{{order_data}}" wx:key="item">

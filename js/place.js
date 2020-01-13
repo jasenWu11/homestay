@@ -288,7 +288,7 @@ var room_data = {
       "deleted": 0
     }
   ],
-  "room_id":201535,
+  "room_id": 201535,
   "room_name": "民宿***（近东莞理工学院城市学院、香市动物园、市第六中学、华为南方工厂）民宿***（近东莞理工学院城市学院、香市动物园、市第六中学、华为南方工厂）民宿***",
   "introduce": "该房屋怎么怎么滴，房源很好，近地铁，有空调、WiFi等配置齐全，适合旅游，趴体，巴拉巴拉什么环境好之类的",
   "specification": "2间卧室-3张床-3个卫生间-最多住4人",
@@ -301,7 +301,7 @@ var room_data = {
   "price": 60,
   "landlord": {
     "landload_id": "5",
-    "landlord_head":"http://pic4.zhimg.com/50/v2-848b1a190d937e270e8d062d00865493_hd.jpg",
+    "landlord_head": "http://pic4.zhimg.com/50/v2-848b1a190d937e270e8d062d00865493_hd.jpg",
     "name": "方军帽",
     "room_count": 6
   },
@@ -328,11 +328,133 @@ var room_data = {
     }
   ]
 }
+var people_data = [{
+    id: 0,
+    count: '不限',
+    back: '#19896f',
+    bcolor: '#19896f',
+    color: '#ffffff'
+  },
+  {
+    id: 1,
+    count: '1位',
+    back: '#ffffff',
+    bcolor: '#bbbbbb',
+    color: '#000000'
+  },
+  {
+    id: 2,
+    count: '2位',
+    back: '#ffffff',
+    bcolor: '#bbbbbb',
+    color: '#000000'
+  },
+  {
+    id: 3,
+    count: '3位',
+    back: '#ffffff',
+    bcolor: '#bbbbbb',
+    color: '#000000'
+  },
+  {
+    id: 4,
+    count: '4位',
+    back: '#ffffff',
+    bcolor: '#bbbbbb',
+    color: '#000000'
+  },
+  {
+    id: 5,
+    count: '5位',
+    back: '#ffffff',
+    bcolor: '#bbbbbb',
+    color: '#000000'
+  },
+  {
+    id: 6,
+    count: '6位',
+    back: '#ffffff',
+    bcolor: '#bbbbbb',
+    color: '#000000'
+  },
+  {
+    id: 7,
+    count: '7位+',
+    back: '#ffffff',
+    bcolor: '#bbbbbb',
+    color: '#000000'
+  }
+]
+
+var sort_data = [{
+    id: 0,
+    text: '默认排序',
+    back: '#19896f',
+    bcolor: '#19896f',
+    color: '#ffffff'
+  },
+  {
+    id: 1,
+    text: '距离排序',
+    back: '#ffffff',
+    bcolor: '#bbbbbb',
+    color: '#000000'
+  },
+  {
+    id: 2,
+    text: '价格排序',
+    back: '#ffffff',
+    bcolor: '#bbbbbb',
+    color: '#000000'
+  }
+]
+
+var score_data = [
+  {
+    id: 0,
+    min_score: 0,
+    max_score: 100,
+    score_text: '不限分数',
+    back: '#19896f',
+    bcolor: '#19896f',
+    color: '#ffffff'
+  },
+  {
+    id: 1,
+    min_score: 0,
+    max_score: 80,
+    score_text: '4.0以下',
+    back: '#ffffff',
+    bcolor: '#bbbbbb',
+    color: '#000000'
+  },
+  {
+    id: 2,
+    min_score: 81,
+    max_score: 90,
+    score_text: '4.0-4.5',
+    back: '#ffffff',
+    bcolor: '#bbbbbb',
+    color: '#000000'
+  },
+  {
+    id: 3,
+    min_score: 91,
+    max_score: 100,
+    score_text: '4.5-5.0',
+    back: '#ffffff',
+    bcolor: '#bbbbbb',
+    color: '#000000'
+  }
+]
 
 module.exports = {
   hot_city_list: hot_city_list,
   house_data: house_data,
   message_data: message_data,
   order_data: order_data,
-  room_data: room_data
+  room_data: room_data,
+  people_data: people_data,
+  score_data: score_data,
+  sort_data: sort_data
 }

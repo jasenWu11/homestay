@@ -57,42 +57,14 @@
       <view class="line"></view>
       <view class="device_panel">
         <view class="slide-box">
-          <view class="slide-item" bindtap="charge_city" data-code="{{item.code}}" data-name="{{item.value}}">
-            <view class="device_item">
-              <image class="icon_view" src="/images/room/elevator.png"></image>
-              <text class="device_text">电梯</text>
+          <block wx:for="{{device}}" wx:key="item">
+            <view class="slide-item">
+              <view class="device_item">
+                <image class="icon_view" src="{{item.url}}"></image>
+                <text class="device_text">{{item.devicename}}</text>
+              </view>
             </view>
-          </view>
-          <view class="slide-item" bindtap="charge_city" data-code="{{item.code}}" data-name="{{item.value}}">
-            <view class="device_item">
-              <image class="icon_view" src="/images/room/elevator.png"></image>
-              <text class="device_text">电梯</text>
-            </view>
-          </view>
-          <view class="slide-item" bindtap="charge_city" data-code="{{item.code}}" data-name="{{item.value}}">
-            <view class="device_item">
-              <image class="icon_view" src="/images/room/elevator.png"></image>
-              <text class="device_text">电梯</text>
-            </view>
-          </view>
-           <view class="slide-item" bindtap="charge_city" data-code="{{item.code}}" data-name="{{item.value}}">
-            <view class="device_item">
-              <image class="icon_view" src="/images/room/elevator.png"></image>
-              <text class="device_text">电梯</text>
-            </view>
-          </view>
-           <view class="slide-item" bindtap="charge_city" data-code="{{item.code}}" data-name="{{item.value}}">
-            <view class="device_item">
-              <image class="icon_view" src="/images/room/elevator.png"></image>
-              <text class="device_text">电梯</text>
-            </view>
-          </view>
-           <view class="slide-item" bindtap="charge_city" data-code="{{item.code}}" data-name="{{item.value}}">
-            <view class="device_item">
-              <image class="icon_view" src="/images/room/elevator.png"></image>
-              <text class="device_text">电梯</text>
-            </view>
-          </view>
+          </block>
         </view>
       </view>
       <view class="line"></view>
@@ -131,7 +103,7 @@
         <text class="title_text">评价({{evaluation_count}})条</text>
         <text class="to_text">全部评价></text>
       </view>
-      <view class="evaluation_panel">
+      <view class="evaluation_panel" hidden="{{hidden_evaluate}}">
         <view class="info_view">
           <image class="info_image" src="{{expression}}"></image>
           <view class="text_view">

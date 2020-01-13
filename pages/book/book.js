@@ -1,5 +1,6 @@
 // pages/book/book.js
 const app = getApp();
+var util = require('../../utils/util.js');
 Page({
 
   /**
@@ -7,72 +8,74 @@ Page({
    */
   data: {
     checkboxItems: [],
-    room_id:'',
-    room_name:'',
-    specification:'',
-    images:'',
-    price:'',
-    day_count:'',
-    startdate:'',
-    enddate:''
+    room_id: '',
+    room_name: '',
+    specification: '',
+    images: '',
+    price: '',
+    day_count: '',
+    startdate: '',
+    enddate: '',
+    people_count: 0,
+    guestIds:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.getroom_info();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     this.getguest_list();
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
-  getroom_info:function(){
+  getroom_info: function() {
     var info = wx.getStorageSync("ROOM_INFO");
     this.setData({
       room_id: info.room_id,
@@ -85,7 +88,7 @@ Page({
       enddate: info.enddate
     })
   },
-  checkboxChange: function (e) {
+  checkboxChange: function(e) {
     console.log('checkbox发生change事件，携带value值为：', e.detail.value);
 
     var checkboxItems = this.data.checkboxItems,
@@ -102,10 +105,12 @@ Page({
     }
 
     this.setData({
-      checkboxItems: checkboxItems
+      checkboxItems: checkboxItems,
+      people_count: e.detail.value.length,
+      guestIds: values
     });
-  }, 
-  to_add_guest:function(){
+  },
+  to_add_guest: function() {
     wx.navigateTo({
       url: '../add_guest/add_guest',
       success: function(res) {},
@@ -113,7 +118,7 @@ Page({
       complete: function(res) {},
     })
   },
-  getguest_list:function(){
+  getguest_list: function() {
     var that = this;
     wx.request({
       url: app.globalData.URL + '/guest/list.do',
@@ -124,7 +129,7 @@ Page({
       method: 'GET',
       dataType: 'json',
       responseType: 'text',
-      success: function (res) {
+      success: function(res) {
         console.log("返回的结果" + JSON.stringify(res));
         var status = res.data.status;
         if (status == 21000) {
@@ -132,7 +137,7 @@ Page({
         } else if (status == 0) {
           var guest_list = res.data.data;
           var checkboxItems = [];
-          for (var i in guest_list){
+          for (var i in guest_list) {
             var checkboxitem = {};
             var id = guest_list[i].id;
             var guestname = guest_list[i].guestname;
@@ -141,29 +146,31 @@ Page({
             checkboxItems.push(checkboxitem);
           }
           that.setData({
-            checkboxItems: checkboxItems
+            checkboxItems: checkboxItems,
+            people_count: 0,
+            guestIds:[]
           })
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log("返回错误" + res);
       },
-      complete: function (res) {
+      complete: function(res) {
         console.log("启动请求列表" + res);
       },
     });
   },
-  delete_guest: function (event) {
+  delete_guest: function(event) {
     var that = this;
     var gid = event.currentTarget.dataset.gid;
     var name = event.currentTarget.dataset.name;
     console.log('删除的id是' + gid)
     wx.showModal({
       title: '删除租客',
-      content: '是否删除租客'+name,
+      content: '是否删除租客' + name,
       confirmText: "确定",
       cancelText: "取消",
-      success: function (res) {
+      success: function(res) {
         console.log(res);
         if (res.confirm) {
           wx.request({
@@ -175,19 +182,23 @@ Page({
             method: 'POST',
             dataType: 'json',
             responseType: 'text',
-            success: function (res) {
+            success: function(res) {
               console.log("返回的结果" + JSON.stringify(res));
               var status = res.data.status;
               if (status == 21000) {
                 that.login_timeout();
               } else if (status == 0) {
-
+                wx.showToast({
+                  title: '删除成功',
+                  icon: 'success',
+                })
+                that.getguest_list();
               }
             },
-            fail: function (res) {
+            fail: function(res) {
               console.log("返回错误" + res);
             },
-            complete: function (res) {
+            complete: function(res) {
               console.log("启动请求列表" + res);
             },
           });
@@ -195,6 +206,50 @@ Page({
           console.log('取消操作')
         }
       }
+    });
+  },
+  create: function() {
+    var that = this;
+    var houseid = that.data.room_id;
+    var ordertime = util.formatTime(new Date());
+    var starttime = that.data.startdate +' '+'14:00:00';
+    var endtime = that.data.enddate + ' ' + '12:00:00';
+    var orderprice = that.data.price;
+    var day = that.data.day_count;
+    var guestIds = that.data.guestIds;
+    wx.request({
+      url: app.globalData.URL + '/order/create.do',
+      data:{
+        houseid: houseid,
+        ordertime: ordertime,
+        starttime: starttime,
+        endtime: endtime,
+        orderprice: orderprice,
+        day: day,
+        guestIds: guestIds
+      },
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey"),
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log("返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+          
+        }
+      },
+      fail: function (res) {
+        console.log("返回错误" + res);
+      },
+      complete: function (res) {
+        console.log("启动请求列表" + res);
+      },
     });
   }
 })

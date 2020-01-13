@@ -1,0 +1,106 @@
+<!--pages/room_list/room_list.wxml-->
+<view class="main_panel">
+  <view class="top_panel">
+    <view class="top_top_panel">
+      <view class="search_panel">
+        <image class="search_icon" src="/images/icons/search.png"></image>
+        <input class="input_panel" placeholder="输入房源名"></input>
+        <text class="time_panel">12.06-12.07</text>
+      </view>
+      <view class="map_panel">
+        <image class="map_icon" src="/images/icons/map.png"></image>
+        <text>地图</text>
+      </view>
+    </view>
+    <view class="screen_panel">
+      <view class="screen_item_panel" bindtap="change_screen" data-c_type="1">
+        <text style="color:{{count_color}}">{{count_text}}</text>
+        <image class="screen_item_icon" src="{{count_icon}}"></image>
+      </view>
+      <view class="screen_item_panel" style="flex:1.3" bindtap="change_screen" data-c_type="2">
+        <text style="color:{{price_color}}">{{price_text}}</text>
+        <image class="screen_item_icon" src="{{price_icon}}"></image>
+      </view>
+      <view class="screen_item_panel" bindtap="change_screen" data-c_type="3">
+        <text style="color:{{score_color}}">{{score_text}}</text>
+        <image class="screen_item_icon" src="{{score_icon}}"></image>
+      </view>
+      <view class="screen_item_panel" bindtap="change_screen" data-c_type="4">
+        <text style="color:{{sort_color}}">{{sort_text}}</text>
+        <image class="screen_item_icon" src="{{sort_icon}}"></image>
+      </view>
+    </view>
+  </view>
+  <view class="content_panel">
+    <view class="house_list_view">
+      <block wx:for="{{house_data}}" wx:key="item">
+        <view class="house_view" style="margin-right:30rpx;">
+          <text class="house_name">{{item.housename}}</text>
+          <image class="collect_image" src="{{item.collect_img}}" bindtap="changecollect" data-hid="{{item.id}}"></image>
+          <image class="house_image" src="{{item.first_image.url}}" mode='widthFix' bindtap="tohouse_deatil" data-hid="{{item.id}}" data-hname="{{item.housename}}" data-price="{{item.houseprice}}"></image>
+          <text class="specification_text">独立房间-{{item.specification}}</text>
+          <text class="introduce_text">{{item.housedesc}}</text>
+          <view class="line"></view>
+          <view class="row_view">
+            <block wx:for="{{item.star}}" wx:key="item">
+              <image class="image_star" src="{{item.url}}"></image>
+            </block>
+            <text class="praise_view">{{item.likecount}}超赞房东</text>
+            <text class="price">￥{{item.houseprice}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class="cover_panel2" hidden="{{screen_main_panel}}"></view>
+  <view class="screen_main_panel" hidden="{{screen_main_panel}}">
+    <view class="screen_main_1" hidden="{{screen_main_1}}">
+      <view class="screen_view_1">
+        <block wx:for="{{people_data}}" wx:key="item">
+          <view class="screen_main1_item" style="color:{{item.color}};background-color:{{item.back}};border-color:{{item.bcolor}}" bindtap="change_count" data-count="{{item.id}}" data-text="{{item.count}}">
+            {{item.count}}
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class="screen_main_2" hidden="{{screen_main_2}}">
+      <view class="screen_view_2">
+        <view class="price_panel">
+          <view class="price_panel_item">
+            <text>￥{{minPrice}}</text>
+          </view>
+          <view class="price_panel_item">
+            <text>￥{{maxPrice}}</text>
+          </view>
+        </view>
+        <view class="zy-slider">
+          <zy-slider id="zy-slider" minValue="{{minValue}}" maxValue="{{maxValue}}" min="{{slider_min}}" max="{{slider_max}}" bind:lowValueChange="lowValueChangeAction" bind:heighValueChange="heighValueChangeAction" />
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="screen_view_2">
+        <view class="reset_button" bindtap="resetSlider">重置</view>
+        <view class="save_button" bindtap="savePrice">保存</view>
+      </view>
+    </view>
+    <view class="screen_main_3" hidden="{{screen_main_3}}">
+      <view class="screen_view_3">
+        <block wx:for="{{score_data}}" wx:key="item">
+          <view class="screen_main3_item" style="color:{{item.color}};background-color:{{item.back}};border-color:{{item.bcolor}}" bindtap="change_score" data-id="{{item.id}}" data-min="{{item.min_score}}" data-max="{{item.max_score}}" data-text="{{item.score_text}}">
+            {{item.score_text}}
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class="screen_main_4" hidden="{{screen_main_4}}">
+      <view class="screen_view_4">
+        <block wx:for="{{sort_data}}" wx:key="item">
+          <view class="screen_view_4_item" style="color:{{item.color}};background-color:{{item.back}};border-color:{{item.bcolor}}" bindtap="change_sort" data-id="{{item.id}}" data-text="{{item.text}}">
+            <view style="padding:5rpx 0rpx">{{item.text}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class="cover_panel" bindtap="hidden_screen_main_panel"></view>
+  </view>
+</view>

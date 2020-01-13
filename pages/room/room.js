@@ -55,7 +55,9 @@ Page({
     enddate: '',
     saedates: '2019-12-06~2019-12-08',
     prices: '',
-    day_count:1
+    day_count:1,
+    device:[],
+    hidden_evaluate:true
   },
 
   /**
@@ -190,6 +192,17 @@ Page({
           latitude = room_datas.house.latitude;
           longitude = room_datas.house.longitude;
           var score = room_datas.house.housescore;
+          var device = room_datas.device;
+          var evaluate = room_datas.evaluate;
+          if (evaluate.length == 0){
+            that.setData({
+              hidden_evaluate:true
+            })
+          }else{
+            that.setData({
+              hidden_evaluate: false
+            })
+          }
           that.set_star_list(score);
           that.set_star_text(score);
 
@@ -209,7 +222,7 @@ Page({
           var landlord = room_datas.landlord;
           var landlord_id = landlord.id;
           var landlord_head = landlord.head;
-          var landlord_name = landlord.username
+          var landlord_name = landlord.nickname;
           var room_count = 5;
           that.getdistance(latitude, longitude)
           that.setData({
@@ -234,7 +247,9 @@ Page({
             landlord_id: landlord_id,
             landlord_head: landlord_head,
             landlord_name: landlord_name,
-            room_count: room_count
+            room_count: room_count,
+            device: device,
+            evaluate: evaluate
           })
           that.setmap();
         }
@@ -517,5 +532,26 @@ Page({
         console.log("启动请求列表" + res);
       },
     });
+  },
+  login_timeout: function () {
+    wx.showModal({
+      title: '登录超时',
+      content: '请重新登录',
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) {
+          wx.navigateTo({
+            url: '../index/index'
+          });
+          console.log('跳转回登录')
+        } else {
+          url: '../index/index'
+          wx.navigateTo({
+            url: '../index/index'
+          });
+          console.log('跳转回登录')
+        }
+      }
+    })
   }
 })

@@ -19,12 +19,12 @@
     <view class="guest_panel">
       <view class="row_view">
         <text class="row_text1">入住人数</text>
-        <text class="row_text2">2位</text>
+        <text class="row_text2">{{people_count}}位</text>
       </view>
       <view class="line"></view>
       <view class="row_view">
         <text class="row_text1">住客信息</text>
-        <text class="row_text2">(已选择2人)</text>
+        <text class="row_text2">(已选择{{people_count}}人)</text>
         <text class="row_text3" bindtap="to_add_guest">添加租客</text>
       </view>
       <checkbox-group bindchange="checkboxChange" style="margin-left:-40rpx;">
@@ -47,6 +47,6 @@
       <text class="tip_text">合计</text>
       <text class="price_text">￥{{price}}</text>
     </view>
-    <view class="button_view">申请预订</view>
+    <view class="button_view" bindtap="create">申请预订</view>
   </view>
 </view>

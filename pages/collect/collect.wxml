@@ -2,13 +2,13 @@
 <view class="page">
   <view class="house_list">
     <block wx:for="{{collect_data}}" wx:key="item">
-      <view class="house_item">
-        <image class="house_item_image" src="{{item.url}}" mode="aspectFill"></image>
+      <view class="house_item" bindtap="tohouse_deatil" data-hid="{{item.id}}" data-hname="{{item.housename}}" data-price="{{item.houseprice}}">
+        <image class="house_item_image" src="{{item.first_image.url}}" mode="aspectFill"></image>
         <view class="house_item_text">
-          <text class="area_text">广东省广州市越秀区</text>
-          <text class="introduce_text">{{item.introduce}}{{item.introduce}}</text>
+          <text class="area_text">{{item.housename}}</text>
+          <text class="introduce_text">{{item.housedesc}}</text>
           <view class="row_view">
-            <text class="price_text">￥{{item.price}}</text>
+            <text class="price_text">￥{{item.houseprice}}</text>
             <text>每晚</text>
           </view>
         </view>

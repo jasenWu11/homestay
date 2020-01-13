@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/room_list/room_list",
     "pages/index/index",
     "pages/book/book",
     "pages/room/room",

@@ -1,4 +1,5 @@
 // pages/order/order.js
+const app = getApp();
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 var order_data = require("../../js/place.js").order_data;
 Page({
@@ -87,6 +88,30 @@ Page({
   getorder_list: function() {
     var that = this;
     var order_list = order_data;
+    wx.request({
+      url: app.globalData.URL + '/order/list.do',
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey")
+      },
+      method: 'GET',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log("返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+          
+        }
+      },
+      fail: function (res) {
+        console.log("返回错误" + res);
+      },
+      complete: function (res) {
+        console.log("启动请求列表" + res);
+      },
+    });
     for (var i = 0; i < order_list.length; i++) {
       var status = order_list[i].status;
       var status_text = '';
@@ -99,6 +124,27 @@ Page({
     }
     that.setData({
       order_data: order_list
+    })
+  },
+  login_timeout: function () {
+    wx.showModal({
+      title: '登录超时',
+      content: '请重新登录',
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) {
+          wx.navigateTo({
+            url: '../index/index'
+          });
+          console.log('跳转回登录')
+        } else {
+          url: '../index/index'
+          wx.navigateTo({
+            url: '../index/index'
+          });
+          console.log('跳转回登录')
+        }
+      }
     })
   }
 })
