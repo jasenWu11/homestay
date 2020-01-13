@@ -66,10 +66,10 @@ Page({
                         }
                       },
                       fail: function (res) {
-                        console.log("返回错误" + res);
+                        console.log("返回错误" + JSON.stringify(res));
                       },
                       complete: function (res) {
-                        console.log("启动请求" + res);
+                        console.log("启动请求" + JSON.stringify(res));
                       },
                     })
                   } else {

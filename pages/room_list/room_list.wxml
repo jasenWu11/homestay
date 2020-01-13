@@ -5,7 +5,7 @@
       <view class="search_panel">
         <image class="search_icon" src="/images/icons/search.png"></image>
         <input class="input_panel" placeholder="输入房源名"></input>
-        <text class="time_panel">12.06-12.07</text>
+        <text class="time_panel" bindtap="change_date">{{startdate_text}}-{{enddate_text}}</text>
       </view>
       <view class="map_panel">
         <image class="map_icon" src="/images/icons/map.png"></image>
@@ -35,7 +35,11 @@
     <view class="house_list_view">
       <block wx:for="{{house_data}}" wx:key="item">
         <view class="house_view" style="margin-right:30rpx;">
-          <text class="house_name">{{item.housename}}</text>
+          <view class="name_distance_panel">
+            <text class="house_name">{{item.housename}}</text>
+            <text>距离：</text>
+            <text class="distance_text">{{item.distances}}公里</text>
+          </view>
           <image class="collect_image" src="{{item.collect_img}}" bindtap="changecollect" data-hid="{{item.id}}"></image>
           <image class="house_image" src="{{item.first_image.url}}" mode='widthFix' bindtap="tohouse_deatil" data-hid="{{item.id}}" data-hname="{{item.housename}}" data-price="{{item.houseprice}}"></image>
           <text class="specification_text">独立房间-{{item.specification}}</text>

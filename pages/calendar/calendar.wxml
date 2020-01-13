@@ -13,7 +13,10 @@
     <view class="date-day {{item.day<=0?'bgwhite':item.class}}" style="width:{{systemInfo.windowWidth/7-10}}px;height:{{systemInfo.windowWidth/7}}px;" data-year="{{dateItem.year}}" data-month="{{dateItem.month}}" data-day="{{item.day}}" data-price="{{item.price}}"bindtap="onPressDate"
       wx:for="{{dateItem.days}}" wx:key="index">
       <view class='item-days'>
-        <text style='font-size:28rpx;display:flex;flex-direction: column;'>{{item.day>0?(item.daytext?item.daytext+"￥"+item.price:item.day+' \n '+"￥"+item.price):''}}</text>
+        <text style='font-size:28rpx;display:flex;flex-direction: column;'>
+        <block  wx:if="{{item.price != ''}}" class="week">{{item.day>0?(item.daytext?item.daytext+"￥"+item.price:item.day+' \n '+"￥"+item.price):''}}</block>
+        <block  wx:if="{{item.price == ''}}" class="week">{{item.day>0?(item.daytext?item.daytext:item.day):''}}</block>
+        </text>
         <text style='font-size:30rpx;' wx:if="{{item.inday}}">入住</text>
         <text style='font-size:30rpx;' wx:if="{{item.outday}}">离店</text>
       </view>

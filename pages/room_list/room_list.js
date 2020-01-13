@@ -14,7 +14,7 @@ var liveCount = 0;
 var minPrice = 0;
 var maxPrice = 2500;
 var minScore = 0;
-var maxScore = 100;
+var maxScore = 5;
 var isDistance = false;
 var isScore = false;
 var nowLat = wx.getStorageSync('mylatitude');
@@ -73,6 +73,7 @@ Page({
    */
   onShow: function() {
     this.gethouse_list();
+    this.setdate_text();
   },
 
   /**
@@ -450,6 +451,8 @@ Page({
               collect_img = nocollect
             }
             house_list[i].star = star_list;
+            var distances = house_list[i].distance;
+            house_list[i].distances = (distances/1000).toFixed(2)
             house_list[i].collect_img = collect_img
             house_list[i].first_image = JSON.parse(house_list[i].houseimage)[0]
           }
@@ -524,6 +527,7 @@ Page({
     })
   },
   deleted_collect: function (hid) {
+    var that = this;
     console.log('要取消的' + hid)
     wx.request({
       url: app.globalData.URL + '/house/collect/delete.do?Id=' + hid,
@@ -552,6 +556,7 @@ Page({
     });
   },
   add_collect: function (hid) {
+    var that = this;
     console.log('要收藏的' + hid)
     wx.request({
       url: app.globalData.URL + '/house/collect/add.do?Id=' + hid,
@@ -578,5 +583,43 @@ Page({
         console.log("启动请求列表" + res);
       },
     });
+  },
+  change_date: function () {
+    wx.navigateTo({
+      url: '../calendar/calendar?price=' + '',
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
+  setdate_text: function () {
+    let getDate = wx.getStorageSync("ROOM_SOURCE_DATE");
+    var startdate = getDate.checkInDate;
+    var enddate = getDate.checkOutDate;
+    var startdate_text = this.formatDate(startdate);
+    var enddate_text = this.formatDate(enddate);
+    this.isDuringDate(getDate.checkInDate, getDate.checkOutDate);
+    this.setData({
+      startdate_text: startdate_text,
+      enddate_text: enddate_text
+    })
+  },
+  isDuringDate: function (firstDate, secondDate) {
+    var firstDate = new Date(firstDate);
+    var secondDate = new Date(secondDate);
+    var diff = Math.abs(firstDate.getTime() - secondDate.getTime())
+    var day_count = parseInt(diff / (1000 * 60 * 60 * 24));
+    this.setData({
+      day_count: day_count
+    })
+  },
+  formatDate: function (dates) { //设置时间转换格式
+    var date = new Date(dates)
+    var y = date.getFullYear();  //获取年
+    var m = date.getMonth() + 1;  //获取月
+    m = m < 10 ? '0' + m : m;  //判断月是否大于10
+    var d = date.getDate();  //获取日
+    d = d < 10 ? ('0' + d) : d;  //判断日期是否大10
+    return m + '.' + d;  //返回时间格式
   }
 })

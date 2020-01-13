@@ -2,6 +2,7 @@
 const app = getApp();
 var hot_city_list = require("../../js/place.js").hot_city_list;
 var house_data = require("../../js/place.js").house_data;
+var Moment = require("../../utils/moment.js");
 var iscollect = '/images/icons/iscollect.png'
 var nocollect = '/images/icons/nocollect.png'
 Page({
@@ -39,14 +40,22 @@ Page({
     button_list: [],
     house_data: [],
     history_data: [],
-    cname: '北京'
+    cname: '北京',
+    day_count: 1
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    //设缓存缓存起来的日期
+    wx.setStorage({
+      key: 'ROOM_SOURCE_DATE',
+      data: {
+        checkInDate: Moment(new Date()).format('YYYY-MM-DD'),
+        checkOutDate: Moment(new Date()).add(1, 'day').format('YYYY-MM-DD')
+      }
+    });
   },
 
   /**
@@ -62,6 +71,7 @@ Page({
   onShow: function() {
     this.gethot_city_list();
     this.gethistory();
+    this.setdate_text();
   },
 
   /**
@@ -189,7 +199,7 @@ Page({
       },
     });
   },
-  tohouse_deatil: function (event) {
+  tohouse_deatil: function(event) {
     var hid = event.currentTarget.dataset.hid;
     var hname = event.currentTarget.dataset.hname;
     var price = event.currentTarget.dataset.price;
@@ -286,6 +296,20 @@ Page({
   changecollect: function(event) {
     var that = this;
     var hid = event.currentTarget.dataset.hid;
+    var history_data = this.data.history_data;
+    for (var i = 0; i < history_data.length; i++) {
+      var id = history_data[i].id;
+      if (id == hid) {
+        if (history_data[i].isCollect == true) {
+          history_data[i].isCollect = false;
+          history_data[i].collect_img = nocollect;
+        } else {
+          history_data[i].isCollect = true;
+          history_data[i].collect_img = iscollect;
+        }
+        break;
+      }
+    }
     var house_data = this.data.house_data;
     for (var i = 0; i < house_data.length; i++) {
       var id = house_data[i].id;
@@ -303,6 +327,7 @@ Page({
       }
     }
     that.setData({
+      history_data: history_data,
       house_data: house_data
     })
   },
@@ -361,5 +386,78 @@ Page({
         console.log("启动请求列表" + res);
       },
     });
+  },
+  to_room_list: function() {
+    wx.navigateTo({
+      url: '../room_list/room_list',
+    })
+  },
+  change_date: function() {
+    wx.navigateTo({
+      url: '../calendar/calendar?price=' + '',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+  setdate_text: function() {
+    let getDate = wx.getStorageSync("ROOM_SOURCE_DATE");
+    var startdate = getDate.checkInDate;
+    var enddate = getDate.checkOutDate;
+    var startdate_text = this.formatDate(startdate);
+    var enddate_text = this.formatDate(enddate);
+    var start_week = this.get_week(startdate);
+    var enddate_week = this.get_week(enddate);
+    this.isDuringDate(getDate.checkInDate, getDate.checkOutDate);
+    this.setData({
+      startdate_text: startdate_text,
+      enddate_text: enddate_text,
+      start_week: start_week,
+      enddate_week: enddate_week
+    })
+  },
+  isDuringDate: function(firstDate, secondDate) {
+    var firstDate = new Date(firstDate);
+    var secondDate = new Date(secondDate);
+    var diff = Math.abs(firstDate.getTime() - secondDate.getTime())
+    var day_count = parseInt(diff / (1000 * 60 * 60 * 24));
+    this.setData({
+      day_count: day_count
+    })
+  },
+  formatDate: function(dates) { //设置时间转换格式
+    var date = new Date(dates)
+    var y = date.getFullYear();  //获取年
+    var m = date.getMonth() + 1;  //获取月
+    m = m < 10 ? '0' + m : m;  //判断月是否大于10
+    var d = date.getDate();  //获取日
+    d = d < 10 ? ('0' + d) : d;  //判断日期是否大10
+    return m + '月' + d + '日';  //返回时间格式
+  },
+  get_week: function (dates){
+    var date = new Date(dates)
+    var week = date.getDay();
+    if (week == 0) {
+      week = "周日";
+    }
+    else if (week == 1) {
+      week = "周一";
+    }
+    else if (week == 2) {
+      week = "周二";
+    }
+    else if (week == 3) {
+      week = "周三";
+    }
+    else if (week == 4) {
+      week = "周四";
+    }
+    else if (week == 5) {
+      week = "周五";
+    }
+    else if (week == 6) {
+      week = "周六";
+    }
+    return week;
   }
 })

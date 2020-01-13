@@ -402,7 +402,7 @@ var sort_data = [{
   },
   {
     id: 2,
-    text: '价格排序',
+    text: '评分排序',
     back: '#ffffff',
     bcolor: '#bbbbbb',
     color: '#000000'
@@ -413,7 +413,7 @@ var score_data = [
   {
     id: 0,
     min_score: 0,
-    max_score: 100,
+    max_score: 5,
     score_text: '不限分数',
     back: '#19896f',
     bcolor: '#19896f',
@@ -422,7 +422,7 @@ var score_data = [
   {
     id: 1,
     min_score: 0,
-    max_score: 80,
+    max_score: 4,
     score_text: '4.0以下',
     back: '#ffffff',
     bcolor: '#bbbbbb',
@@ -430,8 +430,8 @@ var score_data = [
   },
   {
     id: 2,
-    min_score: 81,
-    max_score: 90,
+    min_score: 4,
+    max_score: 4.5,
     score_text: '4.0-4.5',
     back: '#ffffff',
     bcolor: '#bbbbbb',
@@ -439,8 +439,8 @@ var score_data = [
   },
   {
     id: 3,
-    min_score: 91,
-    max_score: 100,
+    min_score: 4.5,
+    max_score: 5,
     score_text: '4.5-5.0',
     back: '#ffffff',
     bcolor: '#bbbbbb',

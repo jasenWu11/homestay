@@ -296,7 +296,7 @@ page{
 .house_list_view .house_view .collect_image{
   width: 60rpx;
   height: 60rpx;
-  z-index: 999;
+  z-index: 2;
   position:relative;
   margin-bottom: -80rpx;
   margin-left: 590rpx;
@@ -319,14 +319,28 @@ page{
   margin-left: 244rpx;
   box-sizing: border-box;
 }
-
-.house_view .house_name {
-  font-size: 28rpx;
-  font-family: SimSun;
+.house_view .name_distance_panel{
   margin: 15rpx 0rpx 30rpx 0rpx;
-  color: #19896f;
   padding: 0rpx 20rpx;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+  font-family: SimSun;
+  color: #000000;
+}
+.name_distance_panel .house_name {
+  font-size: 28rpx;
+  font-family: SimSun;
+  color: #19896f;
+  flex: 1;
+}
+
+.name_distance_panel .distance_text {
+  font-size: 28rpx;
+  font-family: SimSun;
+  color: #19896f;
 }
 
 .house_view .house_image {

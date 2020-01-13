@@ -100,8 +100,8 @@
         </view>
       </view>
       <view class="tip_panel">
-        <text class="title_text">评价({{evaluation_count}})条</text>
-        <text class="to_text">全部评价></text>
+        <text class="title_text">评价({{evaluate.length}})条</text>
+        <text class="to_text" bindtap="to_evaluate">全部评价></text>
       </view>
       <view class="evaluation_panel" hidden="{{hidden_evaluate}}">
         <view class="info_view">
@@ -118,12 +118,12 @@
         <view class="bubbleTail"></view>
         <view class="user_info_panel">
           <view class="base_info">
-            <image class="user_head" src="{{user_head}}"></image>
-            <text class="username_text">{{user_name}}</text>
-            <text class="time_text">{{evaluation_time}}</text>
+            <image class="user_head" src="{{evaluate[0].userImage}}"></image>
+            <text class="username_text">{{evaluate[0].nickname}}</text>
+            <text class="time_text">{{evaluate[0].evaluateTime}}</text>
           </view>
-          <text class="score_text">{{evaluation_score}}<text style="font-size:24rpx;">分</text></text>
-          <text class="evaluation_text">{{evaluation_content}}</text>
+          <text class="score_text">{{evaluate[0].orderstar}}<text style="font-size:24rpx;">分</text></text>
+          <text class="evaluation_text">{{evaluate[0].remarks}}</text>
         </view>
       </view>
       <view class="security_panel">

@@ -1,0 +1,48 @@
+/* pages/evaluate/evaluate.wxss */
+page{
+  width: 100%;
+  height: 100%;
+}
+.user_info_panel {
+  width: 100%;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
+}
+
+.user_info_panel .base_info{
+  display: flex;
+  align-items: center;
+}
+
+.base_info .user_head{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+}
+
+.base_info .username_text{
+  font-size: 28rpx;
+  color: #000000;
+  flex: 1;
+  margin-left: 20rpx;
+}
+
+.base_info .time_text{
+  font-size: 24rpx;
+  color: #aaaaaa;
+}
+
+.user_info_panel .score_text{
+  color: #000000;
+  font-size: 36rpx;
+  margin: 5rpx 0rpx 5rpx 10rpx;
+}
+
+.user_info_panel .evaluation_text{
+  font-size: 30rpx;
+  color: #000000;
+  margin: 5rpx 0rpx 5rpx 10rpx;
+}

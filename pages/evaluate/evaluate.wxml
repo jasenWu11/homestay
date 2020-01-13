@@ -1,0 +1,12 @@
+<!--pages/evaluate/evaluate.wxml-->
+<block wx:for="{{evaluate}}" wx:key="item">
+  <view class="user_info_panel">
+    <view class="base_info">
+      <image class="user_head" src="{{item.userImage}}"></image>
+      <text class="username_text">{{item.nickname}}</text>
+      <text class="time_text">{{item.evaluateTime}}</text>
+    </view>
+    <text class="score_text">{{item.orderstar}}<text style="font-size:24rpx;">分</text></text>
+    <text class="evaluation_text">{{item.remarks}}</text>
+  </view>
+</block>

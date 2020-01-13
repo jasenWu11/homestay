@@ -33,28 +33,28 @@
         </view>
       </view>
       <view class="line"></view>
-      <view class="destination_panel">
+      <view class="destination_panel" bindtap="change_date">
         <view class="destination_view">
           入住时间
           <view class="destination_choose_view">
-            12月10日
-            <view class="destination_choose_view_text">周二</view>
+            {{startdate_text}}
+            <view class="destination_choose_view_text">{{start_week}}</view>
           </view>
         </view>
         <view class="destination_view">
           离开时间
           <view class="destination_choose_view">
-            12月11日
-            <view class="destination_choose_view_text">周三</view>
+            {{enddate_text}}
+            <view class="destination_choose_view_text">{{enddate_week}}</view>
           </view>
         </view>
         <view class="destination_location_view">
-          <text class="destination_location_view_text">共1晚</text>
+          <text class="destination_location_view_text">共{{day_count}}晚</text>
           <image class="destination_location_view_image_right" src='/images/home/right.png'></image>
         </view>
       </view>
       <view class="line"></view>
-      <view class="search_button">查找民宿</view>
+      <view class="search_button" bindtap="to_room_list">查找民宿</view>
     </view>
     <image class="main_image" src="{{main_image}}" mode="widthFix"></image>
     <text class="title_text">优质房源推荐</text>
@@ -68,7 +68,7 @@
     <view class="house_list_panel">
       <view class="house_list_view">
         <block wx:for="{{house_data}}" wx:key="item">
-          <view class="house_view" style="margin-right:30rpx;">
+          <view class="house_view">
             <image class="collect_image" src="{{item.collect_img}}" bindtap="changecollect" data-hid="{{item.id}}"></image>
             <image class="house_image" src="{{item.first_image.url}}" mode='widthFix' bindtap="tohouse_deatil" data-hid="{{item.id}}" data-hname="{{item.housename}}" data-price="{{item.houseprice}}"></image>
             <text class="specification_text">独立房间-{{item.specification}}</text>

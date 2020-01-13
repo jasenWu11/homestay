@@ -70,14 +70,6 @@ Page({
     })
     mylatitude = wx.getStorageSync('mylatitude')
     mylongitude = wx.getStorageSync('mylongitude')
-    //设缓存缓存起来的日期
-    wx.setStorage({
-      key: 'ROOM_SOURCE_DATE',
-      data: {
-        checkInDate: Moment(new Date()).format('YYYY-MM-DD'),
-        checkOutDate: Moment(new Date()).add(1, 'day').format('YYYY-MM-DD')
-      }
-    });
     this.get_room_data();
   },
 
@@ -200,7 +192,8 @@ Page({
             })
           }else{
             that.setData({
-              hidden_evaluate: false
+              hidden_evaluate: false,
+              evaluate: evaluate
             })
           }
           that.set_star_list(score);
@@ -552,6 +545,17 @@ Page({
           console.log('跳转回登录')
         }
       }
+    })
+  },
+  to_evaluate:function(){
+    console.log('to_evaluate')
+    wx.navigateTo({
+      url: '../evaluate/evaluate?evaluate=' + JSON.stringify(this.data.evaluate),
+      success: function (res) { },
+      fail: function (res) {
+        console.log(res)
+      },
+      complete: function (res) { },
     })
   }
 })

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/room_list/room_list",
     "pages/index/index",
+    "pages/room_list/room_list",
     "pages/book/book",
     "pages/room/room",
     "pages/home/home",
@@ -11,7 +11,8 @@
     "pages/message/message",
     "pages/collect/collect",
     "pages/logs/logs",
-    "pages/calendar/calendar"
+    "pages/calendar/calendar",
+    "pages/evaluate/evaluate"
   ],
   "window": {
     "backgroundTextStyle": "light",
