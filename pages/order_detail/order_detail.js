@@ -252,7 +252,7 @@ Page({
                 add_evaluate_hidden: false
               })
             }
-          } else if (ostatus == 3) {
+          } else if (ostatus == 2) {
             ostatus_text = '已取消'
             that.setData({
               pay_hidden: true,
@@ -437,6 +437,41 @@ Page({
           console.log('跳转回登录')
         }
       }
+    })
+  },
+  canel_order:function(){
+    var that = this;
+    wx.request({
+      url: app.globalData.URL + '/order/cancel.do?id=' + o_id,
+      method: 'get',
+      dataType: 'json',
+      header: {
+        'Cookie': wx.getStorageSync('cookieKey')
+      },
+      responseType: 'text',
+      success: function (res) {
+        console.log("返回结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 0) {
+          wx.showToast({
+            title: '订单已取消',
+            icon: 'success'
+          })
+          that.get_order_detail();
+        } else {
+          var msg = res.data.msg;
+          wx.showToast({
+            title: msg,
+            image: '/images/icons/wrong.png',
+          })
+        }
+      },
+      fail: function (res) {
+        console.log("返回错误" + res);
+      },
+      complete: function (res) {
+        console.log("启动请求" + res);
+      },
     })
   }
 })

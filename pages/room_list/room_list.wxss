@@ -267,6 +267,7 @@ page{
   box-sizing: border-box;
   overflow: auto;
   background-color: #ffffff;
+  -webkit-overflow-scrolling: touch;
 }
 
 .line {

@@ -21,6 +21,7 @@ page {
   margin-bottom: 2rpx;
   padding: 0rpx 40rpx;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .top_panel .house_info {

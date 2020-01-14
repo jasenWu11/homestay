@@ -1,4 +1,5 @@
 // pages/message/message.js
+const app = getApp();
 var message_data = require("../../js/place.js").message_data;
 Page({
 
@@ -69,9 +70,70 @@ Page({
     that.setData({
       message_data: []
     })
-    var message_list = message_data;
-    that.setData({
-      message_data: message_list
+    wx.request({
+      url: app.globalData.URL + '/chat/list.do',
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey"),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log("返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+          var message_list = res.data.data;
+          that.setData({
+            message_data: message_list
+          })
+        }else{
+          var msg = res.data.msg;
+          wx.showToast({
+            title: msg,
+            image: '/images/icons/wrong.png'
+          })
+        }
+      },
+      fail: function (res) {
+        console.log("返回错误" + res);
+      },
+      complete: function (res) {
+        console.log("启动请求列表" + res);
+      },
+    });
+  },
+  login_timeout: function () {
+    wx.showModal({
+      title: '登录超时',
+      content: '请重新登录',
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) {
+          wx.navigateTo({
+            url: '../index/index'
+          });
+          console.log('跳转回登录')
+        } else {
+          url: '../index/index'
+          wx.navigateTo({
+            url: '../index/index'
+          });
+          console.log('跳转回登录')
+        }
+      }
+    })
+  }, 
+  to_chat: function (event) {
+    var that = this;
+    var channel = event.currentTarget.dataset.channel;
+    wx.navigateTo({
+      url: '../chat/chat?channel=' + channel,
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
     })
   }
 })

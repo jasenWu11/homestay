@@ -53,8 +53,10 @@ Page({
                         if (status == 0) {
                           var uname = res.data.data.username;
                           var ispass = res.data.data.ispass;
+                          var my_id = res.data.data.id;
                           wx.setStorageSync('uname', uname);
                           wx.setStorageSync('ispass', ispass);
+                          wx.setStorageSync('my_id', my_id);
                           if (res && res.header && res.header['Set-Cookie']) {
                             wx.setStorageSync('cookieKey', res.header['Set-Cookie']); //保存Cookie到Storage
                           }

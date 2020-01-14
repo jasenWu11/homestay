@@ -74,7 +74,7 @@
     <text>订单时间：<text style="color:#000000;">{{order_data.order.ordertime}}</text></text>
   </view>
   <button class="weui-btn" type="primary" style="width:100%;margin-top:30rpx;" hidden="{{pay_hidden}}" bindtap="showInputLayer">支付订单</button>
-  <button class="weui-btn" type="default" style="width:100%;margin-top:30rpx;" hidden="{{canel_hidden}}">取消订单</button>
+  <button class="weui-btn" type="default" style="width:100%;margin-top:30rpx;" hidden="{{canel_hidden}}" bindtap="canel_order">取消订单</button>
   <button class="none-btn" open-type="contact" session-from="weapp" hover-class="btn-hover" style="width:100%;margin:30rpx 0rpx 50rpx 0rpx; background-color:#1296db;color:#ffffff">
     申请售后处理
   </button>

@@ -27,19 +27,21 @@
         <text class="row_text2">(已选择{{people_count}}人)</text>
         <text class="row_text3" bindtap="to_add_guest">添加租客</text>
       </view>
-      <checkbox-group bindchange="checkboxChange" style="margin-left:-40rpx;">
-        <view class="check_item_view" wx:for="{{checkboxItems}}" wx:key="value">
-          <label class="weui-cell weui-check__label" style="flex:1;">
-            <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
-            <view class="weui-cell__hd weui-check__hd_in-checkbox">
-              <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
-              <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
-            </view>
-            <view class="weui-cell__bd">{{item.name}}</view>
-          </label>
-          <image class="del_image" data-gid="{{item.value}}" data-name="{{item.name}}" bindtap="delete_guest" src="/images/icons/delete.png"></image>
-        </view>
-      </checkbox-group>
+      <scroll-view scroll-y="true" style="height: 600rpx">
+        <checkbox-group id="cgroup" bindchange="checkboxChange" style="margin-left:-40rpx;" style="overflow:auto">
+          <view class="check_item_view" wx:for="{{checkboxItems}}" wx:key="value">
+            <label class="weui-cell weui-check__label" style="flex:1;">
+              <checkbox class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+              <view class="weui-cell__hd weui-check__hd_in-checkbox">
+                <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
+                <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
+              </view>
+              <view class="weui-cell__bd">{{item.name}}</view>
+            </label>
+            <image class="del_image" data-gid="{{item.value}}" data-name="{{item.name}}" bindtap="delete_guest" src="/images/icons/delete.png"></image>
+          </view>
+        </checkbox-group>
+      </scroll-view>
     </view>
   </view>
   <view class="bottom_panel">

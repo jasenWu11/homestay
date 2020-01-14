@@ -261,5 +261,26 @@ Page({
         console.log("启动请求列表" + res);
       },
     });
+  },
+  login_timeout: function () {
+    wx.showModal({
+      title: '登录超时',
+      content: '请重新登录',
+      showCancel: false,
+      success: function (res) {
+        if (res.confirm) {
+          wx.navigateTo({
+            url: '../index/index'
+          });
+          console.log('跳转回登录')
+        } else {
+          url: '../index/index'
+          wx.navigateTo({
+            url: '../index/index'
+          });
+          console.log('跳转回登录')
+        }
+      }
+    })
   }
 })
