@@ -161,11 +161,7 @@ Page({
                     wx.showToast({
                       title: '评论发布成功',
                     })
-                    var orderstate = 5
-                    that.setData({
-                      orderstate: orderstate
-                    })
-                    that.set_status(orderstate, that.data.evaluation_text);
+                    that.get_order_detail();
                   } else {
                     var msg = res.data.msg
                     wx.showToast({
@@ -276,13 +272,23 @@ Page({
           var evaluate = order_data.evaluate;
           if (evaluate == null) {
             console.log('无评价信息')
-            that.setData({
-              evaluate_hidden: true
-            })
+            var ostatus_text = order_data.order['status_text'];
+            if (ostatus_text == '已完成'){
+              that.setData({
+                evaluate_hidden: true,
+                add_evaluate_hidden: false
+              })
+            }else{
+              that.setData({
+                evaluate_hidden: true,
+                add_evaluate_hidden: true
+              })
+            }
           } else {
             that.setData({
               evaluate: evaluate,
-              evaluate_hidden: false
+              evaluate_hidden: false,
+              add_evaluate_hidden: true
             })
           }
         }
