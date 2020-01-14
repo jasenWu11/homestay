@@ -14,21 +14,21 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}" style="margin-bottom:40px;">
           <view class="order_list">
             <block wx:for="{{order_data}}" wx:key="item">
-              <view class="order_item">
+              <view class="order_item" bindtap="to_detail" data-o_id="{{item.id}}">
                 <view class="order_item_text">
-                  <text class="name_text">{{item.house_name}}</text>
-                  <text class="date_people_text">{{item.startdate}}-{{item.enddate}} {{item.people.length}}位</text>
+                  <text class="name_text">{{item.housename}}</text>
+                  <text class="date_people_text">{{item.startdate}}-{{item.enddate}} {{item.liveCount}}位</text>
                   <view class="status_row">
-                  <block wx:if="{{item.status == 2}}">
-                    <text class="status_text">{{item.status_text}}</text>￥{{item.price}}
+                  <block wx:if="{{item.orderstatus == 0}}">
+                    <text class="status_text">{{item.status_text}}</text>￥{{item.orderprice}}
                   </block>
                   <block wx:else>
-                    <text class="status_text" style="color:#000000">{{item.status_text}}</text>￥{{item.price}}
+                    <text class="status_text" style="color:#000000">{{item.status_text}}</text>￥{{item.orderprice}}
                   </block>
                   </view>
-                  <text class="time_text">{{item.time}}</text>
+                  <text class="time_text">{{item.ordertime}}</text>
                 </view>
-                <image class="order_image" src="{{item.image}}"></image>
+                <image class="order_image" src="{{item.first_image.url}}"></image>
               </view>
               <view class="line"></view>
             </block>

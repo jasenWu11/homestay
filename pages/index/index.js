@@ -131,8 +131,8 @@ Page({
       type: 'gcj02',
       dataType: "json",
       success: function (res) {
-        wx.setStorageSync('mylatitude', res.latitude)
-        wx.setStorageSync('mylongitude', res.longitude)
+        wx.setStorageSync('mylatitude', res.latitude+'')
+        wx.setStorageSync('mylongitude', res.longitude+'')
       },
       cancel: function (res) {
         console.log(res);

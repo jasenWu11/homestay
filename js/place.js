@@ -448,6 +448,28 @@ var score_data = [
   }
 ]
 
+var star_data = [{
+  id: 1,
+  src: "/images/icons/star_null.png"
+},
+{
+  id: 2,
+  src: "/images/icons/star_null.png"
+},
+{
+  id: 3,
+  src: "/images/icons/star_null.png"
+},
+{
+  id: 4,
+  src: "/images/icons/star_null.png"
+},
+{
+  id: 5,
+  src: "/images/icons/star_null.png"
+}
+]
+
 module.exports = {
   hot_city_list: hot_city_list,
   house_data: house_data,
@@ -456,5 +478,6 @@ module.exports = {
   room_data: room_data,
   people_data: people_data,
   score_data: score_data,
-  sort_data: sort_data
+  sort_data: sort_data,
+  star_data: star_data
 }

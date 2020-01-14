@@ -24,14 +24,14 @@
     <view class="line"></view>
     <text class="title_text">工具</text>
     <view class="row_panel">
-      <view class="row_panel_item">
+      <view class="row_panel_item"bindtap="call_service" >
         <image class="item_image" src="/images/mine/service.png" mode="aspectFit"></image>
-        <text class="item_text">联系客服</text>
+        <text class="item_text">电联客服</text>
       </view>
-      <view class="row_panel_item">
+      <button class="none-btn" open-type="contact" session-from="weapp" hover-class="btn-hover" style="width: 200rpx;display: flex;flex-direction: column;justify-content: center;align-items: center;padding:0rpx;background-color:#ffffff;">
         <image class="item_image" src="/images/mine/feedback.png" mode="aspectFit"></image>
-        <text class="item_text">反馈</text>
-      </view>
+        <text class="item_text">联系客服</text>
+      </button>
       <view class="row_panel_item"></view>
     </view>
   </view>

@@ -63,7 +63,6 @@ page{
 
 .map_panel .map_icon{
   width: 64rpx;
-  height: 50rpx;
   margin-right: 10rpx;
 }
 

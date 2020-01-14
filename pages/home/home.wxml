@@ -9,10 +9,10 @@
   interval 每一页停留的时长
   circular 播放到最后一页后是否再衔接第一页循环播放 -->
   <view class='carousel'>
-    <swiper class='carousel_swiper' indicator-dots="true" indicator-color="#f4f4f4" indicator-active-color="#4eb8b8" autoplay="true" interval='2000' circular='true'>
+    <swiper class='carousel_swiper' indicator-dots="true" indicator-color="#f4f4f4" indicator-active-color="#4eb8b8" autoplay="true" interval='4000' circular='true'>
       <block wx:for="{{carouselList}}" wx:key="item">
-        <swiper-item bindtap='chomeCarouselClick' data-url='{{item.link}}'>
-          <image class="carouselImg" src='{{item.url}}' mode='aspectFill'></image>
+        <swiper-item bindtap='chomeCarouselClick' data-url='{{item.advertlink}}'>
+          <image class="carouselImg" src='{{item.advertimage}}' mode='aspectFill'></image>
         </swiper-item>
       </block>
     </swiper>
@@ -22,12 +22,12 @@
       <view class="destination_panel">
         <view class="destination_view">
           目的地
-          <view class="destination_choose_view">
-            东莞
+          <view class="destination_choose_view" bindtap="to_change_city">
+            <text class="address_city_text">{{address}}</text>
             <image class="destination_choose_view_image" src='/images/home/down.png'></image>
           </view>
         </view>
-        <view class="destination_location_view">
+        <view class="destination_location_view" bindtap="get_location">
           <image class="destination_location_view_image" src='/images/home/location.png'></image>
           <text class="destination_location_view_text">我的位置</text>
         </view>

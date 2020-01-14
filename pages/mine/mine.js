@@ -75,5 +75,17 @@ Page({
     wx.navigateTo({
       url: '../order/order'
     });
+  },
+  call_service: function () {
+    console.log('拨打客服电话')
+    wx.makePhoneCall({
+      phoneNumber: '13509234754',
+      success: function () {
+        console.log("拨打电话成功！")
+      },
+      fail: function () {
+        console.log("拨打电话失败！")
+      }
+    })
   }
 })

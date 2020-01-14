@@ -1,0 +1,137 @@
+<!--pages/order_detail/order_detail.wxml-->
+<view class="main_panel">
+  <view class="top_panel">
+    <view class="left_panel">
+      <text class="left_top_panel">{{order_data.order.status_text}}</text>
+      <text class="left_bottom_panel">{{order_data.order.startdate_text}}-{{order_data.order.enddate_text}}|{{order_data.order.day}}晚|{{order_data.liveCount}}人</text>
+    </view>
+    <view class="right_panel">￥{{order_data.order.orderprice}}</view>
+  </view>
+  <view class="line"></view>
+  <view class="house_view" style="margin-right:30rpx;">
+    <image class="house_image" src="{{order_data.hosue.first_image.url}}" mode='widthFix' bindtap="tohouse_deatil" data-hid="{{order_data.hosue.id}}" data-hname="{{order_data.hosue.housename}}" data-price="{{order_data.hosue.houseprice}}"></image>
+    <view class="name_distance_panel">
+      <text class="house_name">{{order_data.hosue.housename}}</text>
+    </view>
+    <text class="introduce_text">{{order_data.hosue.housedesc}}</text>
+    <text class="specification_text">独立房间-{{order_data.hosue.specification}}-{{order_data.hosue.housepeople}}人</text>
+  </view>
+  <view class="line"></view>
+  <view class="address_panel" style="margin-top:25rpx;" hidden="{{add_evaluate_hidden}}">
+    <view class="address_view">
+      <text class="evaluation_tip">请您做出评价，让我们做的更好!</text>
+    </view>
+    <view class="star_panel">
+      <block wx:for="{{star_data}}" wx:key="item">
+        <image class="star_view" src="{{item.src}}" data-sid="{{item.id}}" bindtap="change_star"></image>
+      </block>
+    </view>
+  </view>
+  <view class="line"></view>
+  <view class="user_info_panel" hidden="{{evaluate_hidden}}">
+    <text class="title_text">评价</text>
+    <view class="base_info">
+      <image class="user_head" src="{{evaluate.userImage}}"></image>
+      <text class="username_text">{{evaluate.nickname}}</text>
+      <text class="time_text">{{evaluate.evaluateTime}}</text>
+    </view>
+    <text class="score_text">{{evaluate.score}}<text style="font-size:24rpx;">分</text></text>
+    <text class="evaluation_text">{{evaluate.evaluatetext}}</text>
+  </view>
+  <view class="line"></view>
+  <view class="date_panel">
+    <view class="line_nomargin"></view>
+    <view class="date_view">
+      <view class="date_item_view">
+        <text class="date_top_text">入住日期</text>
+        <text class="date_middle_text">{{order_data.order.startdate_text}}</text>
+        <text class="date_bottom_text">14:00后</text>
+      </view>
+      <view class="middle_view">
+        <view class="line_vertical"></view>
+        <text class="day_count_view">1晚</text>
+        <view class="line_vertical"></view>
+      </view>
+      <view class="date_item_view">
+        <text class="date_top_text">离开日期</text>
+        <text class="date_middle_text">{{order_data.order.enddate_text}}</text>
+        <text class="date_bottom_text">12:00前</text>
+      </view>
+    </view>
+    <view class="line_nomargin"></view>
+  </view>
+  <view class="pay_info">
+    <view class="title_text">付款信息</view>
+    <view class="price_panel">
+      <text style="flex:1;">房费</text>
+      <text style="color:#da7b10;">￥{{order_data.order.orderprice}}</text>
+    </view>
+  </view>
+  <view class="line"></view>
+  <view class="title_text">订单信息</view>
+  <view class="order_info">
+    <text>订单号码：<text style="color:#000000;">{{order_data.order.id}}</text></text>
+    <text>订单时间：<text style="color:#000000;">{{order_data.order.ordertime}}</text></text>
+  </view>
+  <button class="weui-btn" type="primary" style="width:100%;margin-top:30rpx;" hidden="{{pay_hidden}}" bindtap="showInputLayer">支付订单</button>
+  <button class="weui-btn" type="default" style="width:100%;margin-top:30rpx;" hidden="{{canel_hidden}}">取消订单</button>
+  <button class="none-btn" open-type="contact" session-from="weapp" hover-class="btn-hover" style="width:100%;margin:30rpx 0rpx 50rpx 0rpx; background-color:#1296db;color:#ffffff">
+    申请售后处理
+  </button>
+
+  <!-- 评价弹窗 -->
+  <view class="weui-demo-dialog {{istrue ? 'weui-demo-dialog_show' : ''}}">
+    <view class="weui-mask" bindtap="closeDialog"></view>
+    <view class="weui-half-screen-dialog" catchtap="stopEvent">
+      <view class="weui-half-screen-dialog__hd">
+        <view class="weui-half-screen-dialog__hd__side">
+          <view bindtap="closeDialog" class="weui-icon-btn weui-icon-btn_close">关闭</view>
+        </view>
+        <view class="weui-half-screen-dialog__hd__main">
+          <text class="weui-half-screen-dialog__title">评价房源</text>
+          <text class="weui-half-screen-dialog__subtitle">请输入评价内容</text>
+        </view>
+      </view>
+      <view class="weui-half-screen-dialog__bd center_view">
+        <view class="star_panel">
+          <block wx:for="{{star_data}}" wx:key="item">
+            <image class="star_view" src="{{item.src}}" data-sid="{{item.id}}" bindtap="change_star"></image>
+          </block>
+        </view>
+        <view class="weui-cells weui-cells_after-title" style="width:100%;">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <textarea class="weui-textarea" style="height: 3.3em" bindinput="data_Input" />
+              <view class="weui-textarea-counter">0/200</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-half-screen-dialog__ft">
+        <button type="primary" class="weui-btn" bindtap="affirm_evaluation">提交评价</button>
+      </view>
+    </view>
+  </view>
+  <!-- 密码输入框 -->
+  <view wx:if='{{showPayPwdInput}}'>
+    <view class='bg_layer'></view>
+    <view class='input_main'>
+      <view class='input_title'>
+        <view class='input_back' catchtap='hidePayLayer'>
+          <text></text>
+        </view>
+        <text>输入支付密码</text>
+      </view>
+      <view class='input_tip'>
+        <text>输入密码后直接使用微信支付。</text>
+      </view>
+      <view class='input_row' catchtap='getFocus'>
+        <view class='pwd_item' wx:for='{{6}}' wx:key='item' wx:for-index='i'>
+          <text wx:if='{{pwdVal.length>i}}'></text>
+        </view>
+      </view>
+      <view class='forget_pwd' catchtap='hidePayLayer'>忘记密码</view>
+      <input class='input_control' password type='number' focus='{{payFocus}}' bindinput='inputPwd' maxlength='6' />
+    </view>
+  </view>
+</view>

@@ -6,7 +6,7 @@
       <text class="username_text">{{item.nickname}}</text>
       <text class="time_text">{{item.evaluateTime}}</text>
     </view>
-    <text class="score_text">{{item.orderstar}}<text style="font-size:24rpx;">分</text></text>
+    <text class="score_text">{{item.score}}<text style="font-size:24rpx;">分</text></text>
     <text class="evaluation_text">{{item.remarks}}</text>
   </view>
 </block>

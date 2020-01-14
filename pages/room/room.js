@@ -369,6 +369,7 @@ Page({
     console.log('我的纬度' + mylatitude + '我的经度' + mylongitude);
     console.log('民宿纬度' + latitude + '民宿经度' + longitude);
     qqmapsdk.calculateDistance({
+      //mode: 'driving',//可选值：'driving'（驾车）、'walking'（步行），不填默认：'walking',可不填
       from: {
         latitude: mylatitude,
         longitude: mylongitude

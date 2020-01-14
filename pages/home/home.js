@@ -5,6 +5,14 @@ var house_data = require("../../js/place.js").house_data;
 var Moment = require("../../utils/moment.js");
 var iscollect = '/images/icons/iscollect.png'
 var nocollect = '/images/icons/nocollect.png'
+let QQMapWX = require('../../libs/qqmap-wx-jssdk.min.js'); 
+let qqmapsdk = new QQMapWX({
+  key: 'IBZBZ-TR4KP-T4OD6-L2UNE-VCELF-A4FPZ'
+});
+var key = 'IBZBZ-TR4KP-T4OD6-L2UNE-VCELF-A4FPZ'
+var mylatitude = ''
+var mylongitude = ''
+var address = ''
 Page({
 
   /**
@@ -41,7 +49,8 @@ Page({
     house_data: [],
     history_data: [],
     cname: '北京',
-    day_count: 1
+    day_count: 1,
+    address:''
   },
 
   /**
@@ -56,6 +65,7 @@ Page({
         checkOutDate: Moment(new Date()).add(1, 'day').format('YYYY-MM-DD')
       }
     });
+    this.get_location();
   },
 
   /**
@@ -72,6 +82,8 @@ Page({
     this.gethot_city_list();
     this.gethistory();
     this.setdate_text();
+    this.get_advert();
+    this.getchoose_address();
   },
 
   /**
@@ -376,7 +388,11 @@ Page({
         if (status == 21000) {
           that.login_timeout();
         } else if (status == 0) {
-
+          wx.showToast({
+            title: '已加入收藏',
+            icon: 'success',
+            duration: 500,
+          })
         }
       },
       fail: function(res) {
@@ -459,5 +475,77 @@ Page({
       week = "周六";
     }
     return week;
+  },
+  get_advert:function(){
+    var that = this;
+    wx.request({
+      url: app.globalData.URL + '/common/advert/list.do?disabled=' + 0 ,
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey"),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log("返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+          var carouselList = res.data.data.data;
+          that.setData({
+            carouselList: carouselList
+          })
+        }
+      },
+      fail: function (res) {
+        console.log("返回错误" + res);
+      },
+      complete: function (res) {
+        console.log("启动请求列表" + res);
+      },
+    });
+  },
+  get_location:function(){
+    var that = this
+    wx.getLocation({
+      type: 'gcj02',
+      success: res => {
+        mylatitude = res.latitude
+        mylongitude = res.longitude
+        console.log('latitude' + mylatitude + ',和longitude' + mylongitude)
+        var getAddressUrl = "https://apis.map.qq.com/ws/geocoder/v1/?location=" + mylatitude + "," + mylongitude + "&key=" + key;
+        wx.request({
+          url: getAddressUrl,
+          success: function (result) {
+            console.log(JSON.stringify(result.data.result.address))
+            address = result.data.result.address
+            that.setData({
+              address: address
+            })
+            wx.setStorageSync('mylatitude', mylatitude+'')
+            wx.setStorageSync('mylongitude', mylongitude+'')
+            wx.setStorageSync('myaddress', address)
+          }
+        })
+      }
+    })
+  },
+  to_change_city:function(){
+    wx.navigateTo({
+      url: '../switchcity/switchcity',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+  getchoose_address:function(){
+    mylatitude = wx.getStorageSync('mylatitude')
+    mylongitude = wx.getStorageSync('mylongitude')
+    address = wx.getStorageSync('myaddress')
+    this.setData({
+      address: address
+    })
   }
 })

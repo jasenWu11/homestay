@@ -241,7 +241,17 @@ Page({
         if (status == 21000) {
           that.login_timeout();
         } else if (status == 0) {
-          
+          var o_id = res.data.data;
+          var that = this;
+          wx.navigateTo({
+            url: '../order_detail/order_detail?o_id=' + o_id
+          })
+        }else{
+          var msg = res.data.msg;
+          wx.showToast({
+            title: msg,
+            image: '/images/icons/wrong.png'
+          })
         }
       },
       fail: function (res) {

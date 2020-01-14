@@ -2,7 +2,7 @@
 <view class="main_panel">
   <view class="content_panel">
     <view class='carousel'>
-      <swiper class='carousel_swiper' indicator-dots="true" indicator-color="#f4f4f4" indicator-active-color="#4eb8b8" autoplay="true" interval='2000' circular='true'>
+      <swiper class='carousel_swiper' indicator-dots="true" indicator-color="#f4f4f4" indicator-active-color="#4eb8b8" autoplay="true" interval='4000' circular='true'>
         <block wx:for="{{carouselList}}" wx:key="item">
           <swiper-item bindtap='chomeCarouselClick'>
             <image class="carouselImg" src='{{item.url}}' mode='aspectFill'></image>
@@ -95,7 +95,7 @@
           <text class="next_text">></text>
         </view>
         <view class="address_view">
-          <text class="distance_text">据你所在距离{{distance}}km</text>
+          <text class="distance_text">据所选地点步行距离{{distance}}km</text>
           <text class="copy_text" bindtap="textPaste">复制地址</text>
         </view>
       </view>
@@ -122,7 +122,7 @@
             <text class="username_text">{{evaluate[0].nickname}}</text>
             <text class="time_text">{{evaluate[0].evaluateTime}}</text>
           </view>
-          <text class="score_text">{{evaluate[0].orderstar}}<text style="font-size:24rpx;">分</text></text>
+          <text class="score_text">{{evaluate[0].score}}<text style="font-size:24rpx;">分</text></text>
           <text class="evaluation_text">{{evaluate[0].remarks}}</text>
         </view>
       </view>

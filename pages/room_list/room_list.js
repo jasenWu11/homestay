@@ -17,8 +17,8 @@ var minScore = 0;
 var maxScore = 5;
 var isDistance = false;
 var isScore = false;
-var nowLat = wx.getStorageSync('mylatitude');
-var nowLng = wx.getStorageSync('mylongitude');
+var nowLat = '';
+var nowLng = '';
 Page({
 
   /**
@@ -51,7 +51,8 @@ Page({
     maxPrice: 2500,
     slider_min:0,
     slider_max:2500,
-    house_data:[]
+    house_data:[],
+    search_value:[]
   },
 
   /**
@@ -71,7 +72,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
+    this.getchoose_address();
     this.gethouse_list();
     this.setdate_text();
   },
@@ -621,5 +623,23 @@ Page({
     var d = date.getDate();  //获取日
     d = d < 10 ? ('0' + d) : d;  //判断日期是否大10
     return m + '.' + d;  //返回时间格式
+  },
+  search_input: function (e) {
+    this.setData({
+      search_value: e.detail.value
+    })
+    houseName = e.detail.value
+  },
+  getchoose_address: function () {
+    nowLat = wx.getStorageSync('mylatitude')
+    nowLng = wx.getStorageSync('mylongitude')
+  },
+  to_change_city: function () {
+    wx.navigateTo({
+      url: '../switchcity/switchcity',
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
   }
 })

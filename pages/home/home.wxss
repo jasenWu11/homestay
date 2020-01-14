@@ -83,6 +83,13 @@ page {
   align-items: center;
 }
 
+.address_city_text{
+  overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+  max-width: 420rpx;
+}
+
 .destination_choose_view_image {
   width: 30rpx;
   height: 30rpx;

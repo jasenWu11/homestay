@@ -1,18 +1,20 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/home/home",
+    "pages/mine/mine",
     "pages/room_list/room_list",
     "pages/book/book",
     "pages/room/room",
-    "pages/home/home",
     "pages/add_guest/add_guest",
     "pages/order/order",
-    "pages/mine/mine",
+    "pages/order_detail/order_detail",
     "pages/message/message",
     "pages/collect/collect",
     "pages/logs/logs",
     "pages/calendar/calendar",
-    "pages/evaluate/evaluate"
+    "pages/evaluate/evaluate",
+    "pages/switchcity/switchcity"
   ],
   "window": {
     "backgroundTextStyle": "light",

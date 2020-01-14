@@ -4,12 +4,11 @@
     <view class="top_top_panel">
       <view class="search_panel">
         <image class="search_icon" src="/images/icons/search.png"></image>
-        <input class="input_panel" placeholder="输入房源名"></input>
+        <input class="input_panel" placeholder="输入房源名" bindinput="search_input"  bindconfirm="gethouse_list" value="{{search_value}}"></input>
         <text class="time_panel" bindtap="change_date">{{startdate_text}}-{{enddate_text}}</text>
       </view>
-      <view class="map_panel">
-        <image class="map_icon" src="/images/icons/map.png"></image>
-        <text>地图</text>
+      <view class="map_panel" bindtap="to_change_city">
+        <image class="map_icon" src="/images/icons/position.png" mode='widthFix'></image>
       </view>
     </view>
     <view class="screen_panel">
@@ -42,7 +41,7 @@
           </view>
           <image class="collect_image" src="{{item.collect_img}}" bindtap="changecollect" data-hid="{{item.id}}"></image>
           <image class="house_image" src="{{item.first_image.url}}" mode='widthFix' bindtap="tohouse_deatil" data-hid="{{item.id}}" data-hname="{{item.housename}}" data-price="{{item.houseprice}}"></image>
-          <text class="specification_text">独立房间-{{item.specification}}</text>
+          <text class="specification_text">独立房间-{{item.specification}}-最多可住{{item.housepeople}}位</text>
           <text class="introduce_text">{{item.housedesc}}</text>
           <view class="line"></view>
           <view class="row_view">

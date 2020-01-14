@@ -2,6 +2,7 @@
 const app = getApp();
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 var order_data = require("../../js/place.js").order_data;
+var util = require("../../utils/util.js")
 Page({
 
   /**
@@ -28,7 +29,6 @@ Page({
         });
       }
     });
-    this.getorder_list();
   },
 
   /**
@@ -42,7 +42,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getorder_list();
   },
 
   /**
@@ -87,7 +87,6 @@ Page({
   },
   getorder_list: function() {
     var that = this;
-    var order_list = order_data;
     wx.request({
       url: app.globalData.URL + '/order/list.do',
       header: {
@@ -96,42 +95,61 @@ Page({
       method: 'GET',
       dataType: 'json',
       responseType: 'text',
-      success: function (res) {
+      success: function(res) {
         console.log("返回的结果" + JSON.stringify(res));
         var status = res.data.status;
         if (status == 21000) {
           that.login_timeout();
         } else if (status == 0) {
-          
+          var order_list = res.data.data;
+          if (order_list != null) {
+            for (var i = 0; i < order_list.length; i++) {
+              var status = order_list[i].orderstatus;
+              var status_text = '';
+              if (status == 0) {
+                status_text = '订单待支付'
+                var nowtime = util.formatTime(new Date());
+                var endtimes = that.formatDate2(order_list[i].endtime)
+                var state = new Date(endtimes) - new Date(nowtime);
+                if (state <= 0) {
+                  status_text = '订单已失效'
+                }
+              } else if (status == 1) {
+                status_text = '订单已完成'
+                var nowtime = util.formatTime(new Date());
+                var starttimes = that.formatDate2(order_list[i].starttime)
+                var state = new Date(nowtime) - new Date(starttimes);
+                if (state <= 0) {
+                  status_text = '订单待入住'
+                }
+              } else if (status == 2) {
+                status_text = '订单已取消'
+              }
+              order_list[i].status_text = status_text;
+              order_list[i].startdate = that.formatDate(order_list[i].starttime)
+              order_list[i].enddate = that.formatDate(order_list[i].endtime)
+              order_list[i].first_image = JSON.parse(order_list[i].houseimage)[0]
+            }
+            that.setData({
+              order_data: order_list
+            })
+          }
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log("返回错误" + res);
       },
-      complete: function (res) {
+      complete: function(res) {
         console.log("启动请求列表" + res);
       },
     });
-    for (var i = 0; i < order_list.length; i++) {
-      var status = order_list[i].status;
-      var status_text = '';
-      if (status == 1){
-        status_text = '订单完成'
-      }else{
-        status_text = '订单待支付'
-      }
-      order_list[i].status_text = status_text;
-    }
-    that.setData({
-      order_data: order_list
-    })
   },
-  login_timeout: function () {
+  login_timeout: function() {
     wx.showModal({
       title: '登录超时',
       content: '请重新登录',
       showCancel: false,
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           wx.navigateTo({
             url: '../index/index'
@@ -146,5 +164,30 @@ Page({
         }
       }
     })
+  },
+  formatDate: function(dates) { //设置时间转换格式
+    var date = new Date(dates)
+    var y = date.getFullYear();  //获取年
+    var m = date.getMonth() + 1;  //获取月
+    m = m < 10 ? '0' + m : m;  //判断月是否大于10
+    var d = date.getDate();  //获取日
+    d = d < 10 ? ('0' + d) : d;  //判断日期是否大10
+    return y + '年' + m + '月' + d + '日';  //返回时间格式
+  },
+  to_detail: function(event) {
+    var that = this;
+    var o_id = event.currentTarget.dataset.o_id;
+    wx.navigateTo({
+      url: '../order_detail/order_detail?o_id=' + o_id
+    })
+  },
+  formatDate2: function (dates) { //设置时间转换格式
+    var date = new Date(dates)
+    var y = date.getFullYear();  //获取年
+    var m = date.getMonth() + 1;  //获取月
+    m = m < 10 ? '0' + m : m;  //判断月是否大于10
+    var d = date.getDate();  //获取日
+    d = d < 10 ? ('0' + d) : d;  //判断日期是否大10
+    return y + '-' + m + '-' + d + ' 12:00:00';  //返回时间格式
   }
 })

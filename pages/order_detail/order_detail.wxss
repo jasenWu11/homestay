@@ -1,0 +1,409 @@
+/* pages/order_detail/order_detail.wxss */
+@import '/style/weui.wxss';
+page{
+  width: 100%;
+  height: 100%;
+}
+
+.main_panel{
+  width: 100%;
+  height: 100%;
+  padding: 0rpx 40rpx;
+  box-sizing: border-box;
+}
+
+.top_panel{
+  display: flex;
+  align-items: center;
+}
+
+.top_panel .left_panel{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.left_panel .left_top_panel{
+  font-size: 40rpx;
+  color: #777777;
+  font-weight: 500;
+}
+
+.left_panel .left_bottom_panel{
+  font-size: 30rpx;
+  color: #999999;
+  margin-top: 10rpx;
+}
+
+.top_panel .right_panel{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  font-size: 60rpx;
+  font-weight: 500;
+}
+
+.line {
+  width: 100%;
+  height: 0.6rpx;
+  background-color: #bbbbbb;
+  margin: 26rpx 0rpx;
+}
+
+.house_view {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.house_list_view .house_view .collect_image{
+  width: 60rpx;
+  height: 60rpx;
+  z-index: 2;
+  position:relative;
+  margin-bottom: -80rpx;
+  margin-left: 590rpx;
+}
+
+.slide-box .house_view {
+  width: 304rpx;
+  display: flex;
+  margin-bottom: 0rpx;
+  flex-direction: column;
+  margin-top: 20rpx;
+}
+
+.slide-box .house_view .collect_image{
+  width: 40rpx;
+  height: 40rpx;
+  z-index: 999;
+  position:relative;
+  margin-bottom: -50rpx;
+  margin-left: 244rpx;
+  box-sizing: border-box;
+}
+.house_view .name_distance_panel{
+  margin: 10rpx 0rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+  font-family: SimSun;
+  color: #000000;
+}
+.name_distance_panel .house_name {
+  font-size: 28rpx;
+  font-family: SimSun;
+  color: #19896f;
+  flex: 1;
+}
+
+.name_distance_panel .distance_text {
+  font-size: 28rpx;
+  font-family: SimSun;
+  color: #19896f;
+}
+
+.house_view .house_image {
+  width: 100%;
+  border-radius: 5rpx;
+}
+
+.house_view .specification_text {
+  font-size: 24rpx;
+  font-family: SimSun;
+  margin-top: 10rpx;
+}
+
+.house_view .introduce_text {
+  font-size: 28rpx;
+  font-family: SimSun;
+  margin: 10rpx 0rpx;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  box-sizing: border-box;
+}
+
+.house_view .row_view {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.row_view .praise_view {
+  font-size: 24rpx;
+  font-family: SimSun;
+}
+
+.row_view .image_star {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.row_view .price {
+  font-size: 26rpx;
+  font-family: SimSun;
+  flex: 1;
+}
+
+.address_panel{
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 0rpx 40rpx;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.address_panel .address_view{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+}
+
+.evaluation_tip{
+  height: 80rpx;
+  color:#000000;
+  font-size: 34rpx;
+  font-weight: 500;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.star_panel{
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15rpx 0rpx 20rpx 0rpx;
+}
+
+.star_view{
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.weui-demo-dialog{
+  visibility:hidden;
+  opacity:0;
+}
+
+.weui-half-screen-dialog{
+  transition:all .3s;
+  transform:translateY(100%);
+}
+
+.weui-demo-dialog_show{
+  visibility:visible;
+  opacity:1;
+}
+
+.weui-demo-dialog_show .weui-half-screen-dialog{
+    transform:translateY(0);
+}
+
+.user_info_panel {
+  width: 100%;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.user_info_panel .base_info{
+  display: flex;
+  align-items: center;
+}
+
+.base_info .user_head{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+}
+
+.base_info .username_text{
+  font-size: 28rpx;
+  color: #000000;
+  flex: 1;
+  margin-left: 20rpx;
+}
+
+.base_info .time_text{
+  font-size: 24rpx;
+  color: #aaaaaa;
+}
+
+.user_info_panel .score_text{
+  color: #000000;
+  font-size: 36rpx;
+  margin: 5rpx 0rpx 5rpx 10rpx;
+}
+
+.user_info_panel .evaluation_text{
+  font-size: 30rpx;
+  color: #000000;
+  margin: 5rpx 0rpx 5rpx 10rpx;
+}
+
+
+.date_panel{
+  display: flex;
+  flex-direction: column;
+  margin-top: 40rpx;
+}
+
+.line_nomargin {
+  width: 100%;
+  height: 0.4rpx;
+  background-color: #cccccc;
+}
+
+.date_panel .date_view{
+  flex: 1;
+  display: flex;
+  margin: 15rpx 0rpx;
+}
+
+.date_view .date_item_view{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.date_item_view .date_top_text{
+  color: #999999;
+  font-size: 26rpx;
+}
+
+.date_item_view .date_middle_text{
+  color: #000000;
+  font-size: 32rpx;
+}
+
+.date_item_view .date_bottom_text{
+  color: #999999;
+  font-size: 24rpx;
+}
+
+.date_view .middle_view{
+  display: flex;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+}
+
+.line_vertical {
+  flex: 1;
+  width: 0.4rpx;
+  background-color: #cccccc;
+}
+
+.middle_view .day_count_view{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 0.5rpx;
+  border-style: solid;
+  border-color: #cccccc;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  padding: 2rpx 16rpx;
+}
+
+.title_text{
+  color: #000000;
+  font-size: 36rpx;
+  font-weight: 500;
+}
+
+.pay_info{
+  margin-top: 30rpx;
+}
+
+.price_panel{
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  color: #000000;
+}
+.order_info{
+  margin-top: 20rpx;
+  color: #999999;
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 输入支付密码 */
+.btn_pay{
+  margin: 100rpx auto; width: 600rpx; height: 100rpx; line-height: 100rpx; border-radius: 100rpx;
+  background-color: #d3a95a; color: #fff; font-size: 36rpx; text-align: center; 
+}
+/* 支付密码css start */
+.bg_layer{
+  position: fixed; left: 0; top: 0; bottom: 0; right: 0;
+  background-color: rgba(0, 0, 0, 0.6); z-index: 9998;
+}
+.input_main{
+    position: fixed; left: 0; bottom: 500rpx; width: 100%; height: 394rpx;
+    background-color: #fff; z-index: 9999;
+}
+.input_title{
+    width: 100%; height: 90rpx; line-height: 90rpx; text-align: center; 
+    font-size: 32rpx; border-bottom: 1rpx solid #e2e2e2;
+}
+.input_back{
+    position: absolute; left: 0; top: 0;
+    width: 80rpx; height: 90rpx; display: flex; justify-content: center; align-items: center;
+}
+.input_back text{
+  width: 20rpx;
+  height: 20rpx;
+  background-color: white;
+  border: 1rpx solid #aaa;
+  border-width: 5rpx 0 0 5rpx;
+  transform: rotate(-45deg);
+}
+
+.input_tip{  margin: 30rpx; font-size: 24rpx; color: #888; }
+
+/* 密码掩码模拟 */
+.input_row{
+  width: 690rpx; margin: 0 auto; height: 98rpx; position: relative;
+  display: flex; align-items: center; border: 1rpx solid #e2e2e2; border-radius: 20rpx;
+}
+.input_row .pwd_item{
+  flex: 1; display: flex; align-items: center; justify-content: center; 
+  height: 100%; border-right: 1rpx solid #e2e2e2; position: relative;
+}
+.pwd_item:nth-last-of-type(1) { border-right: 0; } 
+.pwd_item text { 
+  width: 30rpx; height: 30rpx; border-radius: 30rpx; background-color: #555;
+}
+
+
+.forget_pwd{ 
+  float: right; margin: 30rpx; width: 100rpx; text-align: right; font-size: 24rpx; color: #ff7800;
+}
+
+/* 文本输入框位置: 设置到左边隐藏 */
+.input_control { 
+  position: relative; left: -300rpx; bottom: 0; width: 100rpx; height: 100rpx;
+}

@@ -62,12 +62,13 @@ page{
   justify-content: center;
   align-items: center;
 }
-.row_panel_item .item_image{
+.item_image{
   width: 80rpx;
   height: 80rpx;
 }
-.row_panel_item .item_text{
+.item_text{
   color: #000000;
   margin-top: 15rpx;
   font-size: 26rpx;
+  font-weight: 400;
 }
