@@ -2,7 +2,7 @@
 <view class="page">
   <view class="message_list">
     <block wx:for="{{message_data}}" wx:key="item">
-      <view class="message_item" bindtap="to_chat" data-channel="{{item.channel}}">
+      <view class="message_item" bindtap="to_chat" data-channel="{{item.channel}}" data-other_name="{{item.nickname}}">
         <image class="message_head" src="{{item.head}}" mode="aspectFill"></image>
         <view class="message_item_text">
           <text class="name_text">{{item.nickname}}</text>

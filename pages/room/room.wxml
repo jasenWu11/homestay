@@ -28,8 +28,9 @@
         <view class="text_view">
           <text class="title_text">{{room_name}}
           </text>
+          <text class="room_info_text">{{introduce}}</text>
           <text class="people_text">
-            {{specification}}
+            房间规格：{{specification}}，最多可居住人数：{{housepeople}}位
           </text>
         </view>
         <view class="evaluation_panel">
@@ -81,8 +82,7 @@
           </view>
         </view>
         <view class="room_info_view" bindtap="openDialog">
-          <text class="room_info_text">房屋介绍：{{introduce}}
-          </text>
+          <text class="room_info_text">房屋介绍：{{introduce}}</text>
         </view>
       </view>
       <view class="tip_panel">
@@ -123,7 +123,7 @@
             <text class="time_text">{{evaluate[0].evaluateTime}}</text>
           </view>
           <text class="score_text">{{evaluate[0].score}}<text style="font-size:24rpx;">分</text></text>
-          <text class="evaluation_text">{{evaluate[0].remarks}}</text>
+          <text class="evaluation_text">{{evaluate[0].evaluatetext}}</text>
         </view>
       </view>
       <view class="security_panel">
@@ -152,7 +152,7 @@
   </view>
   </view>
   <view class="bottom_panel">
-    <view class="icon_view">
+    <view class="icon_view" bindtap="to_chat">
       <image class="icon_image" src="/images/icons/chat.png"></image>
       <text class="icon_text">联系房东</text>
     </view>

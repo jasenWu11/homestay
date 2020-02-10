@@ -2,12 +2,12 @@
 <view>
   <scroll-view id="chat_panel" scroll-y scroll-into-view='{{toView}}' style='height: {{scrollHeight}};' scroll-top="{{scrollTop}}">
     <view class='scrollMsg'>
-      <block wx:key wx:for='{{msgList}}' wx:for-index="index">
+      <block  wx:key wx:for='{{msgList}}' wx:for-index="index">
 
         <!-- 单个消息1 客服发出（左） -->
-        <view wx:if='{{item.speaker=="server"}}' id='msg-{{index}}' style='display: flex; padding: 2vw 11vw 2vw 2vw;'>
+        <view wx:if='{{item.senderid!=my_id}}' id='msg-{{index}}' style='display: flex; padding: 2vw 11vw 2vw 2vw;'>
           <view style='width: 11vw; height: 11vw;'>
-            <image style='width: 11vw; height: 11vw; border-radius: 10rpx;' src='/images/head.jpg'></image>
+            <image style='width: 11vw; height: 11vw; border-radius: 10rpx;' src='{{item.senderHead}}'></image>
           </view>
           <view style='width: 4vw; height: 11vw; margin-left: 0.5vw; display: flex; align-items: center; z-index: 9;'>
             <image style='width: 4vw;' src='/images/icons/left_msg.png' mode='widthFix'></image>
@@ -22,7 +22,7 @@
             <image style='width: 4vw;' src='/images/icons/right_msg.png' mode='widthFix'></image>
           </view>
           <view style='width: 11vw; height: 11vw;'>
-            <image style='width: 11vw; height: 11vw; border-radius: 10rpx;' src='{{cusHeadIcon}}'></image>
+            <image style='width: 11vw; height: 11vw; border-radius: 10rpx;' src='{{item.senderHead}}'></image>
           </view>
         </view>
 

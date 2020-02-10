@@ -19,12 +19,12 @@
                   <text class="name_text">{{item.housename}}</text>
                   <text class="date_people_text">{{item.startdate}}-{{item.enddate}} {{item.liveCount}}位</text>
                   <view class="status_row">
-                  <block wx:if="{{item.orderstatus == 0}}">
-                    <text class="status_text">{{item.status_text}}</text>￥{{item.orderprice}}
-                  </block>
-                  <block wx:else>
-                    <text class="status_text" style="color:#000000">{{item.status_text}}</text>￥{{item.orderprice}}
-                  </block>
+                    <block wx:if="{{item.status_text == '订单待支付'}}">
+                      <text class="status_text">{{item.status_text}}</text>￥{{item.orderprice}}
+                    </block>
+                    <block wx:else>
+                      <text class="status_text" style="color:#000000">{{item.status_text}}</text>￥{{item.orderprice}}
+                    </block>
                   </view>
                   <text class="time_text">{{item.ordertime}}</text>
                 </view>
@@ -35,25 +35,73 @@
           </view>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          告警
+          <view class="order_list">
+            <block wx:for="{{ovder_type_data.type0}}" wx:key="item">
+              <view class="order_item" bindtap="to_detail" data-o_id="{{item.id}}">
+                <view class="order_item_text">
+                  <text class="name_text">{{item.housename}}</text>
+                  <text class="date_people_text">{{item.startdate}}-{{item.enddate}} {{item.liveCount}}位</text>
+                  <view class="status_row">
+                    <block wx:if="{{item.status_text == '订单待支付'}}">
+                      <text class="status_text">{{item.status_text}}</text>￥{{item.orderprice}}
+                    </block>
+                    <block wx:else>
+                      <text class="status_text" style="color:#000000">{{item.status_text}}</text>￥{{item.orderprice}}
+                    </block>
+                  </view>
+                  <text class="time_text">{{item.ordertime}}</text>
+                </view>
+                <image class="order_image" src="{{item.first_image.url}}"></image>
+              </view>
+              <view class="line"></view>
+            </block>
+          </view>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-          告警
+          <view class="order_list">
+            <block wx:for="{{ovder_type_data.type1}}" wx:key="item">
+              <view class="order_item" bindtap="to_detail" data-o_id="{{item.id}}">
+                <view class="order_item_text">
+                  <text class="name_text">{{item.housename}}</text>
+                  <text class="date_people_text">{{item.startdate}}-{{item.enddate}} {{item.liveCount}}位</text>
+                  <view class="status_row">
+                    <block wx:if="{{item.status_text == '订单待支付'}}">
+                      <text class="status_text">{{item.status_text}}</text>￥{{item.orderprice}}
+                    </block>
+                    <block wx:else>
+                      <text class="status_text" style="color:#000000">{{item.status_text}}</text>￥{{item.orderprice}}
+                    </block>
+                  </view>
+                  <text class="time_text">{{item.ordertime}}</text>
+                </view>
+                <image class="order_image" src="{{item.first_image.url}}"></image>
+              </view>
+              <view class="line"></view>
+            </block>
+          </view>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
-          告警
-        </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 4}}">
-          告警
-        </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 5}}">
-          告警
-        </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 6}}">
-          运行情况
-        </view>
-        <view class="weui-tab__content" hidden="{{activeIndex != 7}}">
-          运行情况
+          <view class="order_list">
+            <block wx:for="{{ovder_type_data.type2}}" wx:key="item">
+              <view class="order_item" bindtap="to_detail" data-o_id="{{item.id}}">
+                <view class="order_item_text">
+                  <text class="name_text">{{item.housename}}</text>
+                  <text class="date_people_text">{{item.startdate}}-{{item.enddate}} {{item.liveCount}}位</text>
+                  <view class="status_row">
+                    <block wx:if="{{item.status_text == '订单待支付'}}">
+                      <text class="status_text">{{item.status_text}}</text>￥{{item.orderprice}}
+                    </block>
+                    <block wx:else>
+                      <text class="status_text" style="color:#000000">{{item.status_text}}</text>￥{{item.orderprice}}
+                    </block>
+                  </view>
+                  <text class="time_text">{{item.ordertime}}</text>
+                </view>
+                <image class="order_image" src="{{item.first_image.url}}"></image>
+              </view>
+              <view class="line"></view>
+            </block>
+          </view>
         </view>
       </view>
     </view>

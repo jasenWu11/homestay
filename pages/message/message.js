@@ -129,8 +129,9 @@ Page({
   to_chat: function (event) {
     var that = this;
     var channel = event.currentTarget.dataset.channel;
+    var other_name = event.currentTarget.dataset.other_name;
     wx.navigateTo({
-      url: '../chat/chat?channel=' + channel,
+      url: '../chat/chat?channel=' + channel + '&other_name=' + other_name,
       success: function(res) {},
       fail: function(res) {},
       complete: function(res) {},

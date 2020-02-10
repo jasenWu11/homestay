@@ -71,9 +71,11 @@ Page({
   onShareAppMessage: function () {
 
   },
-  toorder:function(){
+  toorder: function (event) {
+    var that = this;
+    var index = event.currentTarget.dataset.index;
     wx.navigateTo({
-      url: '../order/order'
+      url: '../order/order?index=' + index
     });
   },
   call_service: function () {

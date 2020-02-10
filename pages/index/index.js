@@ -27,9 +27,10 @@ Page({
               wx.login({
                 success: res => {
                   // 获取到用户的 code 之后：res.code
+                  var code = res.code;
                   console.log("用户的code:" + res.code);
                   console.log('username是' + username + '和picurl是' + picurl)
-                  if (token == '') {
+                  if (token != '哈哈') {
                     wx.getUserInfo({
                       success: res => {
                         console.log('得到' + JSON.stringify(res.userInfo));
@@ -39,40 +40,9 @@ Page({
                         wx.setStorageSync("username", username);
                         wx.setStorageSync("picurl", picurl);
                         console.log('更新username是' + username + '和picurl是' + app.globalData.URL)
+                        console.log('重新授权');
+                        that.binguser(code, username, picurl);
                       }
-                    })
-                    console.log('重新授权');
-                    wx.request({
-                      url: app.globalData.URL + '/user/testlogin.do?username=qiuqi&password=123456',
-                      method: 'post',
-                      dataType: 'json',
-                      responseType: 'text',
-                      success: function (res) {
-                        console.log("返回结果" + JSON.stringify(res));
-                        var status = res.data.status;
-                        if (status == 0) {
-                          var uname = res.data.data.username;
-                          var ispass = res.data.data.ispass;
-                          var my_id = res.data.data.id;
-                          wx.setStorageSync('uname', uname);
-                          wx.setStorageSync('ispass', ispass);
-                          wx.setStorageSync('my_id', my_id);
-                          if (res && res.header && res.header['Set-Cookie']) {
-                            wx.setStorageSync('cookieKey', res.header['Set-Cookie']); //保存Cookie到Storage
-                          }
-                          var openid = res.data.openid;
-                          wx.setStorageSync("openid", openid);
-                          wx.switchTab({
-                            url: '../home/home',
-                          })
-                        }
-                      },
-                      fail: function (res) {
-                        console.log("返回错误" + JSON.stringify(res));
-                      },
-                      complete: function (res) {
-                        console.log("启动请求" + JSON.stringify(res));
-                      },
                     })
                   } else {
                     console.log('自动登录');
@@ -142,6 +112,47 @@ Page({
       fail: function (res) {
         console.log(res);
       }
+    })
+  },
+  binguser: function (code, username, picurl) {
+    wx.request({
+      url: app.globalData.URL + '/user/login.do?openid=' + code + '&nickname=' + username + '&head=' + picurl,
+      method: 'post',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log("返回结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 0) {
+          var uname = res.data.data.username;
+          var ispass = res.data.data.ispass;
+          wx.setStorageSync('uname', uname);
+          wx.setStorageSync('ispass', ispass);
+          if (res && res.header && res.header['Set-Cookie']) {
+            wx.setStorageSync('cookieKey', res.header['Set-Cookie']); //保存Cookie到Storage
+          }
+          var openid = res.data.openid;
+          wx.setStorageSync("openid", openid);
+          wx.switchTab({
+            url: '../home/home',
+          })
+        } else {
+          var msg = res.data.msg
+          wx.showToast({
+            title: msg,
+            image: '/images/icons/wrong.png',
+          })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '请求异常',
+          image: '/images/icons/wrong.png',
+        })
+      },
+      complete: function (res) {
+        console.log("启动请求" + res);
+      },
     })
   }
 })

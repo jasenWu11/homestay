@@ -19,7 +19,7 @@ input {
   width: 76vw;
   height: 9.33vw;
   background-color: #fff;
-  border-radius: 40rpx;
+  border-radius: 10rpx;
   margin-left: 2vw;
   padding: 0 3vw;
   font-size: 28rpx;

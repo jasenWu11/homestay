@@ -2,5 +2,5 @@
   "usingComponents": {
     "zy-slider": "../../component/zyslider"
   },
-  "navigationBarTitleText": "zy-slider"
+  "navigationBarTitleText": "民宿列表"
 }

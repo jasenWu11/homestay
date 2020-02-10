@@ -15,6 +15,9 @@ let qqmapsdk = new QQMapWX({
   key: 'IBZBZ-TR4KP-T4OD6-L2UNE-VCELF-A4FPZ'
 });
 var hid = '';
+var landlord_id = '';
+var landlord_name = '';
+var my_id = wx.getStorageSync('my_id')
 Page({
 
   /**
@@ -22,7 +25,7 @@ Page({
    */
   data: {
     carouselList: [],
-    room_id:'',
+    room_id: '',
     room_name: '',
     specification: '',
     score: '',
@@ -55,15 +58,15 @@ Page({
     enddate: '',
     saedates: '2019-12-06~2019-12-08',
     prices: '',
-    day_count:1,
-    device:[],
-    hidden_evaluate:true
+    day_count: 1,
+    device: [],
+    hidden_evaluate: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     hid = options.hid;
     this.setData({
       price: options.price
@@ -164,7 +167,7 @@ Page({
   get_room_data: function() {
     var that = this;
     wx.request({
-      url: app.globalData.URL + '/house/info.do?Id='+hid,
+      url: app.globalData.URL + '/house/info.do?Id=' + hid,
       header: {
         "Cookie": wx.getStorageSync("cookieKey"),
         'content-type': 'application/x-www-form-urlencoded'
@@ -172,7 +175,7 @@ Page({
       method: 'POST',
       dataType: 'json',
       responseType: 'text',
-      success: function (res) {
+      success: function(res) {
         console.log("返回的结果" + JSON.stringify(res));
         var status = res.data.status;
         if (status == 21000) {
@@ -186,11 +189,11 @@ Page({
           var score = room_datas.house.housescore;
           var device = room_datas.device;
           var evaluate = room_datas.evaluate;
-          if (evaluate.length == 0){
+          if (evaluate.length == 0) {
             that.setData({
-              hidden_evaluate:true
+              hidden_evaluate: true
             })
-          }else{
+          } else {
             that.setData({
               hidden_evaluate: false,
               evaluate: evaluate
@@ -213,9 +216,9 @@ Page({
           // var user_name = evaluation[0].name;
 
           var landlord = room_datas.landlord;
-          var landlord_id = landlord.id;
+          landlord_id = landlord.id;
           var landlord_head = landlord.head;
-          var landlord_name = landlord.nickname;
+          landlord_name = landlord.nickname;
           var room_count = 5;
           that.getdistance(latitude, longitude)
           that.setData({
@@ -223,6 +226,7 @@ Page({
             room_id: room_datas.house.id,
             room_name: room_datas.house.housename,
             specification: room_datas.house.specification,
+            housepeople: room_datas.house.housepeople,
             score: score,
             collection_count: room_datas.collectCount,
             address: room_datas.house.address,
@@ -247,10 +251,10 @@ Page({
           that.setmap();
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log("返回错误" + res);
       },
-      complete: function (res) {
+      complete: function(res) {
         console.log("启动请求列表" + res);
       },
     });
@@ -294,7 +298,7 @@ Page({
     if (score >= 3.5 && score < 4.5) {
       start_text = '一般'
       expression = '/images/room/general.png'
-      recommend = '房东经验一般、评分一般，没准还能发现住房的小惊喜哟。'
+      recommend = '房东经验一般、评分一般，没准还能发现房源的小惊喜哟。'
     }
     if (score < 3.5) {
       start_text = '差'
@@ -401,7 +405,7 @@ Page({
       complete: function(res) {},
     })
   },
-  isDuringDate: function (firstDate, secondDate) {
+  isDuringDate: function(firstDate, secondDate) {
     var price = this.data.price;
     console.log('price是' + price)
     var firstDate = new Date(firstDate);
@@ -434,13 +438,13 @@ Page({
       day_count: day_count
     })
   },
-  arrirm_room:function(){
+  arrirm_room: function() {
     wx.setStorage({
       key: 'ROOM_INFO',
       data: {
         startdate: this.data.startdate,
         enddate: this.data.enddate,
-        day_count:this.data.day_count,
+        day_count: this.data.day_count,
         room_id: this.data.room_id,
         room_name: this.data.room_name,
         specification: this.data.specification,
@@ -455,7 +459,7 @@ Page({
       complete: function(res) {}
     })
   },
-  openDialog: function (e) {
+  openDialog: function(e) {
     var tid = e.currentTarget.dataset.tid;
     console.log(tid);
     var title = '房屋介绍';
@@ -466,12 +470,12 @@ Page({
       dialog_text: text
     })
   },
-  closeDialog: function () {
+  closeDialog: function() {
     this.setData({
       istrue: false
     })
   },
-  deleted_collect: function (hid) {
+  deleted_collect: function(hid) {
     console.log('要取消的' + hid)
     wx.request({
       url: app.globalData.URL + '/house/collect/delete.do?Id=' + hid,
@@ -482,7 +486,7 @@ Page({
       method: 'POST',
       dataType: 'json',
       responseType: 'text',
-      success: function (res) {
+      success: function(res) {
         console.log("返回的结果" + JSON.stringify(res));
         var status = res.data.status;
         if (status == 21000) {
@@ -491,15 +495,15 @@ Page({
 
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log("返回错误" + res);
       },
-      complete: function (res) {
+      complete: function(res) {
         console.log("启动请求列表" + res);
       },
     });
   },
-  add_collect: function (hid) {
+  add_collect: function(hid) {
     console.log('要收藏的' + hid)
     wx.request({
       url: app.globalData.URL + '/house/collect/add.do?Id=' + hid,
@@ -510,7 +514,7 @@ Page({
       method: 'POST',
       dataType: 'json',
       responseType: 'text',
-      success: function (res) {
+      success: function(res) {
         console.log("返回的结果" + JSON.stringify(res));
         var status = res.data.status;
         if (status == 21000) {
@@ -519,20 +523,20 @@ Page({
 
         }
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log("返回错误" + res);
       },
-      complete: function (res) {
+      complete: function(res) {
         console.log("启动请求列表" + res);
       },
     });
   },
-  login_timeout: function () {
+  login_timeout: function() {
     wx.showModal({
       title: '登录超时',
       content: '请重新登录',
       showCancel: false,
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           wx.navigateTo({
             url: '../index/index'
@@ -548,14 +552,24 @@ Page({
       }
     })
   },
-  to_evaluate:function(){
+  to_evaluate: function() {
     console.log('to_evaluate')
     wx.navigateTo({
       url: '../evaluate/evaluate?evaluate=' + JSON.stringify(this.data.evaluate),
-      success: function (res) { },
-      fail: function (res) {
+      success: function(res) {},
+      fail: function(res) {
         console.log(res)
       },
+      complete: function(res) {},
+    })
+  },
+  to_chat: function () {
+    var that = this;
+    var channel = my_id+'@'+landlord_id;
+    wx.navigateTo({
+      url: '../chat/chat?channel=' + channel + '&other_name=' + landlord_name,
+      success: function (res) { },
+      fail: function (res) { },
       complete: function (res) { },
     })
   }

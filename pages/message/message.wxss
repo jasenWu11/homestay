@@ -48,7 +48,6 @@ page{
   -webkit-line-clamp: 3;
   line-clamp: 3;
   -webkit-box-orient: vertical;
-  min-height: 90rpx;
 }
 
 .message_item_text .time_text {

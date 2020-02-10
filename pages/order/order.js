@@ -3,13 +3,14 @@ const app = getApp();
 var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 var order_data = require("../../js/place.js").order_data;
 var util = require("../../utils/util.js")
+var ovder_type_data = {}
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    tabs: ["全部订单", "有效订单", "待支付订单"],
+    tabs: ["全部", "未支付", "有效", "已取消"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
@@ -21,6 +22,10 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
+    var activeIndex = options.index;
+    this.setData({
+      activeIndex: activeIndex
+    })
     wx.getSystemInfo({
       success: function(res) {
         that.setData({
@@ -43,6 +48,13 @@ Page({
    */
   onShow: function() {
     this.getorder_list();
+    this.setData({
+      ovder_type_data: {}
+    })
+    ovder_type_data = {}
+    for (var i = 0; i < 3; i++) {
+      this.getorder_list_by_state(i);
+    }
   },
 
   /**
@@ -144,6 +156,66 @@ Page({
       },
     });
   },
+  getorder_list_by_state: function(otype) {
+    var that = this;
+    wx.request({
+      url: app.globalData.URL + '/order/list.do?orderstate=' + otype,
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey")
+      },
+      method: 'GET',
+      dataType: 'json',
+      responseType: 'text',
+      success: function(res) {
+        console.log("type" + otype + "返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+          var types = 'type' + otype;
+          ovder_type_data[types] = res.data.data;
+          if (ovder_type_data[types] != null) {
+            for (var i = 0; i < ovder_type_data[types].length; i++) {
+              var status = ovder_type_data[types][i].orderstatus;
+              var status_text = '';
+              if (status == 0) {
+                status_text = '订单待支付'
+                var nowtime = util.formatTime(new Date());
+                var endtimes = that.formatDate2(ovder_type_data[types][i].endtime)
+                var state = new Date(endtimes) - new Date(nowtime);
+                if (state <= 0) {
+                  status_text = '订单已失效'
+                }
+              } else if (status == 1) {
+                status_text = '订单已完成'
+                var nowtime = util.formatTime(new Date());
+                var starttimes = that.formatDate2(ovder_type_data[types][i].starttime)
+                var state = new Date(nowtime) - new Date(starttimes);
+                if (state <= 0) {
+                  status_text = '订单待入住'
+                }
+              } else if (status == 2) {
+                status_text = '订单已取消'
+              }
+              ovder_type_data[types][i].status_text = status_text;
+              ovder_type_data[types][i].startdate = that.formatDate(ovder_type_data[types][i].starttime)
+              ovder_type_data[types][i].enddate = that.formatDate(ovder_type_data[types][i].endtime)
+              ovder_type_data[types][i].first_image = JSON.parse(ovder_type_data[types][i].houseimage)[0]
+            }
+            that.setData({
+              ovder_type_data: ovder_type_data
+            })
+          }
+        }
+      },
+      fail: function(res) {
+        console.log("返回错误" + res);
+      },
+      complete: function(res) {
+        console.log("启动请求列表" + res);
+      },
+    });
+  },
   login_timeout: function() {
     wx.showModal({
       title: '登录超时',
@@ -181,7 +253,7 @@ Page({
       url: '../order_detail/order_detail?o_id=' + o_id
     })
   },
-  formatDate2: function (dates) { //设置时间转换格式
+  formatDate2: function(dates) { //设置时间转换格式
     var date = new Date(dates)
     var y = date.getFullYear();  //获取年
     var m = date.getMonth() + 1;  //获取月

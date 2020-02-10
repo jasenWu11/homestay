@@ -147,6 +147,7 @@ page {
 }
 
 .base_info_panel .text_view {
+  width: 540rpx;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -160,12 +161,13 @@ page {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
   overflow: hidden;
-  flex: 1;
+  flex-wrap: wrap;
 }
 
 .text_view .people_text {
   color: #444;
   font-size: 24rpx;
+  display: flex;
 }
 
 .base_info_panel .evaluation_panel {
@@ -279,12 +281,20 @@ page {
 .text_view .name_text {
   font-size: 32rpx;
   color: #000;
-  margin-bottom: 20rpx;
 }
 
 .text_view .room_count_text {
   font-size: 26rpx;
   color: #2c2c2c;
+}
+
+.text_view .room_info_text {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  word-break: keep-all;
+  word-wrap: break-word;
+  white-space: pre-line;
 }
 
 .landlord_info_panel .room_info_view {
