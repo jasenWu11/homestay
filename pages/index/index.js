@@ -1,6 +1,8 @@
 const app = getApp();
 var username = '';
 var picurl = '';
+var latitude = '';
+var longitude = '';
 Page({
   data: {
     //判断小程序的API，回调，参数，组件等是否在当前版本可用。
@@ -9,7 +11,14 @@ Page({
   },
 
   onLoad: function () {
-    this.getlocation();
+    wx.getLocation({
+      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+      success: function (res) {
+        latitude = res.latitude;
+        longitude = res.longitude;
+      }
+    })
+    console.log('经纬度' + latitude, longitude);
     username = wx.getStorageSync("username");
     picurl = wx.getStorageSync("picurl");
     var that = this;
@@ -22,13 +31,14 @@ Page({
               // 用户已经授权过,不需要显示授权页面,所以不需要改变 isHide 的值
               // 根据自己的需求有其他操作再补充
               // 我这里实现的是在用户授权成功后，调用微信的 wx.login 接口，从而获取code
-              var token = wx.getStorageSync("token");
+              var token = wx.getStorageSync("cookieKey");
               console.log('token是' + token);
               wx.login({
                 success: res => {
                   // 获取到用户的 code 之后：res.code
                   var code = res.code;
                   console.log("用户的code:" + res.code);
+                  var code = res.code;
                   console.log('username是' + username + '和picurl是' + picurl)
                   if (token != '哈哈') {
                     wx.getUserInfo({
@@ -40,13 +50,14 @@ Page({
                         wx.setStorageSync("username", username);
                         wx.setStorageSync("picurl", picurl);
                         console.log('更新username是' + username + '和picurl是' + app.globalData.URL)
+                        console.log('更新username是' + username + '和picurl是' + picurl)
                         console.log('重新授权');
                         that.binguser(code, username, picurl);
                       }
                     })
                   } else {
                     console.log('自动登录');
-                    wx.switchTab({
+                    wx.redirectTo({
                       url: '../home/home',
                     })
                   }
@@ -97,21 +108,38 @@ Page({
       });
     }
   },
-  getlocation: function () {
-    var locat = 's'
-    wx.getLocation({
-      type: 'gcj02',
-      dataType: "json",
+  binguser: function (code, username, picurl) {
+    wx.request({
+      url: app.globalData.URL + '/user/login.do?openid=' + code + '&head=' + picurl + '&latitude=' + latitude + '&longitude=' + longitude,
+      method: 'post',
+      dataType: 'json',
+      responseType: 'text',
       success: function (res) {
-        wx.setStorageSync('mylatitude', res.latitude+'')
-        wx.setStorageSync('mylongitude', res.longitude+'')
-      },
-      cancel: function (res) {
-        console.log(res);
+        console.log("返回结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 0) {
+          var uname = res.data.data.username;
+          var ispass = res.data.data.ispass;
+          wx.setStorageSync('uname', uname);
+          wx.setStorageSync('ispass', ispass);
+          wx.setStorageSync('latitude', latitude);
+          wx.setStorageSync('longitude', longitude);
+          if (res && res.header && res.header['Set-Cookie']) {
+            wx.setStorageSync('cookieKey', res.header['Set-Cookie']); //保存Cookie到Storage
+          }
+          var openid = res.data.openid;
+          wx.setStorageSync("openid", openid);
+          wx.switchTab({
+            url: '../home/home',
+          })
+        }
       },
       fail: function (res) {
-        console.log(res);
-      }
+        console.log("返回错误" + res);
+      },
+      complete: function (res) {
+        console.log("启动请求" + res);
+      },
     })
   },
   binguser: function (code, username, picurl) {
@@ -126,7 +154,9 @@ Page({
         if (status == 0) {
           var uname = res.data.data.username;
           var ispass = res.data.data.ispass;
+          var my_id = res.data.data.id;
           wx.setStorageSync('uname', uname);
+          wx.setStorageSync('my_id', my_id);
           wx.setStorageSync('ispass', ispass);
           if (res && res.header && res.header['Set-Cookie']) {
             wx.setStorageSync('cookieKey', res.header['Set-Cookie']); //保存Cookie到Storage

@@ -12,7 +12,10 @@ let qqmapsdk = new QQMapWX({
 var key = 'IBZBZ-TR4KP-T4OD6-L2UNE-VCELF-A4FPZ'
 var mylatitude = ''
 var mylongitude = ''
-var address = ''
+var address = '';
+var hot_city='';
+var code = '';
+var cname = '';
 Page({
 
   /**
@@ -65,7 +68,9 @@ Page({
         checkOutDate: Moment(new Date()).add(1, 'day').format('YYYY-MM-DD')
       }
     });
-    this.get_location();
+    hot_city = hot_city_list;
+    code = hot_city[0].code;
+    cname = hot_city[0].name;
   },
 
   /**
@@ -79,11 +84,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.gethot_city_list();
-    this.gethistory();
-    this.setdate_text();
-    this.get_advert();
-    this.getchoose_address();
+    this.get_location();
   },
 
   /**
@@ -122,9 +123,6 @@ Page({
   },
   gethot_city_list: function() {
     var that = this;
-    var hot_city = hot_city_list;
-    var code = hot_city[0].code;
-    var cname = hot_city[0].name;
     that.setData({
       button_list: hot_city,
       cname: cname
@@ -132,14 +130,17 @@ Page({
     that.getrecommended(code);
   },
   charge_city: function(event) {
-    var ccode = event.currentTarget.dataset.code;
-    var cname = event.currentTarget.dataset.name;
+    code = event.currentTarget.dataset.code;
+    var codes = JSON.stringify(event.currentTarget.dataset.code);
+    console.log('地址编码'+code)
+    cname = event.currentTarget.dataset.name;
     var city_list = this.data.button_list;
     for (var i = 0; i < city_list.length; i++) {
       city_list[i].font_color = "#000000"
       city_list[i].back_color = "#ffffff"
-      var code = city_list[i].code;
-      if (code == ccode) {
+      var getcode = JSON.stringify(city_list[i].code);
+      console.log('地址编码2' + codes)
+      if (getcode == codes) {
         city_list[i].font_color = "#ffffff"
         city_list[i].back_color = "#32858b"
       }
@@ -148,17 +149,22 @@ Page({
       button_list: city_list,
       cname: cname
     })
-    this.getrecommended(ccode);
+    this.getrecommended(code);
   },
   getrecommended: function(code) {
     console.log('获取城市code为' + code + '的推荐房源');
     var that = this;
+    var datas={}
+    datas['userLat'] = mylatitude;
+    datas['userLng'] = mylongitude;
+    datas['areacode'] = code;
     wx.request({
-      url: app.globalData.URL + '/common/history/list.do',
+      url: app.globalData.URL + '/house/home/list.do',
       header: {
         "Cookie": wx.getStorageSync("cookieKey"),
-        'content-type': 'application/x-www-form-urlencoded'
+        'content-type': 'application/json'
       },
+      data: datas,
       method: 'POST',
       dataType: 'json',
       responseType: 'text',
@@ -514,6 +520,11 @@ Page({
       success: res => {
         mylatitude = res.latitude
         mylongitude = res.longitude
+        this.gethot_city_list();
+        this.gethistory();
+        this.setdate_text();
+        this.get_advert();
+        this.getchoose_address();
         console.log('latitude' + mylatitude + ',和longitude' + mylongitude)
         var getAddressUrl = "https://apis.map.qq.com/ws/geocoder/v1/?location=" + mylatitude + "," + mylongitude + "&key=" + key;
         wx.request({
@@ -546,6 +557,11 @@ Page({
     address = wx.getStorageSync('myaddress')
     this.setData({
       address: address
+    })
+  },
+  tosearch_room:function(){
+    wx.navigateTo({
+      url: '../room_list/room_list',
     })
   }
 })

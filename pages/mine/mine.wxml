@@ -3,7 +3,7 @@
   <view class="main_panel">
     <view class="information_panel">
       <text class="name_text">{{username}}</text>
-      <image class="image_panel" src="{{head_url}}" mode="aspectFill"></image>
+      <image class="image_panel" src="{{head_url}}" mode="aspectFill" bindtap="change_phone"></image>
     </view>
     <view class="line"></view>
     <text class="title_text">我的房源订单</text>
@@ -38,6 +38,23 @@
       </button>
       <view class="row_panel_item"></view>
       <view class="row_panel_item"></view>
+    </view>
+  </view>
+  <view class="weui-demo-dialog {{bangtrue ? 'weui-demo-dialog_show' : ''}}">
+    <view class="weui-mask" bindtap="closebangDialog"></view>
+    <view class="weui-dialog__wrp" bindtap="closebangDialog">
+      <view class="weui-dialog" catchtap="stopbangEvent">
+        <view class="weui-dialog__hd" style="padding:20rpx 48rpx 20rpx;">
+          <view class="weui-dialog__title">学号</view>
+        </view>
+        <view class="weui-dialog__bd" style="margin-bottom:10rpx;">
+          <input class="weui-input tip_panel" placeholder="请输入手机号码" bindinput="phone_Input" style="margin:10rpx"/>
+        </view>
+        <view class="weui-dialog__ft" style="line-height:100rpx;min-height:100rpx;">
+          <view class="weui-dialog__btn weui-dialog__btn_default" bindtap="closebangDialog">取消</view>
+          <view class="weui-dialog__btn" bindtap="update">确定</view>
+        </view>
+      </view>
     </view>
   </view>
 </view>

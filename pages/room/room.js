@@ -60,7 +60,9 @@ Page({
     prices: '',
     day_count: 1,
     device: [],
-    hidden_evaluate: true
+    hidden_evaluate: true,
+    button_value: "立即预订",
+    button_status: false
   },
 
   /**
@@ -73,6 +75,7 @@ Page({
     })
     mylatitude = wx.getStorageSync('mylatitude')
     mylongitude = wx.getStorageSync('mylongitude')
+    this.add_history();
     this.get_room_data();
   },
 
@@ -164,6 +167,38 @@ Page({
       address: this.data.room_address
     })
   },
+  add_history:function(){
+    var that = this;
+    wx.request({
+      url: app.globalData.URL + '/common/history/add.do',
+      data:{
+        userid:my_id,
+        houseid: hid
+      },
+      header: {
+        "Cookie": wx.getStorageSync("cookieKey"),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log("返回的结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 21000) {
+          that.login_timeout();
+        } else if (status == 0) {
+          console.log('加入浏览历史')
+        }
+      },
+      fail: function (res) {
+        console.log("返回错误" + res);
+      },
+      complete: function (res) {
+        console.log("启动请求列表" + res);
+      },
+    });
+  },
   get_room_data: function() {
     var that = this;
     wx.request({
@@ -248,6 +283,18 @@ Page({
             device: device,
             evaluate: evaluate
           })
+          var disabled = room_datas.house.disabled;
+          if (disabled == true){
+            that.setData({
+              button_value:"房源下架",
+              button_status: true
+            });
+          }else{
+            that.setData({
+              button_value: "立即预订",
+              button_status: false
+            });
+          }
           that.setmap();
         }
       },

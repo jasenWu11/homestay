@@ -83,7 +83,7 @@
           </view>
         </block>
       </view>
-      <view class="recommended_button">查看更多{{cname}}的房源</view>
+      <view class="recommended_button" bindtap="tosearch_room">查看更多{{cname}}的房源</view>
     </view>
     <text class="title_text">历史浏览记录</text>
     <view class="slide-box">

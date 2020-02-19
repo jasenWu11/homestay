@@ -1,4 +1,5 @@
 // pages/mine/mine.js
+const app = getApp();
 var username = '';
 var head_url = '';
 Page({
@@ -88,6 +89,83 @@ Page({
       fail: function () {
         console.log("拨打电话失败！")
       }
+    })
+  },
+  change_phone: function () {
+    var that = this;
+    wx.showModal({
+      title: '修改手机号码',
+      content: '修改手机号码，请确保联系',
+      confirmText: "确定",
+      cancelText: "取消",
+      success: function (res) {
+        console.log(res);
+        if (res.confirm) {
+          that.openbangDialog()
+        } else {
+          console.log('用户点击辅助操作')
+        }
+      }
+    });
+  },
+  openbangDialog: function (event) {
+    this.setData({
+      bangtrue: true
+    })
+  },
+  closebangDialog: function () {
+    this.setData({
+      bangtrue: false
+    })
+  },
+  phone_Input: function (e) {
+    this.setData({
+      my_phone: e.detail.value
+    })
+  },
+  update: function () {
+    var my_id = wx.getStorageSync('my_id')
+    var my_phone = this.data.my_phone;
+    wx.request({
+      url: app.globalData.URL + '/user/update.do',
+      data:{
+        id:my_id,
+        phone: 15625527280
+      },
+      method: 'post',
+      dataType: 'json',
+      responseType: 'text',
+      header: {
+        'Cookie': wx.getStorageSync('cookieKey'),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        console.log("返回结果" + JSON.stringify(res));
+        var status = res.data.status;
+        if (status == 0) {
+          wx.showToast({
+            title: '修改成功',
+            icon: 'success',
+            duration: 2000
+          });
+        } else {
+          var msg = res.data.msg
+          wx.showToast({
+            title: msg,
+            image: '/images/icons/wrong.png',
+            duration: 2000
+          });
+        }
+      },
+      fail: function (res) {
+        console.log("返回错误" + res);
+      },
+      complete: function (res) {
+        console.log("启动请求" + res);
+      },
+    })
+    this.setData({
+      bangtrue: false
     })
   }
 })

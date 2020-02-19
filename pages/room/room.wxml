@@ -164,6 +164,6 @@
     <view class="price_text">￥{{prices}}
       <text style="font-size:28rpx;color:#2c2c2c;margin-left:10rpx">/{{day_count}}晚</text>
     </view>
-    <view class="affirm_button" bindtap="arrirm_room">立即预订</view>
+    <button style="width:40%;margin:0rpx;" class="affirm_button" bindtap="arrirm_room" disabled="{{button_status}}">{{button_value}}</button>
   </view>
 </view>
